@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<title>Evaluación</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+li{
+  
+  cursor:pointer;
+}
+.opcion:hover{
+  opacity:0.5;
+  color: rgb(0, 110, 255);
+}
+.selected{
+  background-color:rgba(10, 202, 10, 0.534);
+
+}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <!--Profile image -->
+  <div class="w3-container">
+      <p class="w3-center"><img src="https://www.w3schools.com/w3images/avatar3.png" class="w3-circle" style="height:200px;width:200px" alt="Avatar"></p>
+    <h3 class="w3-padding-64"><center><b>Administrador</b></center></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cursos</a>
+    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluadores</a>
+      <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Rúbricas</a>
+    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluaciones</a>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header
+   <div class="w3-bar w3-border w3-pale-red">
+  <div class="w3-dropdown-hover w3-pale-red w3-mobile w3-xlarge"style="width:33%">
+    <button class="w3-button ">Evaluaciones</button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4"style="width:25%">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+  </div>
+       <div class="w3-dropdown-hover w3-pale-red w3-mobile w3-xlarge" style="width:33%">
+       <button class="w3-button ">Cursos</button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+       </div>
+       <div class="w3-dropdown-hover w3-pale-red w3-mobile w3-xlarge" style="width:33%">
+       <button class="w3-button ">Rúbricas</button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+       </div>
+</div>-->
+
+
+  <!-- Photo grid (modal) -->
+
+  <!-- Evaluacion -->
+  <div class="w3-container" id="designers" style="margin-top:50px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Evaluación <i class="w3-text-blue">entregada</i> </b></h1>
+    <i class="w3-large w3-text-green"><i class="far fa-clock"></i> Aún activa </i>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <div class="w3-container w3-center">
+    <p><b>Lambda-Ideas</b> Presentación Tarea 2 <i>CC4401-1/Otoño/2019</i></p>
+    <p><i class="w3-text-blue">Su operación se ha procesado exitosamente!</i></p> </div>
+    
+    <div class="w3-container">
+            <h4><b>Resumen de evaluación</b></h4>
+            <p>Contenidos</p>
+            <div class="w3-grey">
+              <div class="w3-container w3-center w3-padding w3-orange" style="width:25%">25%</div>
+            </div>
+            <p>Calidad del material</p>
+            <div class="w3-grey">
+              <div class="w3-container w3-center w3-padding w3-green" style="width:75%">75%</div>
+            </div>
+            <p>Relación con requisitos funcionales</p>
+            <div class="w3-grey">
+              <div class="w3-container w3-center w3-padding w3-green" style="width:75%">75%</div>
+            </div>
+            <p>Organización de la información</p>
+            <div class="w3-grey">
+              <div class="w3-container w3-center w3-padding w3-blue" style="width:100%">100%</div>
+            </div>
+            <p>Forma</p>
+            <div class="w3-grey">
+              <div class="w3-container w3-center w3-padding w3-red" style="width:10%">0%</div>
+            </div>
+            <p>Entusiasmo</p>
+            <div class="w3-grey">
+              <div class="w3-container w3-center w3-padding w3-orange" style="width:25%">25%</div>
+            </div>
+
+            
+            <div class="w3-row-padding" style="margin-top:100px">
+                <div class="w3-half w3-margin-bottom ">
+                    <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+                      <li class="w3-red w3-xlarge w3-padding-32">Equipos pendientes<i style="margin-left: 10px" class="fas fa-user-friends"></i><br> <i class="w3-small">Comience una nueva evaluación ...</i></li>
+                      <li class="opcion w3-padding-16">Equipo Rocket <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                      <li class="opcion w3-padding-16">Equipo Ejemplo <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                      <li class="opcion presentado w3-padding-16">Equipo 7 <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                      <li class="opcion w3-padding-16">Equipo Example <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                    </ul>
+                </div>
+                <div class="w3-half" >
+                    <button class="w3-button w3-xlarge w3-red w3-margin-bottom" style="margin-left: 17%" onclick="location.href='evaluacion.html'"> <i class="fas fa-pen"></i>  Editar evaluación</button>
+                    <button disabled class="w3-btn w3-xlarge w3-dark-grey" style="margin-left: 15%" > <i class="fas fa-door-open"></i> Exportar resultados</button>
+
+                </div>
+            </div>
+
+    
+  </div>
+  
+
+  
+
+  
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>

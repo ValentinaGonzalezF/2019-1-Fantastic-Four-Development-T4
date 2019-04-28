@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<title>Evaluación</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+li{
+  
+  cursor:pointer;
+}
+.opcion:hover{
+  opacity:0.5;
+  color: rgb(0, 110, 255);
+}
+.selected{
+  background-color:rgba(10, 202, 10, 0.534);
+
+}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <!--Profile image -->
+  <div class="w3-container">
+      <p class="w3-center"><img src="https://www.w3schools.com/w3images/avatar3.png" class="w3-circle" style="height:200px;width:200px" alt="Avatar"></p>
+    <h3 class="w3-padding-64"><center><b>Usuario</b></center></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cursos</a>
+    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluadores</a>
+      <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Rúbricas</a>
+    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluaciones</a>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding " style="margin-bottom: 50px">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>U-evaluaciones</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header
+   <div class="w3-bar w3-border w3-pale-red">
+  <div class="w3-dropdown-hover w3-pale-red w3-mobile w3-xlarge"style="width:33%">
+    <button class="w3-button ">Evaluaciones</button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4"style="width:25%">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+  </div>
+       <div class="w3-dropdown-hover w3-pale-red w3-mobile w3-xlarge" style="width:33%">
+       <button class="w3-button ">Cursos</button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+       </div>
+       <div class="w3-dropdown-hover w3-pale-red w3-mobile w3-xlarge" style="width:33%">
+       <button class="w3-button ">Rúbricas</button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+       </div>
+</div>-->
+
+
+  <!-- Photo grid (modal) -->
+
+  <!-- Evaluacion -->
+  <div class="w3-container" id="designers" style="margin-top:50px"> <br><br>
+    <h1 class="w3-xxlarge w3-text-red"><b>Evaluación <i class="w3-text-green">en curso</i> </b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <div class="w3-container w3-center">
+    <p><b>Lambda-Ideas</b> Presentación Tarea 2 <i>CC4401-1/Otoño/2019</i></p>
+    <p>Seleccione el nivel de logro alcanzado por el grupo en cada ámbito</p> </div>
+    
+    <div class="w3-panel  w3-margin-bottom">
+      <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+        <li class="w3-red w3-xlarge w3-padding-32">Contenidos <i class="far fa-check-circle"></i></li>
+        <li class="opcion w3-padding-16"> No incluye las interfaces
+            solicitadas
+          </li>
+        <li class="opcion w3-padding-16 selected"> Faltan la mayoria de las
+            interfaces
+           </li>
+        <li class="opcion w3-padding-16"> Solo faltan 1 o 2 interfaces </li>
+        <li class="opcion w3-padding-16"> Incluye todas las interfaces
+            solicitadas
+           </li>
+      </ul>
+    </div>
+      
+          
+      <div class="w3-panel w3-margin-bottom">
+        <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+          <li class="w3-orange w3-xlarge w3-padding-32">Calidad del material
+              <i class="fas fa-exclamation-circle"></i><br><i class="w3-small"> falta seleccionar</i></li> 
+          <li class="opcion w3-padding-16">Presentación con muchos
+              errores ortográficos, todas
+              las imágenes son de baja
+              resolución
+              </li>
+          <li class="opcion w3-padding-16">Algunos errores
+              ortográficos, casi todas las
+              imágenes son de baja
+              resolución
+              </li>
+          <li class="opcion w3-padding-16">Pocos errores ortográficos,solo algunas imágenes sonde baja resolución
+            </li>
+          <li class="opcion w3-padding-16">Pocos errores ortográficos,
+              todas las imágenes son de
+              buena resolución
+              </li>
+        </ul>
+      </div>
+
+      <div class="w3-panel w3-margin-bottom">
+        <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+          <li class="w3-red w3-xlarge w3-padding-32">Relación con requisitos
+              funcionales <i class="far fa-check-circle"></i>
+              
+            </li>
+          <li class="opcion w3-padding-16">Solo describe las
+              interfaces, sin mencionar
+              requisito alguno
+              
+              </li>
+          <li class="opcion w3-padding-16">Solo para algunas de las
+              interfaces explica cómo
+              satisfacen los requisitos
+              funcionales
+              
+              </li>
+          <li class="opcion w3-padding-16 selected">Para casi todas las
+              interfaces, explica cómo
+              satisfacen los requisitos
+              funcionales
+              </li>
+          <li class="opcion w3-padding-16">Explica claramente como
+              cada interfaz satisface los
+              requisitos funcionales
+              
+              </li>
+        </ul>
+      </div>
+
+      <div class="w3-panel w3-margin-bottom">
+          <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+            <li class="w3-red w3-xlarge w3-padding-32">Organización de la
+                información <i class="far fa-check-circle"></i>
+                
+              </li>
+            <li class="opcion w3-padding-16">No se entiende la
+                presentación porque no haysecuencia lógica de
+                información               
+                </li>
+            <li class="opcion w3-padding-16">Es difícil seguir la
+                presentación, porque el
+                presentador “salta” entre
+                diapositivas
+                
+                </li>
+            <li class="opcion w3-padding-16">La información está
+                presentada en una
+                secuencia lógica
+                
+                </li>
+            <li class="opcion w3-padding-16 selected">La información es
+                presentada en una forma
+                lógica e interesante                
+                
+                </li>
+          </ul>
+        </div>
+
+        <div class="w3-panel w3-margin-bottom">
+            <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+              <li class="w3-red w3-xlarge w3-padding-32">Forma <i class="far fa-check-circle"></i>
+                  
+                </li>
+              <li class="opcion w3-padding-16">No se entiende lo que dice(en términos fonéticos y
+                  cinéticos)
+                     
+                  </li>
+              <li class="opcion w3-padding-16">Se entiende lo que dice la
+                  de manera parcial (su
+                  cuerpo no acompaña sus
+                  palabras)
+                  
+                  </li>
+              <li class="opcion w3-padding-16 selected">Se da a entender,
+                  presentando de manera
+                  eficiente y adecuado
+                  lenguaje corporal
+                  
+                  </li>
+              <li class="opcion w3-padding-16">Se da a entender siempre,
+                  destacando en su forma
+                  (pausas, dicción, contacto
+                  visual, gesticulación, otros)
+                  
+                  </li>
+            </ul>
+          </div>
+
+          <div class="w3-panel w3-margin-bottom">
+              <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+                <li class="w3-red w3-xlarge w3-padding-32">Entusiasmo <i class="far fa-check-circle"></i>
+                    
+                  </li>
+                <li class="opcion w3-padding-16">No muestra interés en su
+                    entrega
+                    
+                    </li>
+                <li class="opcion w3-padding-16">Se muestra algo negativo
+                    acerca de su entrega
+                    
+                    </li>
+                <li class="opcion w3-padding-16 selected">Ocasionalmente habla en
+                    forma positiva
+                  
+                    </li>
+                <li class="opcion w3-padding-16">Habla en forma positiva
+                    durante casi toda la
+                    presentación                    
+                    </li>
+              </ul>
+            </div>
+
+
+            <div class="w3-panel w3-right w3-half">
+                <button class="w3-button w3-xlarge w3-red" style="margin-left: 15%" onclick="location.href='postevaluacion.html'"> <i class="fas fa-envelope-open-text"></i> Entregar evaluación</button>
+            </div>
+
+            
+  </div>
+  
+
+  
+
+  
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>

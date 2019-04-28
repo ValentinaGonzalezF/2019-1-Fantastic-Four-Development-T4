@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<title>Ingeniería de Software</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+
+<body>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:40px;margin-right:40px">
+
+    <div class="w3-container" id="Header" style="margin-top:20px;">
+        <h1 class="w3-xxxlarge w3-text-red"><b>Tu Resumen</b></h1>
+    </div>
+
+    <!-- Overview -->
+    <div class="w3-container" id="Data" style="margin-top:30px; margin-bottom: 30px;">
+        <div class="w3-container">
+            <table class="w3-table-all w3-card">
+                <tr>
+                    <th class="w3-red">Grupo:</th>
+                    <td>Lambda Ideas</td>
+                </tr>
+                <tr>
+                    <th class="w3-red">Curso:</th>
+                    <td>CC4201 Ing. de Software</td>
+                </tr>
+                <tr>
+                    <th class="w3-red">Seccion</th>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <th class="w3-red">Fecha:</th>
+                    <td>01/01/01</td>
+                </tr>
+                <tr>
+                    <th class="w3-red">Nota:</th>
+                    <td>7.0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Students info -->
+    <div class="w3-container" id="Students" style="margin-top:20px;">
+        <h3 class="w3-xlarge w3-text-red"><b>Integrantes</b></h3>
+    </div>
+    <div class="w3-row-padding w3-margin-top" style="margin-top: 30px; margin-bottom: 30px;">
+        <!-- Member 1 -->
+        <div class="w3-quarter">
+        <div class="w3-card w3-container w3-light-grey">
+            <h3> <i class="fas fa-user-graduate"></i> Un Nombre</h3>
+            <h6> <i class="fas fa-id-card"></i>  16.332.233-2</h6>
+        </div>
+        </div>
+        <!-- Member 2 -->
+        <div class="w3-quarter">
+        <div class="w3-card w3-container w3-light-grey">
+            <h3>  <i class="fas fa-user-graduate"></i> Juan Random</h3>
+            <h6> <i class="fas fa-id-card"></i> 13.321.231-2</h6>
+            <h6>Presentador</h6>
+        </div>
+        </div>
+        <!-- Member 3 -->
+        <div class="w3-quarter">
+        <div class="w3-card w3-container w3-light-grey">
+            <h3> <i class="fas fa-user-graduate"></i> Otro nombre</h3>
+            <h6> <i class="fas fa-id-card"></i> 13.321.231-2</h6>
+        </div>
+        </div>
+        <!-- Member 4 -->
+        <div class="w3-quarter">
+        <div class="w3-card w3-container w3-light-grey">
+            <h3>  <i class="fas fa-user-graduate"></i> Otro nombre</h3>
+            <h6> <i class="fas fa-id-card"></i>  13.321.231-2</h6>
+        </div>
+        </div>
+    </div>
+
+    <!-- Eval -->
+    <div class="w3-container" id="Eval" style="margin-top:20px;">
+        <h3 class="w3-xlarge w3-text-red"><b>Evaluadores</b></h3>
+    </div>
+
+    <div class="w3-row-padding w3-margin-top" style="margin-top: 30px; margin-bottom: 30px;">
+        <!-- Eval 1 -->
+        <div class="w3-third">
+        <div class="w3-card w3-container w3-light-grey">
+            <h3> <i class="fas fa-chalkboard-teacher"></i> Un nombre</h3>
+        </div>
+        </div>
+        <!-- Eval 2 -->
+        <div class="w3-third">
+        <div class="w3-card w3-container w3-light-grey">
+            <h3>  <i class="fas fa-chalkboard-teacher"></i> Otro nombre</h3>
+        </div>
+        </div>
+        <!-- Eval 3 -->
+        <div class="w3-third">
+        <div class="w3-card w3-container w3-light-grey">
+            <h3> <i class="fas fa-chalkboard-teacher"></i> Otro nombre mas largo</h3>
+        </div>
+        </div>
+    </div>
+
+    <!-- Table of results -->
+
+    <div class="w3-container" id="Detail" style="margin-top:30px">
+        <div id="accordion">
+            <!-- Header -->
+            <div class="w3-row w3-container w3-red w3-padding">
+                <div class="w3-col" style="width:50%">
+                    <b>Aspecto evaluado</b>
+                </div>
+                <div class="w3-col" style="width:20%">
+                    <b>Puntaje</b>
+                </div>
+                <div class="w3-col" style="width:20%">
+                    <b>Promedio curso</b>
+                </div>
+                <div class="w3-col" style="width:10%">
+                    <!-- Nothing to see here -->
+                </div>
+            </div>
+
+            <!-- First aspect -->
+            <div class="w3-row w3-container w3-light-gray w3-padding">
+                <div class="w3-col" style="width:50%; margin-top:4px">
+                    Contenido
+                </div>
+
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    1.0
+                </div>
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    0.8
+                </div>
+                <div class="w3-col" style="width:10%">
+                    <button onclick="myFunction('Aspect1')" class="w3-button w3-circle w3-tiny">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="Aspect1" class="w3-hide w3-container w3-light-gray">
+                <ul class="w3-ul">
+                    <li><b>Evaluador 1:</b> 1.0</li>
+                    <li><b>Evaluador 2:</b> 1.0</li>
+                    <li><b>Evaluador 3:</b> 1.0</li>
+                </ul>
+            </div>
+
+            <!-- Second aspect -->
+            <div class="w3-row w3-container w3-padding">
+                <div class="w3-col" style="width:50%; margin-top:4px">
+                    Calidad del material
+                </div>
+
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    1.0
+                </div>
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    0.8
+                </div>
+                <div class="w3-col" style="width:10%">
+                    <button onclick="myFunction('Aspect2')" class="w3-button w3-circle w3-tiny">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="Aspect2" class="w3-hide w3-container">
+                <ul class="w3-ul">
+                    <li><b>Evaluador 1:</b> 1.0</li>
+                    <li><b>Evaluador 2:</b> 1.0</li>
+                    <li><b>Evaluador 3:</b> 1.0</li>
+                </ul>
+            </div>
+
+
+            <!-- Third aspect -->
+            <div class="w3-row w3-container w3-light-gray w3-padding">
+                <div class="w3-col" style="width:50%; margin-top:4px">
+                    Relacion con requisitos funcionales
+                </div>
+
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    1.0
+                </div>
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    0.8
+                </div>
+                <div class="w3-col" style="width:10%">
+                    <button onclick="myFunction('Aspect3')" class="w3-button w3-circle w3-tiny">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="Aspect3" class="w3-hide w3-container w3-light-gray">
+                <ul class="w3-ul">
+                    <li><b>Evaluador 1:</b> 1.0</li>
+                    <li><b>Evaluador 2:</b> 1.0</li>
+                    <li><b>Evaluador 3:</b> 1.0</li>
+                </ul>
+            </div>
+
+            <!-- Fourth aspect -->
+            <div class="w3-row w3-container w3-padding">
+                <div class="w3-col" style="width:50%; margin-top:4px">
+                    Organizacion de la informacion
+                </div>
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    1.0
+                </div>
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    0.8
+                </div>
+                <div class="w3-col" style="width:10%">
+                    <button onclick="myFunction('Aspect4')" class="w3-button w3-circle w3-tiny">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="Aspect4" class="w3-hide w3-container">
+                <ul class="w3-ul">
+                    <li><b>Evaluador 1:</b> 1.0</li>
+                    <li><b>Evaluador 2:</b> 1.0</li>
+                    <li><b>Evaluador 3:</b> 1.0</li>
+                </ul>
+            </div>
+
+            <!-- Fifth aspect -->
+            <div class="w3-row w3-container w3-light-gray w3-padding">
+                <div class="w3-col" style="width:50%; margin-top:4px">
+                    Forma
+                </div>
+
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    1.0
+                </div>
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    0.8
+                </div>
+                <div class="w3-col" style="width:10%">
+                    <button onclick="myFunction('Aspect5')" class="w3-button w3-circle w3-tiny">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="Aspect5" class="w3-hide w3-container w3-light-gray">
+                <ul class="w3-ul">
+                    <li><b>Evaluador 1:</b> 1.0</li>
+                    <li><b>Evaluador 2:</b> 1.0</li>
+                    <li><b>Evaluador 3:</b> 1.0</li>
+                </ul>
+            </div>
+
+            <!-- Sixth aspect -->
+            <div class="w3-row w3-container w3-padding">
+                <div class="w3-col" style="width:50%">
+                    Entusiasmo
+                </div>
+
+                <div class="w3-col" style="width:20%">
+                    1.0
+                </div>
+                <div class="w3-col" style="width:20%; margin-top:4px">
+                    0.8
+                </div>
+                <div class="w3-col" style="width:10%">
+                    <button onclick="myFunction('Aspect6')" class="w3-button w3-circle w3-tiny">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="Aspect6" class="w3-hide w3-container">
+                <ul class="w3-ul">
+                    <li><b>Evaluador 1:</b> 1.0</li>
+                    <li><b>Evaluador 2:</b> 1.0</li>
+                    <li><b>Evaluador 3:</b> 1.0</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to expand and collapse additional information
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</body>
+</html>
