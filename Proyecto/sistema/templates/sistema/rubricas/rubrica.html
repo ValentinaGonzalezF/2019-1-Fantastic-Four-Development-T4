@@ -1,0 +1,198 @@
+{% extends "sistema/base.html" %}
+
+{% block subtitle %}Rúbricas{% endblock %}
+
+{% block content %}
+
+  <h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>Ficha de rúbrica</b></h1>
+
+  <h3>CC4401: Rúbrica para la presentación de Tarea 2</h3>
+
+  <div align="center">
+    <head>
+      <style>
+      body {
+	  font-family: Arial, Helvetica, sans-serif;
+	  }
+      .form-inline label {
+        margin: 5px 0 5px 0;
+      }
+
+      .form-inline input {
+        vertical-align: middle;
+        margin: 5px 10px;
+        padding: 5px;
+        width: 25%;
+        background-color: #fff;
+        border: 1px solid #c6bdbb;
+      }
+
+      .form-inline button {
+        padding: 5px 10px;
+        background-color: #c6bdbb;
+        border: none;
+        color: black;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+
+      .form-inline button:hover {
+        background-color: #FFA07A;
+      }
+      </style>
+    </head>
+    <body >
+      <form class="form-inline">
+        <label>Grupo:</label>
+        <input placeholder="">
+        <label>Presenta:</label>
+        <input placeholder="">
+        <button type="submit">Ok</button>
+      </form>
+
+    </body>
+  </div>
+
+  <p>Selecciona un nivel por aspecto</p>
+
+  <div>
+
+    <head>
+      <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          cursor: pointer;
+          margin: 20px 0.5% 0.5%;
+          font-size: 15px;
+        }
+
+        td {
+          border: 1px solid #665f5f;
+          text-align: left;
+          width: 20%;
+          padding: 1%;
+        }
+
+        th {
+          border: 1px solid #665f5f;
+          text-align: right;
+          width: 20%;
+          padding: 1%;
+        }
+
+        tr:nth-child(even) {
+          background-color: #FFA07A;
+        }
+
+
+        td:hover {
+          background-color: #c6bdbb;
+        }
+
+      </style>
+    </head>
+    <body>
+    <table>
+      <tr>
+        <th></th>
+        <th>0.0</th>
+        <th>0.4</th>
+        <th>0.7</th>
+        <th>1.0</th>
+      </tr>
+      <tr>
+        <td><b>Contenido</b></td>
+        <td>No incluye las interfaces solicitadas</td>
+        <td>Faltan la mayoria de las interfaces</td>
+        <td>Solo faltan 1 o 2 interfaces</td>
+        <td>Incluye todas las interfaces solicitadas</td>
+      </tr>
+      <tr>
+        <td><b>Calidad del material</b></td>
+        <td>Presentación con muchos errores ortográficos, todas las imágenes son de baja resolución</td>
+        <td>Algunos errores ortográficos, casi todas las imágenes son de baja resolución</td>
+        <td>Pocos errores ortográficos, solo algunas imágenes son de baja resolución</td>
+        <td>Pocos errores ortográficos, todas las imágenes son de buena resolución</td>
+      </tr>
+      <tr>
+        <td><b>Relación con requisitos funcionales</b></td>
+        <td>Solo describe las interfaces, sin mencionar requisito alguno</td>
+        <td>Solo para algunas de las interfaces explica cómo satisfacen los requisitos funcionales</td>
+        <td>Para casi todas las interfaces, explica cómo satisfacen los requisitos funcionales</td>
+        <td>Explica claramente como cada interfaz satisface los requisitos funcionales</td>
+      </tr>
+      <tr>
+        <td><b>Organización de la información</b></td>
+        <td>No se entiende la presentación porque no hay secuencia lógica de información</td>
+        <td>Es difícil seguir la presentación, porque el presentador “salta” entre diapositivas</td>
+        <td>La información está presentada en una secuencia lógica</td>
+        <td>La información es presentada en una forma lógica e interesante</td>
+      </tr>
+       <tr>
+         <td><b>Forma</b></td>
+        <td>No se entiende lo que dice (en términos fonéticos y cinéticos)</td>
+        <td>Se entiende lo que dice la de manera parcial (su cuerpo no acompaña sus palabras)</td>
+        <td>Se da a entender, presentando de manera eficiente y adecuado lenguaje corporal</td>
+        <td>Se da a entender siempre, destacando en su forma (pausas, dicción, contacto visual, gesticulación, otros)</td>
+      </tr>
+       <tr>
+         <td><b>Entusiasmo</b></td>
+        <td>No muestra interés en su entrega</td>
+        <td>Se muestra algo negativo acerca de su entrega</td>
+        <td>Ocasionalmente habla en forma positiva</td>
+        <td>Habla en forma positiva durante casi toda la presentación</td>
+      </tr>
+    </table>
+    </body>
+
+  </div>
+
+  <head>
+    <style>
+    .box {
+      background-color: lightgrey;
+      width: 300px;
+      border: 1px solid black;
+      padding: 20px;
+      margin: 0 15px;
+      text-align: center;
+      vertical-align: middle;
+    }
+    </style>
+  </head>
+  <body>
+
+  <p style="margin: 20px 145px"><b>Nota</b></p>
+  <div class="box">1.0</div>
+
+
+  </body>
+  <div>
+    <head>
+      <style>
+      .button {
+        background-color: #BF1010;
+        border: none;
+        color: white;
+        padding: 20px 50px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 0 78%;
+        cursor: pointer;
+      }
+
+      .button {border-radius: 12px;}
+      .button.button:hover {background-color: #FFA07A;}
+
+      </style>
+    </head>
+    <body>
+      <button class="button button">Enviar evaluación <i class="fas fa-file-import"></i></button>
+    </body>
+  </div>
+
+{% endblock %}

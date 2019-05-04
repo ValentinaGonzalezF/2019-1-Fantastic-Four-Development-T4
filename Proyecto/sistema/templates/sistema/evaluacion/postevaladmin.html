@@ -1,0 +1,22 @@
+{% extends "sistema/evaluacion/posteval.html" %}
+
+{% block post_admin %}
+
+            <div class="w3-row-padding" style="margin-top:100px">
+                <div class="w3-half w3-margin-bottom ">
+                    <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+                      <li class="w3-red w3-xlarge w3-padding-32">Equipos pendientes<i style="margin-left: 10px" class="fas fa-user-friends"></i><br> <i class="w3-small">Comience una nueva evaluación ...</i></li>
+                      <li class="opcion w3-padding-16">Equipo Rocket <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                      <li class="opcion w3-padding-16">Equipo Ejemplo <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                      <li class="opcion presentado w3-padding-16">Equipo 7 <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                      <li class="opcion w3-padding-16">Equipo Example <i style="margin-left: 10px" class="w3-xlarge fas fa-play-circle"></i></li>
+                    </ul>
+                </div>
+                <div class="w3-half" >
+                    <button class="w3-button w3-xlarge w3-red w3-margin-bottom" style="margin-left: 17%" onclick="location.href='evaluacion.html'"> <i class="fas fa-pen"></i>  Editar evaluación</button>
+                    <button disabled class="w3-btn w3-xlarge w3-dark-grey" style="margin-left: 15%" > <i class="fas fa-door-open"></i> Exportar resultados</button>
+
+                </div>
+            </div>
+			
+{% endblock %}
