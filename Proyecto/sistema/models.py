@@ -89,7 +89,5 @@ class Presentacion(models.Model):
 class Evalua(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
     evaluador = models.ForeignKey(Evaluador,on_delete=models.SET_DEFAULT, default=1)
-    nombre = models.CharField(max_length=100)
     puso_nota=models.BooleanField(default=False)
 
-    
