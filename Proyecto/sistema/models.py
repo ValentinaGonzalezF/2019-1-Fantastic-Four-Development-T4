@@ -29,8 +29,8 @@ class Instancia(models.Model):
     seccion=models.IntegerField()
 
 class InstanciaGrupo(models.Model):
-    instancia = models.ForeignKey(Instancia)
-    grupo = models.ForeignKey(Grupo)
+    instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)#sin on delete tira error
+    grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE)#sin on delete tira error
 
 class Evaluacion(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
