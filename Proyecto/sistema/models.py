@@ -21,6 +21,9 @@ class Curso(models.Model):
     nombre = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20)
 
+    def __str__(self):
+        return
+
 class Instancia(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     ano=models.IntegerField()
@@ -28,9 +31,15 @@ class Instancia(models.Model):
     #No se si tomar la seccion como numero o string
     seccion=models.IntegerField()
 
+    def __str__(self):
+        return
+
 class InstanciaGrupo(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)#sin on delete tira error
     grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE)#sin on delete tira error
+
+    def __str__(self):
+        return
 
 class Evaluacion(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
@@ -38,19 +47,31 @@ class Evaluacion(models.Model):
     fecha_fin=models.DateField()
     tiempo=models.TimeField()
 
+    def __str__(self):
+        return
+
 class Evaluador(models.Model):
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(max_length=90)
     password=models.CharField(max_length=100)
     es_admin=models.BooleanField()
 
+    def __str__(self):
+        return
+
 class Rubrica(models.Model):
     nombre=models.CharField(max_length=100)
     archivo=models.FileField(upload_to=None, max_length=100)
 
+    def __str__(self):
+        return
+
 class EvaluacionRubrica(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
     rubrica = models.ForeignKey(Rubrica,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return
 
 class Presentacion(models.Model):
     presentador=models.CharField(max_length=100)
@@ -60,12 +81,17 @@ class Presentacion(models.Model):
     grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
     #archivo rubrica?
 
+    def __str__(self):
+        return
+
 class Evalua(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
-    evaluador = models.ForeignKey(Evaluador,on_delete=models.CASCADE)
-    #Hay un atributo que no entiendo en la foto
-    #dice nom_er algo asi
-    puso_nota=models.BooleanField()
+    evaluador = models.ForeignKey(Evaluador,on_delete=models.SET_DEFAULT, default=1)
+    nombre = models.CharField(max_length=100)
+    puso_nota=models.BooleanField(default=False)
+
+    def __str__(self):
+        return
 
 
 
