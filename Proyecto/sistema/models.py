@@ -6,23 +6,32 @@ from django.utils import timezone
 class Grupo(models.Model):
     nombre = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.nombre
+
 class Alumno(models.Model):
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(max_length=90)
     rut = models.CharField(max_length=10)
     grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nombre
+
 class HistorialGrupos(models.Model):
     alumno= models.ForeignKey(Alumno,on_delete=models.CASCADE)
     grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
     fecha = models.DateField()
+
+    def __str__(self):
+        return self.grupo + ", " + self.fecha
 
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20)
 
     def __str__(self):
-        return
+        return self.nombre + " " + self.codigo
 
 class Instancia(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
@@ -32,7 +41,7 @@ class Instancia(models.Model):
     seccion=models.IntegerField()
 
     def __str__(self):
-        return
+        return self.curso +" "+ self.ano +" "+ self.semestre +" "+ self.seccion
 
 class InstanciaGrupo(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)#sin on delete tira error
