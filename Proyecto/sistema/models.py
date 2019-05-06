@@ -13,8 +13,8 @@ class Alumno(models.Model):
     grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE)
 
 class HistorialGrupos(models.Model):
-    alumno= models.ForeignKey(Alumno)
-    grupo = models.ForeignKey(Grupo)
+    alumno= models.ForeignKey(Alumno,on_delete=models.CASCADE)
+    grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
     fecha = models.DateField()
 
 class Curso(models.Model):
@@ -49,20 +49,20 @@ class Rubrica(models.Model):
     archivo=models.FileField(upload_to=None, max_length=100)
 
 class EvaluacionRubrica(models.Model):
-    evaluacion = models.ForeignKey(Evaluacion)
-    rubrica = models.ForeignKey(Rubrica)
+    evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
+    rubrica = models.ForeignKey(Rubrica,on_delete=models.CASCADE)
 
 class Presentacion(models.Model):
     presentador=models.CharField(max_length=100)
     evaluador=models.CharField(max_length=100)
     puntales=models.CharField(max_length=100)
-    evaluacion = models.ForeignKey(Evaluacion)
-    grupo = models.ForeignKey(Grupo)
+    evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
+    grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
     #archivo rubrica?
 
 class Evalua(models.Model):
-    evaluacion = models.ForeignKey(Evaluacion)
-    evaluador = models.ForeignKey(Evaluador)
+    evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
+    evaluador = models.ForeignKey(Evaluador,on_delete=models.CASCADE)
     #Hay un atributo que no entiendo en la foto
     #dice nom_er algo asi
     puso_nota=models.BooleanField()
