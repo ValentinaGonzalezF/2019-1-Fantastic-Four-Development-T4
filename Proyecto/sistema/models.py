@@ -48,7 +48,7 @@ class InstanciaGrupo(models.Model):
     grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE)#sin on delete tira error
 
     def __str__(self):
-        return
+        return self.instancia +" "+ self.grupo
 
 class Evaluacion(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
@@ -57,7 +57,7 @@ class Evaluacion(models.Model):
     tiempo=models.TimeField()
 
     def __str__(self):
-        return
+        return self.fecha_inicio
 
 class Evaluador(models.Model):
     nombre = models.CharField(max_length=100)
@@ -66,32 +66,25 @@ class Evaluador(models.Model):
     es_admin=models.BooleanField()
 
     def __str__(self):
-        return
+        return self.nombre
 
 class Rubrica(models.Model):
     nombre=models.CharField(max_length=100)
     archivo=models.FileField(upload_to=None, max_length=100)
 
     def __str__(self):
-        return
+        return self.nombre
 
 class EvaluacionRubrica(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
     rubrica = models.ForeignKey(Rubrica,on_delete=models.CASCADE)
 
-    def __str__(self):
-        return
-
 class Presentacion(models.Model):
     presentador=models.CharField(max_length=100)
     evaluador=models.CharField(max_length=100)
-    puntales=models.CharField(max_length=100)
+    puntajes=models.CharField(max_length=100)
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
     grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
-    #archivo rubrica?
-
-    def __str__(self):
-        return
 
 class Evalua(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
@@ -99,15 +92,4 @@ class Evalua(models.Model):
     nombre = models.CharField(max_length=100)
     puso_nota=models.BooleanField(default=False)
 
-    def __str__(self):
-        return
-
-
-
-
-
-
-
-
-
-
+    
