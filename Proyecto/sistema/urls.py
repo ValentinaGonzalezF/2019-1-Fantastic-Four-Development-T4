@@ -25,6 +25,10 @@ urlpatterns = [
     path('evaluaciones/', views.index_evaluaciones, name = 'index_evaluaciones'),
     path('evaluadores/', views.index_evaluadores, name = 'index_evaluadores'),
     path('rubricas/', views.index_rubricas, name = 'index_rubricas'),
-    path('evaluadores/<int:eval_id>/', views.evaluacion, name = 'evaluacion'),
-    path('rubricas/<int:rubrica_id>/', views.rubrica, name = 'rubrica')
+    path('evaluaciones/<int:eval_id>/', views.evaluacion, name = 'evaluacion'),
+    path('rubricas/<int:rubrica_id>/', views.rubrica, name = 'rubrica'),
+
+    path('evaluadores/agregar/', views.agregar_evaluador, name = 'evaluador_agr'),
+    path('evaluadores/modificar/', views.modificar_evaluador, name = 'evaluador_mod'),
+    path('evaluadores/eliminar/', views.eliminar_evaluador, name = 'evaluador_eli'),
 ]
