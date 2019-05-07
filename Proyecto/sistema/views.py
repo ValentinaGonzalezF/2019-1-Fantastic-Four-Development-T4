@@ -1,11 +1,7 @@
 from django.shortcuts import render, redirect, reverse
-import re
 
 from .models import Instancia, Evaluador, Evaluacion, Rubrica
 from .forms import EvaluadorForm
-
-# expresion regular para verificar email
-#email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 
 #   INDICES
 
@@ -68,7 +64,7 @@ def agregar_evaluador(request):
     form = EvaluadorForm(request.POST)
     if form.is_valid():
         # No hay evaluador con el mismo correo
-        if Evaluador.objects.filter(correo__iexact=correo).count() == 0:
+        if Evaluador.objects.filter(correo__iexact=form.cleaned_data['correo']).count() == 0:
             ev = Evaluador.objects.create(nombre = form.cleaned_data['nombre'],
                                           correo = form.cleaned_data['correo'],
                                           password = "1111", es_admin = False)
