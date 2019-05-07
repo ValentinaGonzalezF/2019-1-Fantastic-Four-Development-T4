@@ -3,103 +3,50 @@
 {% block subtitle %}Rúbricas{% endblock %}
 
 {% block content %}
-  <div class="w3-row w3-container">
-    <div class="w3-col">
-      <head>
-        <style>
-          .button2 {
-            background-color: #c6bdbb; /* Green */
-            border: none;
-            color: black;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 0.2px 2px;
-            cursor: pointer;
-          }
+<style>
+  .button2 {
+    background-color: #c6bdbb; /* Green */
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0.2px 2px;
+    cursor: pointer;
+  }
 
-          .button2 {width: 50%; border-radius: 12px;}
-          .button2.button2:hover {background-color: #FFA07A;}
+  .button2 {width: 50%; border-radius: 12px;}
+  .button2.button2:hover {background-color: #FFA07A;}
+</style>
 
+<!-- Portada -->
+<div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
+  <h1 class="w3-xxxlarge w3-text-red"><b>Editar rúbrica</b></h1>
+  <hr style="width:50px;border:5px solid red" class="w3-round">
+  <p><h3>{{ rubrica.nombre }} <button class="w3-button w3-xlarge w3-transparent w3-display"><i class="fas fa-edit"></i></h3></button><br></p>
+</div>
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      cursor: pointer;
+      margin: 10px 0.5% 0.5%;
+    }
 
-        </style>
-      </head>
-      <body>
-        <button class="button2 button2">Título de la rúbrica  <i class="fas fa-edit"></i></button><br>
-      </body>
-    </div>
+    td, th {
+      border: 1px solid #665f5f;
+      text-align: left;
+      width: 20%;
+      padding: 2.3%;
+    }
 
-    <div class = "w3-col" align="right">
-      <head>
-
-        <style>
-          body {font-family: Arial, Helvetica, sans-serif;}
-
-          .form-inline label {
-            margin: 5px 0 5px 0;
-          }
-
-          .form-inline input {
-            vertical-align: middle;
-            margin: 5px 10px ;
-            padding: 5px;
-            width: 10%;
-            background-color: #fff;
-            border: 1px solid #ddd;
-          }
-
-          .form-inline button {
-            padding: 5px 10px;
-            background-color: #c6bdbb;
-            border: none;
-            color: black;
-            cursor: pointer;
-            border-radius: 8px;
-          }
-
-          .form-inline button:hover {
-            background-color: #FFA07A;
-          }
-
-
-        </style>
-      </head>
-      <body>
-        <form class="form-inline">
-          <label>Intervalo de presentación</label>
-          <input placeholder="Ej: 7-10" name="intervalo">
-          <button type="submit">Ok</button>
-        </form>
-      </body>
-    </div>
-  </div>
-
-
-  <head>
-    <style>
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-        cursor: pointer;
-        margin: 10px 0.5% 0.5%;
-      }
-
-      td, th {
-        border: 1px solid #665f5f;
-        text-align: left;
-        width: 20%;
-        padding: 2.3%;
-      }
-
-      tr:nth-child(even) {
-        background-color: #FFA07A;
-      }
-    </style>
-  </head>
-  <body>
+    tr:nth-child(even) {
+      background-color: #FFA07A;
+    }
+  </style>
   <table>
     <tr>
       <th></th>
@@ -151,10 +98,8 @@
       <td></td>
     </tr>
   </table>
-  </body>
 
   <div>
-    <head>
       <style>
         .btn-group .button {
           background-color: #c6bdbb;
@@ -175,15 +120,17 @@
         .btn-group .button:hover { background-color: #FFA07A; }
 
       </style>
-    </head>
-    <body>
+      <button class="w3-btn w3-red w3-margin">Agregar criterio <i class="fas fa-plus"></i></button>
+      <button class="w3-btn w3-red w3-margin">Agregar nivel <i class="fas fa-plus"></i></button>
+      <button class="w3-btn w3-red w3-right w3-margin">Guardar rúbrica <i class="far fa-save"></i></button>
+      <!--
       <div class="btn-group">
         <button class="button">Agregar fila  <i class="fas fa-plus"></i></button>
         <button class="button">Agregar columna  <i class="fas fa-plus"></i></button>
         <button class="button">Borrar fila  <i class="fas fa-trash"></i></button>
         <button class="button">Borrar columna  <i class="fas fa-trash"></i></button>
       </div>
-    </body>
+      -->
   </div>
 
   <head>
