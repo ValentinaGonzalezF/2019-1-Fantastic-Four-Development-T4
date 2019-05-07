@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, reverse
-from .models import Instancia, Evaluador, Evaluacion, Rubrica
 import re
 
+from .models import Instancia, Evaluador, Evaluacion, Rubrica
+from .forms import EvaluadorForm
+
 # expresion regular para verificar email
-email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+#email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 
 #   INDICES
 
@@ -61,20 +63,36 @@ def rubrica_editar(request, rubrica_id):
 #   GESTIONAR EVALUADOR
 
 def agregar_evaluador(request):
-    correo = request.POST['correo']
-    if re.match(email_regex, correo) != None:
+    if request.method != "POST":
+        return redirect(reverse('sistema:index_evaluadores'))
+    form = EvaluadorForm(request.POST)
+    if form.is_valid():
+        # No hay evaluador con el mismo correo
         if Evaluador.objects.filter(correo__iexact=correo).count() == 0:
-            ev = Evaluador.objects.create(nombre = request.POST['nombre'],
-                                          correo = correo, password = "1111",
-                                          es_admin = False)
+            ev = Evaluador.objects.create(nombre = form.cleaned_data['nombre'],
+                                          correo = form.cleaned_data['correo'],
+                                          password = "1111", es_admin = False)
             ev.save()
             # enviar correo
-            return index_evaluadores(request)
+            return redirect(reverse('sistema:index_evaluadores'))
         return index_evaluadores(request, error = 1, nombre = request.POST['nombre'])
     return index_evaluadores(request, error = 2, nombre = request.POST['nombre'])
 
-def modificar_evaluador():
-    return
+def modificar_evaluador(request):
+    if request.method != "POST":
+        return redirect(reverse('sistema:index_evaluadores'))
+    form = EvaluadorForm(request.POST)
+    if form.is_valid():
+        for ev in Evaluador.objects.filter(correo__iexact=form.cleaned_data['correo']):
+            # Otro evaluador ya tiene el correo
+            if ev.id != request.POST['id']:
+                return index_evaluadores(request, error = 1)
+        ev = Evaluador.objects.get(pk=request.POST['id'])
+        ev.nombre = form.cleaned_data['nombre']
+        ev.correo = form.cleaned_data['correo']
+        ev.save()
+        return redirect(reverse('sistema:index_evaluadores'))
+    return index_evaluadores(request, error = 2)
 
 def eliminar_evaluador(request):
     id = int(request.POST['id'])
