@@ -78,6 +78,7 @@ class Rubrica(models.Model):
     def __str__(self):
         return self.nombre
 
+    # Crea el archivo y devuelve su ruta
     def crear(self):
         fn = "rubricas/rubrica_{}.csv".format(self.id)
         f = open(fn, "w")
@@ -85,22 +86,27 @@ class Rubrica(models.Model):
         f.close()
         return fn
 
+    # Carga y devuelve los datos de la rubrica
     def tabla(self):
         f = open(str(self.archivo), "r")
         self.t = [line.rstrip('\n').split(',') for line in f]
         return self.t
 
+    # Devuelvelos niveles de cumplimiento
     def niveles(self):
         if self.t == None:
             self.tabla()
         return self.t[0][1:]
 
+    # Devuelve los aspectos a evaluar
     def aspectos(self):
         if self.t == None:
             self.tabla()
         return [self.t[i][0] for i in range(1, len(self.t))]
 
-
+    # Borra el archivo asociado
+    def borrar(self):
+        os.remove(str(self.archivo))
 
 class EvaluacionRubrica(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)

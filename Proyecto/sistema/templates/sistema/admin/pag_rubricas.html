@@ -16,7 +16,6 @@
 <!--Seccion rubricas-->
 
 {% for rubrica in lista_rubricas %}
-TODO: leer info rúbrica
 <button onclick="myFunction('Demo{{ forloop.counter }}')" class="w3-btn w3-red w3-block w3-margin" style="width: 75%">
   <h3>{{ rubrica.nombre }}</h3></button>
 
@@ -29,7 +28,7 @@ TODO: leer info rúbrica
     <div class="w3-container">
       <button class="w3-button w3-large w3-margin-right w3-red w3-left w3-round">Ver</button>
   <button class="w3-button w3-large w3-red w3-left w3-round">Modificar</button>
-  <button class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
+  <button onclick="eliminar({{ rubrica.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
 </div>
 </div>
 {% endfor %}
@@ -51,6 +50,21 @@ TODO: leer info rúbrica
 	</div>
 </div>
 
+<!-- modal de eliminar -->
+<div id="eliminar" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('eliminar').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+        <p>¿Está seguro de querer eliminar a este usuario?</p>
+        <form action="{% url 'sistema:rubrica_eli' %}" method="post">
+          {% csrf_token %}
+          <input id="valor_eliminar" type="hidden" name="id" value="">
+          <button class="w3-button w3-red w3-margin-bottom" type="submit">Eliminar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 <script>
 function myFunction(id) {
   var x = document.getElementById(id);
@@ -60,6 +74,11 @@ function myFunction(id) {
     x.className = x.className.replace(" w3-show", "");
   }
 }
+	// Abre el modal de eliminar y ajusta el form con el valor correcto
+	function eliminar(id) {
+		document.getElementById('valor_eliminar').value = id;
+		document.getElementById('eliminar').style.display='block';
+	}
 </script>
 
 {% endblock %}

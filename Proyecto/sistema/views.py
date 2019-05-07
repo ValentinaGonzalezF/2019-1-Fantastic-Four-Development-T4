@@ -133,5 +133,8 @@ def agregar_rubrica(request):
 def modificar_rubrica():
     return
     
-def eliminar_rubrica():
-    return
+def eliminar_rubrica(request):
+    r = Rubrica.objects.get(pk=request.POST['id'])
+    r.borrar()
+    r.delete()
+    return redirect(reverse("sistema:index_rubricas"))
