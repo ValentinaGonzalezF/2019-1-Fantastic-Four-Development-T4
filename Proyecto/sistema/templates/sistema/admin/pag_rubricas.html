@@ -25,11 +25,15 @@
     <li>{{ aspecto }}</li>
     {% endfor %}
   </p>
-    <div class="w3-container">
+  <div class="w3-container">
+    <a href="{% url 'sistema:rubrica' rubrica_id=rubrica.id %}">
       <button class="w3-button w3-large w3-margin-right w3-red w3-left w3-round">Ver</button>
-  <button class="w3-button w3-large w3-red w3-left w3-round">Modificar</button>
-  <button onclick="eliminar({{ rubrica.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
-</div>
+    </a>
+    <a href="{% url 'sistema:rubrica_editar' rubrica_id=rubrica.id %}">
+      <button class="w3-button w3-large w3-red w3-left w3-round">Modificar</button>
+    </a>
+    <button onclick="eliminar({{ rubrica.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
+  </div>
 </div>
 {% endfor %}
 

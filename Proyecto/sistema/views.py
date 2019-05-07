@@ -112,9 +112,6 @@ def eliminar_evaluador(request):
 
 def agregar_evaluacion(request):
     return
-
-def modificar_evaluacion():
-    return
     
 def eliminar_evaluacion():
     return
@@ -129,9 +126,6 @@ def agregar_rubrica(request):
     r.archivo = d
     r.save()
     return redirect("sistema:rubrica_editar", r.id)
-
-def modificar_rubrica():
-    return
     
 def eliminar_rubrica(request):
     r = Rubrica.objects.get(pk=request.POST['id'])
