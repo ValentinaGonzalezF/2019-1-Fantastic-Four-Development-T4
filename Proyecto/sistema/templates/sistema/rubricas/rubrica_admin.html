@@ -25,28 +25,30 @@
 <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
   <h1 class="w3-xxxlarge w3-text-red"><b>Editar rúbrica</b></h1>
   <hr style="width:50px;border:5px solid red" class="w3-round">
-  <p><h3>{{ rubrica.nombre }} <button class="w3-button w3-xlarge w3-transparent w3-display"><i class="fas fa-edit"></i></h3></button><br></p>
+  <p><h3>{{ rubrica.nombre }} <button class="w3-button w3-medium w3-transparent w3-display"><i class="fas fa-edit"></i></h3></button><br></p>
 </div>
-  <style>
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-      cursor: pointer;
-      margin: 10px 0.5% 0.5%;
-    }
 
-    td, th {
-      border: 1px solid #665f5f;
-      text-align: left;
-      width: 20%;
-      padding: 2.3%;
-    }
+<div>
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    cursor: pointer;
+    margin: 10px 0.5% 0.5%;
+  }
 
-    tr:nth-child(even) {
-      background-color: #FFA07A;
-    }
-  </style>
+  td, th {
+    border: 1px solid #665f5f;
+    text-align: left;
+    width: 20%;
+    padding: 2.3%;
+  }
+
+  tr:nth-child(even) {
+    background-color: #FFA07A;
+  }
+</style>
   <table>
     <tr>
       <th></th>
@@ -83,14 +85,14 @@
       <td></td>
       <td></td>
     </tr>
-     <tr>
+    <tr>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-     <tr>
+    <tr>
       <td></td>
       <td></td>
       <td></td>
@@ -98,8 +100,9 @@
       <td></td>
     </tr>
   </table>
+</div>
 
-  <div>
+<div>
       <style>
         .btn-group .button {
           background-color: #c6bdbb;
@@ -120,9 +123,9 @@
         .btn-group .button:hover { background-color: #FFA07A; }
 
       </style>
-      <button class="w3-btn w3-red w3-margin">Agregar criterio <i class="fas fa-plus"></i></button>
-      <button class="w3-btn w3-red w3-margin">Agregar nivel <i class="fas fa-plus"></i></button>
-      <button class="w3-btn w3-red w3-right w3-margin">Guardar rúbrica <i class="far fa-save"></i></button>
+      <button class="w3-btn w3-red w3-large w3-margin-top">Agregar criterio <i class="fas fa-plus"></i></button>
+      <button class="w3-btn w3-red w3-large w3-margin-top">Agregar nivel <i class="fas fa-plus"></i></button>
+      <button class="w3-btn w3-red w3-large w3-right w3-margin-top">Guardar rúbrica <i class="far fa-save"></i></button>
       <!--
       <div class="btn-group">
         <button class="button">Agregar fila  <i class="fas fa-plus"></i></button>
@@ -131,32 +134,6 @@
         <button class="button">Borrar columna  <i class="fas fa-trash"></i></button>
       </div>
       -->
-  </div>
-
-  <head>
-    <style>
-    .button1 {
-      background-color: #BF1010;
-      border: none;
-      color: white;
-      padding: 45px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 10px 78%;
-      cursor: pointer;
-    }
-
-    .button1 {border-radius: 12px;}
-    .button1.button1:hover {background-color: #FFA07A;}
-
-    </style>
-  </head>
-  <body>
-    <button class="button1 button1">Guardar rúbrica  <i class="far fa-save"></i></button>
-  </body>
-
-
+</div>
 
 {% endblock %}

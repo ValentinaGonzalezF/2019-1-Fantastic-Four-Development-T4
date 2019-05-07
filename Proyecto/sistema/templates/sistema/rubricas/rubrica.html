@@ -17,7 +17,6 @@
       font-family: arial, sans-serif;
       border-collapse: collapse;
       width: 100%;
-      cursor: pointer;
       margin: 20px 0.5% 0.5%;
       font-size: 15px;
     }
@@ -57,41 +56,6 @@
     {% endif %}
     {% endfor %}
   </table>
-</div>
-
-<style>
-  .box {
-    background-color: lightgrey;
-    width: 300px;
-    border: 1px solid black;
-    padding: 20px;
-    margin: 0 15px;
-    text-align: center;
-    vertical-align: middle;
-  }
-</style>
-<p style="margin: 20px 145px"><b>Nota</b></p>
-<div class="box">1.0</div>
-<div>
-  <style>
-    .button {
-      background-color: #BF1010;
-      border: none;
-      color: white;
-      padding: 20px 50px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 0 78%;
-      cursor: pointer;
-    }
-
-    .button {border-radius: 12px;}
-    .button.button:hover {background-color: #FFA07A;}
-
-  </style>
-  <button class="button button">Enviar evaluación <i class="fas fa-file-import"></i></button>
 </div>
 
 {% endblock %}
