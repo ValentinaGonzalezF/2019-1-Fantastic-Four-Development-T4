@@ -18,6 +18,8 @@ from django.urls import path
 
 from . import views
 
+app_name = 'sistema'
+
 urlpatterns = [
     path('cursos/', views.index_cursos, name = 'index_cursos'),
     path('evaluaciones/', views.index_evaluaciones, name = 'index_evaluaciones'),

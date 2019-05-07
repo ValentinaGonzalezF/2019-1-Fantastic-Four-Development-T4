@@ -15,15 +15,14 @@
 <div class="w3-row-padding w3-center w3-margin-top">
 
 	{% for curso in lista_cursos %}
-	TODO: cambiar campos por atruibutos recibidos
 	<div class="w3-quarter w3-margin-top">
 		<button onclick="document.getElementById('gestionar').style.display='block'" class="w3-card w3-container w3-hover-shadow w3-light-gray" style="max-height:380px;min-height: 317px">
 
-		<h3>Nombre de curso</h3><br>
+		<h3>{{ curso.curso.nombre }}</h3><br>
 		<i class="fas fa-book" style="font-size:100px"></i>
-		<p>Código</p>
-		<p>Sección</p>
-		<p>Semestre y año </p>
+		<p>{{ curso.curso.codigo }}</p>
+		<p>Sección {{ curso.seccion }}</p>
+		<p>{{ curso.semestre }} {{ curso.ano }}</p>
 		<button class="w3-btn w3-red">Modificar</button>
 		<button class="w3-btn w3-red">Eliminar</button>
 		</button>

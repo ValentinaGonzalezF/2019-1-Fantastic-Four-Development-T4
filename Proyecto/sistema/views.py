@@ -15,7 +15,7 @@ def index_evaluaciones(request):
 
 def index_evaluadores(request):
     context = {
-        'lista_evaluadores': Evaluador.objects.all()
+        'lista_evaluadores': Evaluador.objects.filter(id__gt=2)
     }
     return render(request, 'sistema/admin/pag_evaluadores.html', context)
 

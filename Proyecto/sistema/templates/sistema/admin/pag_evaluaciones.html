@@ -1,5 +1,7 @@
 {% extends "sistema/base.html" %}
 
+{% load i18n %}
+
 {% block subtitle %}Evaluaciones{% endblock %}
 
 {% block content %}
@@ -16,15 +18,19 @@
 <!--Seccion evaluaciones-->
 
 {% for evaluacion in lista_evaluaciones %}
-TODO: cambiar campos por atruibutos recibidos
+TODO: asociar los botones
 <button onclick="myFunction('Demo{{ forloop.counter }}')" class="w3-btn w3-red w3-block w3-margin" style="width: 75%"><h3>
-    Evaluación 1</h3></button>
+    Evaluación {{ forloop.counter }}</h3></button>
 
 <div id="Demo{{ forloop.counter }}" class="w3-hide w3-container w3-pale-red  w3-padding-large w3-margin"style="width: 75%">
 
-  <p><li>Curso: -</li>
-    <li>Fecha inicio: -</li>
-    <li>Fecha término: -</li>
+  <p><li>Curso: {{ evaluacion.instancia.curso.codigo }} {{ evaluacion.instancia.semestre }} 
+    {{ evaluacion.instancia.ano }} Sección {{ evaluacion.instancia.seccion }}</li>
+    <!-- language hace que aparezca la fecha en español -->
+    {% language 'es' %}
+    <li>Fecha inicio: {{ evaluacion.fecha_inicio }}</li> 
+    <li>Fecha término: {{ evaluacion.fecha_fin }}</li>
+    {% endlanguage %}
     <button class="w3-button w3-white w3-border w3-border-red w3-round-large">Rúbrica asociada</button>
   <button class="w3-button w3-white w3-border w3-border-red w3-round-large">Exportar puntajes</button><br>
 </p>
