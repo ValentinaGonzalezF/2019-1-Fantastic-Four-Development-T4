@@ -43,54 +43,19 @@
   </style>
   <table>
     <tr>
-      <th></th>
-      <th>0.0</th>
-      <th>0.4</th>
-      <th>0.7</th>
-      <th>1.0</th>
+      {% for celda in rubrica.tabla.0 %}
+        <th>{{ celda }}</th>
+      {% endfor %}
     </tr>
+    {% for fila in rubrica.tabla %}
+    {% if not forloop.first %}
     <tr>
-      <td><b>Contenido</b></td>
-      <td>No incluye las interfaces solicitadas</td>
-      <td>Faltan la mayoria de las interfaces</td>
-      <td>Solo faltan 1 o 2 interfaces</td>
-      <td>Incluye todas las interfaces solicitadas</td>
+      {% for celda in fila %}
+      <td>{% if forloop.first %}<b>{% endif %}{{ celda }}{% if forloop.first %}</b>{% endif %}</td>
+      {% endfor %}
     </tr>
-    <tr>
-      <td><b>Calidad del material</b></td>
-      <td>Presentación con muchos errores ortográficos, todas las imágenes son de baja resolución</td>
-      <td>Algunos errores ortográficos, casi todas las imágenes son de baja resolución</td>
-      <td>Pocos errores ortográficos, solo algunas imágenes son de baja resolución</td>
-      <td>Pocos errores ortográficos, todas las imágenes son de buena resolución</td>
-    </tr>
-    <tr>
-      <td><b>Relación con requisitos funcionales</b></td>
-      <td>Solo describe las interfaces, sin mencionar requisito alguno</td>
-      <td>Solo para algunas de las interfaces explica cómo satisfacen los requisitos funcionales</td>
-      <td>Para casi todas las interfaces, explica cómo satisfacen los requisitos funcionales</td>
-      <td>Explica claramente como cada interfaz satisface los requisitos funcionales</td>
-    </tr>
-    <tr>
-      <td><b>Organización de la información</b></td>
-      <td>No se entiende la presentación porque no hay secuencia lógica de información</td>
-      <td>Es difícil seguir la presentación, porque el presentador “salta” entre diapositivas</td>
-      <td>La información está presentada en una secuencia lógica</td>
-      <td>La información es presentada en una forma lógica e interesante</td>
-    </tr>
-    <tr>
-      <td><b>Forma</b></td>
-      <td>No se entiende lo que dice (en términos fonéticos y cinéticos)</td>
-      <td>Se entiende lo que dice la de manera parcial (su cuerpo no acompaña sus palabras)</td>
-      <td>Se da a entender, presentando de manera eficiente y adecuado lenguaje corporal</td>
-      <td>Se da a entender siempre, destacando en su forma (pausas, dicción, contacto visual, gesticulación, otros)</td>
-    </tr>
-    <tr>
-      <td><b>Entusiasmo</b></td>
-      <td>No muestra interés en su entrega</td>
-      <td>Se muestra algo negativo acerca de su entrega</td>
-      <td>Ocasionalmente habla en forma positiva</td>
-      <td>Habla en forma positiva durante casi toda la presentación</td>
-    </tr>
+    {% endif %}
+    {% endfor %}
   </table>
 </div>
 
