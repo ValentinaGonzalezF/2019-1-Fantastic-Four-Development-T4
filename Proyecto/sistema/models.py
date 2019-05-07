@@ -41,7 +41,7 @@ class Instancia(models.Model):
     seccion=models.IntegerField()
 
     def __str__(self):
-        return self.curso +" "+ self.ano +" "+ self.semestre +" "+ self.seccion
+        return str(self.ano) +" "+ self.semestre +" "+ str(self.seccion)
 
 class InstanciaGrupo(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)#sin on delete tira error
@@ -57,7 +57,7 @@ class Evaluacion(models.Model):
     tiempo=models.TimeField()
 
     def __str__(self):
-        return self.fecha_inicio
+        return str(self.fecha_inicio)
 
 class Evaluador(models.Model):
     nombre = models.CharField(max_length=100)
