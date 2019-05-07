@@ -19,10 +19,19 @@ def index_evaluaciones(request):
     }
     return render(request, 'sistema/admin/pag_evaluaciones.html', context)
 
-def index_evaluadores(request):
+# error = 1     email repetido
+# error = 2     email incorrecto
+def index_evaluadores(request, error = 0, nombre = None):
+    if error == 1:
+        mensaje = "El correo ya se encuentra registrado"
+    elif error == 2:
+        mensaje = "El correo ingresado no es válido"
     context = {
-        'lista_evaluadores': Evaluador.objects.filter(id__gt=2)
+            'lista_evaluadores': Evaluador.objects.filter(id__gt=2)
     }
+    if error:
+        context['mensaje'] = mensaje
+        context['nombre'] = nombre
     return render(request, 'sistema/admin/pag_evaluadores.html', context)
 
 def index_rubricas(request):
@@ -52,14 +61,17 @@ def rubrica_editar(request, rubrica_id):
 #   GESTIONAR EVALUADOR
 
 def agregar_evaluador(request):
-    ev = Evaluador.objects.create(nombre = request.POST['nombre'],
-                                  correo = request.POST['correo'],
-                                  password = "1111", es_admin = False)
-    ev.save()
-
-    # enviar correo
-
-    return redirect(reverse("sistema:index_evaluadores"))
+    correo = request.POST['correo']
+    if re.match(email_regex, correo) != None:
+        if Evaluador.objects.filter(correo__iexact=correo).count() == 0:
+            ev = Evaluador.objects.create(nombre = request.POST['nombre'],
+                                          correo = correo, password = "1111",
+                                          es_admin = False)
+            ev.save()
+            # enviar correo
+            return index_evaluadores(request)
+        return index_evaluadores(request, error = 1, nombre = request.POST['nombre'])
+    return index_evaluadores(request, error = 2, nombre = request.POST['nombre'])
 
 def modificar_evaluador():
     return
