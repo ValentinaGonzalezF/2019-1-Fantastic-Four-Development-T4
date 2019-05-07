@@ -26,6 +26,8 @@ def index_evaluadores(request, error = 0, nombre = None):
     elif error == 2:
         mensaje = "El correo ingresado no es válido"
     context = {
+        #id 1 es evaluadores eliminados
+        #id 2 es el admin
             'lista_evaluadores': Evaluador.objects.filter(id__gt=2)
     }
     if error:
