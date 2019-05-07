@@ -27,8 +27,13 @@ urlpatterns = [
     path('rubricas/', views.index_rubricas, name = 'index_rubricas'),
     path('evaluaciones/<int:eval_id>/', views.evaluacion, name = 'evaluacion'),
     path('rubricas/<int:rubrica_id>/', views.rubrica, name = 'rubrica'),
+    path('rubricas/<int:rubrica_id>/editar', views.rubrica_editar, name = 'rubrica_editar'),
 
     path('evaluadores/agregar/', views.agregar_evaluador, name = 'evaluador_agr'),
     path('evaluadores/modificar/', views.modificar_evaluador, name = 'evaluador_mod'),
     path('evaluadores/eliminar/', views.eliminar_evaluador, name = 'evaluador_eli'),
+
+    path('rubricas/agregar/', views.agregar_rubrica, name = 'rubrica_agr'),
+    path('rubricas/modificar/', views.modificar_rubrica, name = 'rubrica_mod'),
+    path('rubricas/eliminar/', views.eliminar_rubrica, name = 'rubrica_eli'),
 ]

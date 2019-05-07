@@ -2,6 +2,8 @@ from django.db import models
 from django.db import models
 from django.utils import timezone
 
+import os
+
 # Create your models here.
 class Grupo(models.Model):
     nombre = models.CharField(max_length=100)
@@ -71,9 +73,34 @@ class Evaluador(models.Model):
 class Rubrica(models.Model):
     nombre=models.CharField(max_length=100)
     archivo=models.FileField(upload_to=None, max_length=100)
+    t = None
 
     def __str__(self):
         return self.nombre
+
+    def crear(self):
+        fn = "rubricas/rubrica_{}.csv".format(self.id)
+        f = open(fn, "w")
+        f.writelines([",0.0\n","Aspecto1,Descripcion1\n"])
+        f.close()
+        return fn
+
+    def tabla(self):
+        f = open(str(self.archivo), "r")
+        self.t = [line.rstrip('\n').split(',') for line in f]
+        return self.t
+
+    def niveles(self):
+        if self.t == None:
+            self.tabla()
+        return self.t[0][1:]
+
+    def aspectos(self):
+        if self.t == None:
+            self.tabla()
+        return [self.t[i][0] for i in range(1, len(self.t))]
+
+
 
 class EvaluacionRubrica(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)

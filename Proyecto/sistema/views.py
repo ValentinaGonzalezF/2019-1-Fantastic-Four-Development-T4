@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, reverse
 from .models import Instancia, Evaluador, Evaluacion, Rubrica
 from .forms import EvaluadorForm
 
+
 #   INDICES
 
 def index_cursos(request):
@@ -38,6 +39,7 @@ def index_rubricas(request):
     }
     return render(request, 'sistema/admin/pag_rubricas.html', context)
 
+
 #   EVALUACION
 
 def evaluacion(request, eval_id):
@@ -48,13 +50,21 @@ def evaluacion(request, eval_id):
 def postevaluacion(request, eval_id):
     return
 
+
 #   RUBRICA
 
 def rubrica(request, rubrica_id):
-    return
+    context = {
+        'rubrica': Rubrica.objects.get(pk=rubrica_id)
+    }
+    return render(request, 'sistema/rubricas/rubrica.html', context)
 
 def rubrica_editar(request, rubrica_id):
-    return
+    context = {
+        'rubrica': Rubrica.objects.get(pk=rubrica_id)
+    }
+    return render(request, 'sistema/rubricas/rubrica_admin.html', context)
+
 
 #   GESTIONAR EVALUADOR
 
@@ -95,9 +105,10 @@ def eliminar_evaluador(request):
     Evaluador.objects.get(pk=id).delete()
     return redirect(reverse("sistema:index_evaluadores"))
 
+
 #   GESTIONAR EVALUACION
 
-def agregar_evaluacion():
+def agregar_evaluacion(request):
     return
 
 def modificar_evaluacion():
@@ -106,10 +117,16 @@ def modificar_evaluacion():
 def eliminar_evaluacion():
     return
 
+
 #   GESTIONAR RUBRICA
 
-def agregar_rubrica():
-    return
+def agregar_rubrica(request):
+    r = Rubrica.objects.create(nombre = request.POST['nombre'], archivo = "")
+    d = r.crear()
+    r.save()
+    r.archivo = d
+    r.save()
+    return redirect("sistema:rubrica_editar", r.id)
 
 def modificar_rubrica():
     return
