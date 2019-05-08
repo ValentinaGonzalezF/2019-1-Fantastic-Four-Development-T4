@@ -39,7 +39,6 @@ class Instancia(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     ano=models.IntegerField()
     semestre= models.CharField(max_length=100)
-    #No se si tomar la seccion como numero o string
     seccion=models.IntegerField()
 
     def __str__(self):
@@ -82,7 +81,7 @@ class Evaluador(models.Model):
 class Rubrica(models.Model):
     nombre=models.CharField(max_length=100)
     archivo=models.FileField(upload_to=None, max_length=100)
-    t = None
+    t = None # tabla donde se guarda la info de archivo
 
     def __str__(self):
         return self.nombre
