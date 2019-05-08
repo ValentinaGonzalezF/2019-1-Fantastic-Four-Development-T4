@@ -8,7 +8,8 @@
 <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
   <h1 class="w3-xxxlarge w3-text-red"><b>Editar rúbrica</b></h1>
   <hr style="width:50px;border:5px solid red" class="w3-round">
-  <p><h3>{{ rubrica.nombre }} <button class="w3-button w3-medium w3-transparent w3-display"><i class="fas fa-edit"></i></h3></button><br></p>
+  <h3 id="nombreTitulo">{{ rubrica.nombre }} 
+    <button onclick="document.getElementById('cambiar_nombre').style.display='block'" class="w3-button w3-medium w3-transparent w3-display"><i class="fas fa-edit"></i></button></h3><br>
 </div>
 
 <div>
@@ -71,6 +72,23 @@
     </div>
   </form>
 </div>
+
+<!-- modal cambiar nombre -->
+<div id="cambiar_nombre" class="w3-modal">
+	<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-center"><br>
+      <div class="w3-container">
+			<span onclick="document.getElementById('cambiar_nombre').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+			<div class="w3-section">
+        <label><b>Nombre</b></label>
+        <input id="nuevo_nombre" class="w3-input w3-border w3-margin-bottom" type="text" name="nombre" value="{{ rubrica.nombre }}" required>
+				<button onclick="cambiar_nombre()" class="w3-button w3-block w3-red w3-section w3-padding">Cambiar</button>
+      </div>
+      </div>
+		</div>
+	</div>
+</div>
+
 
 <script>
   function agregar_criterio() {
@@ -142,6 +160,13 @@
       for (k = 1; k < table.rows.length; k++)
         table.rows[k].cells[j].children[0].name = "celda:" + k.toString() +","+j.toString();
     }
+  }
+
+  function cambiar_nombre() {
+    var nombre = document.getElementById("nuevo_nombre").value;
+    document.getElementById("nombre").value = nombre;
+    document.getElementById("nombreTitulo").innerHTML = (nombre + ' <button onclick="document.getElementById(' + "'cambiar_nombre'" + ').style.display='+"'block'" + '" class="w3-button w3-medium w3-transparent w3-display"><i class="fas fa-edit"></i></button>');
+    document.getElementById('cambiar_nombre').style.display='none';
   }
 </script>
 

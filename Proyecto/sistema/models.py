@@ -131,7 +131,6 @@ class Rubrica(models.Model):
     def validar(self):
         t = self.tabla()
         pmax = float(t[0][-1])
-        print(str(10 * pmax * (len(t) - 1)))
         return int(10 * pmax * (len(t) - 1)) == 60
 
 class EvaluacionRubrica(models.Model):
