@@ -12,6 +12,7 @@ def index_cursos(request):
     }
     return render(request, 'sistema/admin/pag_cursos.html', context)
 
+# error = True  fechas incorrectas (ver Evaluacion.validar_fechas)
 def index_evaluaciones(request, error = False):
     context = {
         'lista_rubricas': Rubrica.objects.all(),
@@ -59,12 +60,14 @@ def postevaluacion(request, eval_id):
 
 #   RUBRICA
 
+# Ver rubrica
 def rubrica(request, rubrica_id):
     context = {
         'rubrica': Rubrica.objects.get(pk=rubrica_id)
     }
     return render(request, 'sistema/rubricas/rubrica.html', context)
 
+# Editar rubrica
 def rubrica_editar(request, rubrica_id):
     context = {
         'rubrica': Rubrica.objects.get(pk=rubrica_id)
@@ -75,28 +78,37 @@ def rubrica_editar(request, rubrica_id):
 #   GESTIONAR EVALUADOR
 
 def agregar_evaluador(request):
+    # Si se carga la pagina normalmente
     if request.method != "POST":
         return redirect(reverse('sistema:index_evaluadores'))
+    # Validar el formato del correo
     form = EvaluadorForm(request.POST)
     if form.is_valid():
-        # No hay evaluador con el mismo correo
+        # Si no hay evaluador con el mismo correo
         if Evaluador.objects.filter(correo__iexact=form.cleaned_data['correo']).count() == 0:
+            # password y es_admin reciben valores por defecto
             ev = Evaluador.objects.create(nombre = form.cleaned_data['nombre'],
                                           correo = form.cleaned_data['correo'],
                                           password = "1111", es_admin = False)
             ev.save()
-            # enviar correo
+
+
+            # TODO: enviar correo
+            
+            
             return redirect(reverse('sistema:index_evaluadores'))
         return index_evaluadores(request, error = 1, nombre = request.POST['nombre'])
     return index_evaluadores(request, error = 2, nombre = request.POST['nombre'])
 
 def modificar_evaluador(request):
+    # Si se carga la pagina normalmente
     if request.method != "POST":
         return redirect(reverse('sistema:index_evaluadores'))
+    # Validar el formato del correo
     form = EvaluadorForm(request.POST)
     if form.is_valid():
+        # Si otro evaluador ya tiene el correo
         if Evaluador.objects.exclude(pk=request.POST['id']).filter(correo__iexact=form.cleaned_data['correo']).count() > 0:
-            # Otro evaluador ya tiene el correo
             return index_evaluadores(request, error = 1)
         ev = Evaluador.objects.get(pk=request.POST['id'])
         ev.nombre = form.cleaned_data['nombre']
@@ -114,26 +126,31 @@ def eliminar_evaluador(request):
 #   GESTIONAR EVALUACION
 
 def agregar_evaluacion(request):
+    # Si se carga la pagina normalmente
     if request.method != "POST":
         return redirect(reverse('sistema:index_evaluaciones'))
     form = EvaluacionForm(request.POST)
+    # Validar el formato de las fechas
     if form.is_valid():
+        # Tiempo recibe valor por defecto
         ev = Evaluacion.objects.create(instancia=request.POST['curso'],
                                        fecha_inicio=form.cleaned_data['inicio'],
                                        fecha_fin=form.cleaned_data['fin'],
                                        tiempo="00:07:00")
+        # Si las fechas estan correctas
         if ev.validar_fechas():
             ev.save()
+            # Crear relacion entre rubrica y evaluacion
             EvaluacionRubrica.objects.create(evaluacion=ev.id,
                                              rubrica=request.POST['rubrica']).save()
-            # Admin como evaluador por defecto
+            # Admin como evaluador por defecto (Cambiar a usuario que realiza la accion?)
             Evalua.objects.create(evaluacion=ev.id, evaluador=2).save()
             return redirect("sistema:evaluacion", ev.id)
     return index_evaluaciones(request, error = True)
     
 
 def modificar_evaluacion(request):
-    return
+    return # TODO
     
 def eliminar_evaluacion(request):
     id = int(request.POST['id'])
@@ -144,33 +161,37 @@ def eliminar_evaluacion(request):
 #   GESTIONAR RUBRICA
 
 def agregar_rubrica(request):
+    # Crea objeto
     r = Rubrica.objects.create(nombre = request.POST['nombre'], archivo = "")
+    # Crea archivo
     d = r.crear()
     r.save()
+    # Asocia objeto a archivo
     r.archivo = d
     r.save()
     return redirect("sistema:rubrica_editar", r.id)
 
 def modificar_rubrica(request, rubrica_id):
-    i = 0
+    i = 0 # Cuenta columnas
     while "celda:0,{}".format(i) in request.POST:
         cols = i
         i+=1
-    i = 0
+    i = 0 # Cuenta filas
     while "celda:{},0".format(i) in request.POST:
         fils = i
         i+=1
     cols += 1
     fils += 1
+    # Crea tabla de rubrica
     tabla = [[request.POST['celda:{},{}'.format(i,j)] for j in range(cols)] for i in range(fils)]
     r = Rubrica.objects.get(pk=rubrica_id)
-    r.modificar(tabla)
+    r.modificar(tabla) # Guarda la tabla
     r.nombre = request.POST['nombre']
     r.save()
     return redirect("sistema:rubrica", rubrica_id)
     
 def eliminar_rubrica(request):
     r = Rubrica.objects.get(pk=request.POST['id'])
-    r.borrar()
-    r.delete()
+    r.borrar() # Elimina archivo
+    r.delete() # Elimina objeto
     return redirect(reverse("sistema:index_rubricas"))
