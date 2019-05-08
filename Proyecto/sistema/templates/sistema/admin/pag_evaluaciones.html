@@ -13,19 +13,17 @@
   </div>
 
 <div class="w3-container">
-  <button class="w3-button w3-large w3-red w3-right w3-round">Agregar nueva evaluación</button><br>
+  <button onclick="document.getElementById('agregar').style.display='block'" class="w3-button w3-large w3-red w3-right w3-round">Agregar nueva evaluación</button><br>
 </div>
 <!--Seccion evaluaciones-->
 
 {% for evaluacion in lista_evaluaciones %}
-TODO: asociar los botones
 <button onclick="myFunction('Demo{{ forloop.counter }}')" class="w3-btn w3-red w3-block w3-margin" style="width: 75%"><h3>
     Evaluación {{ forloop.counter }}</h3></button>
 
 <div id="Demo{{ forloop.counter }}" class="w3-hide w3-container w3-pale-red  w3-padding-large w3-margin"style="width: 75%">
 
-  <p><li>Curso: {{ evaluacion.instancia.curso.codigo }} {{ evaluacion.instancia.semestre }} 
-    {{ evaluacion.instancia.ano }} Sección {{ evaluacion.instancia.seccion }}</li>
+  <p><li>Curso: {{ evaluacion.instancia }}</li>
     <!-- language hace que aparezca la fecha en español -->
     {% language 'es' %}
     <li>Fecha inicio: {{ evaluacion.fecha_inicio }}</li> 
@@ -37,9 +35,61 @@ TODO: asociar los botones
 
   <button class="w3-button w3-large w3-red w3-round">Ver</button>
   <button class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
-  <button class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
+  <button onclick="eliminar({{ evaluacion.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
 </div>
 {% endfor %}
+
+<!-- modal de agregar -->
+<div id="agregar" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-center"><br>
+      <span onclick="document.getElementById('agregar').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+      <form class="w3-container" action="{% url 'sistema:evaluacion_agr' %}" method="post">
+        {% csrf_token %}
+        <div class="w3-section">
+          <div class="w3-row">
+            <div class="w3-half">
+              <label><b>Fecha de inicio</b></label>
+              <input class="w3-input w3-border w3-margin-bottom" type="date" required name="inicio">
+            </div>
+            <div class="w3-half">
+              <label><b>Fecha de término</b></label>
+              <input class="w3-input w3-border w3-margin-bottom" type="date" required name="fin">
+            </div>
+          </div>
+          <label><b>Rúbrica</b></label>
+          <select class="w3-select" name="rubrica">
+            {% for rubrica in lista_rubricas %}{% if rubrica.validar %}
+            <option value="{{ rubrica.id }}">{{ rubrica.nombre }}</option>
+            {% endif %}{% endfor %}
+          </select>
+          <label><b>Curso</b></label>
+          <select class="w3-select" name="curso">
+            {% for curso in lista_cursos %}
+            <option value="{{ curso.id }}">{{ curso }}</option>
+            {% endfor %}
+          </select>
+          <input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Agregar">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- modal de eliminar -->
+<div id="eliminar" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-center"><br>
+      <span onclick="document.getElementById('eliminar').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+      <p>¿Está seguro de querer eliminar esta evaluacion?</p>
+      <form action="{% url 'sistema:evaluacion_eli' %}" method="post">
+        {% csrf_token %}
+        <input id="valor_eliminar" type="hidden" name="id" value="">
+        <button class="w3-button w3-red w3-margin-bottom" type="submit">Eliminar</button>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script>
 function myFunction(id) {
@@ -50,6 +100,12 @@ function myFunction(id) {
     x.className = x.className.replace(" w3-show", "");
   }
 }
+
+  // Abre el modal de eliminar y ajusta el form con el valor correcto
+  function eliminar(id) {
+		document.getElementById('valor_eliminar').value = id;
+		document.getElementById('eliminar').style.display='block';
+	}
 </script>
 
 {% endblock %}

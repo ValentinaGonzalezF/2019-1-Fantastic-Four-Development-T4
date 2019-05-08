@@ -43,7 +43,7 @@ class Instancia(models.Model):
     seccion=models.IntegerField()
 
     def __str__(self):
-        return str(self.ano) +" "+ self.semestre +" "+ str(self.seccion)
+        return " ".join([self.curso.nombre, self.semestre, str(self.ano), "Sección", str(self.seccion)])
 
 class InstanciaGrupo(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)#sin on delete tira error
@@ -60,6 +60,15 @@ class Evaluacion(models.Model):
 
     def __str__(self):
         return str(self.fecha_inicio)
+
+    # True si fecha_inicio es posterio a fecha actual
+    # y fecha_fin es posterior a fecha_inicio
+    def validar_fechas(self):
+        pass #TODO
+
+    # True si fecha actual esta entre fecha_inicio y fecha_fin
+    def abierta(self):
+        pass #TODO
 
 class Evaluador(models.Model):
     nombre = models.CharField(max_length=100)

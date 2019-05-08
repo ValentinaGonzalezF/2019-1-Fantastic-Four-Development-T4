@@ -59,7 +59,7 @@
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
       <div class="w3-center"><br>
         <span onclick="document.getElementById('eliminar').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-        <p>¿Está seguro de querer eliminar a este usuario?</p>
+        <p>¿Está seguro de querer eliminar esta rubrica?</p>
         <form action="{% url 'sistema:rubrica_eli' %}" method="post">
           {% csrf_token %}
           <input id="valor_eliminar" type="hidden" name="id" value="">

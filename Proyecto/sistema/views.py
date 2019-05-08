@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 
 from .models import Instancia, Evaluador, Evaluacion, Rubrica
-from .forms import EvaluadorForm
+from .forms import EvaluadorForm, EvaluacionForm
 
 
 #   INDICES
@@ -12,10 +12,14 @@ def index_cursos(request):
     }
     return render(request, 'sistema/admin/pag_cursos.html', context)
 
-def index_evaluaciones(request):
+def index_evaluaciones(request, error = False):
     context = {
-        'lista_evaluaciones': Evaluacion.objects.all()
+        'lista_rubricas': Rubrica.objects.all(),
+        'lista_evaluaciones': Evaluacion.objects.all(),
+        'lista_cursos': Instancia.objects.all()
     }
+    if error:
+        context['mensaje'] = "Las fechas ingresadas son incorrectas"
     return render(request, 'sistema/admin/pag_evaluaciones.html', context)
 
 # error = 1     email repetido
@@ -110,10 +114,31 @@ def eliminar_evaluador(request):
 #   GESTIONAR EVALUACION
 
 def agregar_evaluacion(request):
+    if request.method != "POST":
+        return redirect(reverse('sistema:index_evaluaciones'))
+    form = EvaluacionForm(request.POST)
+    if form.is_valid():
+        ev = Evaluacion.objects.create(instancia=request.POST['curso'],
+                                       fecha_inicio=form.cleaned_data['inicio'],
+                                       fecha_fin=form.cleaned_data['fin'],
+                                       tiempo="00:07:00")
+        if ev.validar_fechas():
+            ev.save()
+            EvaluacionRubrica.objects.create(evaluacion=ev.id,
+                                             rubrica=request.POST['rubrica']).save()
+            # Admin como evaluador por defecto
+            Evalua.objects.create(evaluacion=ev.id, evaluador=2).save()
+            return redirect("sistema:evaluacion", ev.id)
+    return index_evaluaciones(request, error = True)
+    
+
+def modificar_evaluacion(request):
     return
     
-def eliminar_evaluacion():
-    return
+def eliminar_evaluacion(request):
+    id = int(request.POST['id'])
+    Evaluacion.objects.get(pk=id).delete()
+    return redirect(reverse("sistema:index_evaluaciones"))
 
 
 #   GESTIONAR RUBRICA
