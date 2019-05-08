@@ -91,10 +91,9 @@ def modificar_evaluador(request):
         return redirect(reverse('sistema:index_evaluadores'))
     form = EvaluadorForm(request.POST)
     if form.is_valid():
-        for ev in Evaluador.objects.filter(correo__iexact=form.cleaned_data['correo']):
+        if Evaluador.objects.exclude(pk=request.POST['id']).filter(correo__iexact=form.cleaned_data['correo']).count() > 0:
             # Otro evaluador ya tiene el correo
-            if ev.id != request.POST['id']:
-                return index_evaluadores(request, error = 1)
+            return index_evaluadores(request, error = 1)
         ev = Evaluador.objects.get(pk=request.POST['id'])
         ev.nombre = form.cleaned_data['nombre']
         ev.correo = form.cleaned_data['correo']
