@@ -82,7 +82,7 @@ class Rubrica(models.Model):
     def crear(self):
         fn = "rubricas/rubrica_{}.csv".format(self.id)
         f = open(fn, "w")
-        f.writelines([",0.0\n","Aspecto1,Descripcion1\n"])
+        f.writelines(["$0.0\n","Aspecto1$Descripcion1\n"])
         f.close()
         return fn
 
@@ -90,7 +90,7 @@ class Rubrica(models.Model):
     def tabla(self):
         if self.t == None:
             f = open(str(self.archivo), "r")
-            self.t = [line.rstrip('\n').split(',') for line in f]
+            self.t = [line.rstrip('\n').split('$') for line in f]
             f.close()
         return self.t
 
@@ -115,7 +115,7 @@ class Rubrica(models.Model):
         tabla = self.reordenar(tabla)
         f = open(str(self.archivo), "w")
         for linea in tabla:
-            f.write(",".join(linea) + "\n")
+            f.write("$".join(linea) + "\n")
         self.t = None
 
     # Reordena las celdas en puntaje de menor a mayor
