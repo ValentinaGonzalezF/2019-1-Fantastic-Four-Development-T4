@@ -126,6 +126,24 @@ def agregar_rubrica(request):
     r.archivo = d
     r.save()
     return redirect("sistema:rubrica_editar", r.id)
+
+def modificar_rubrica(request, rubrica_id):
+    i = 0
+    while "celda:0,{}".format(i) in request.POST:
+        cols = i
+        i+=1
+    i = 0
+    while "celda:{},0".format(i) in request.POST:
+        fils = i
+        i+=1
+    cols += 1
+    fils += 1
+    tabla = [[request.POST['celda:{},{}'.format(i,j)] for j in range(cols)] for i in range(fils)]
+    r = Rubrica.objects.get(pk=rubrica_id)
+    r.modificar(tabla)
+    r.nombre = request.POST['nombre']
+    r.save()
+    return redirect("sistema:rubrica", rubrica_id)
     
 def eliminar_rubrica(request):
     r = Rubrica.objects.get(pk=request.POST['id'])

@@ -3,23 +3,6 @@
 {% block subtitle %}Rúbricas{% endblock %}
 
 {% block content %}
-<style>
-  .button2 {
-    background-color: #c6bdbb; /* Green */
-    border: none;
-    color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0.2px 2px;
-    cursor: pointer;
-  }
-
-  .button2 {width: 50%; border-radius: 12px;}
-  .button2.button2:hover {background-color: #FFA07A;}
-</style>
 
 <!-- Portada -->
 <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
@@ -29,111 +12,137 @@
 </div>
 
 <div>
-<style>
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    cursor: pointer;
-    margin: 10px 0.5% 0.5%;
-  }
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: fit-content;
+      margin: 10px 0.5% 0.5%;
+    }
 
-  td, th {
-    border: 1px solid #665f5f;
-    text-align: left;
-    width: 20%;
-    padding: 2.3%;
-  }
+    td, th {
+      border: 1px solid #665f5f;
+      text-align: left;
+      width: 12%;
+      padding: 5px;
+    }
 
-  tr:nth-child(even) {
-    background-color: #FFA07A;
-  }
-</style>
-  <table>
-    <tr>
-      <th></th>
-      <th>Asignar puntajes    <i class="fas fa-edit"></i></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    <tr>
-      <td><b>Modificar aspecto  <i class="fas fa-edit"></i></b></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </table>
-</div>
-
-<div>
-      <style>
-        .btn-group .button {
-          background-color: #c6bdbb;
-          border: none;
-          color: black;
-          padding: 15px 4.6%;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          cursor: pointer;
-          float: left;
-          margin: 18px 2%;
-        }
-
-        .btn-group .button { border-radius: 12px;}
-
-        .btn-group .button:hover { background-color: #FFA07A; }
-
-      </style>
-      <button class="w3-btn w3-red w3-large w3-margin-top">Agregar criterio <i class="fas fa-plus"></i></button>
-      <button class="w3-btn w3-red w3-large w3-margin-top">Agregar nivel <i class="fas fa-plus"></i></button>
+    tr:nth-child(even) {
+      background-color: #FFA07A;
+    }
+  </style>
+  <form action="{% url 'sistema:rubrica_mod' rubrica_id=rubrica.id %}" method="POST">
+    {% csrf_token %}
+    <input id="nombre" type=hidden name="nombre" value="{{ rubrica.nombre }}">
+    <table id="tabla">
+      <tr>
+        {% for celda in rubrica.tabla.0 %}
+          <th>
+            {% if forloop.first %}
+            <input type="hidden" name="celda:0,0" value:{{ celda }}>
+            {% else %}
+            <span onclick="eliminar_nivel({{ forloop.counter0 }})" class="w3-button w3-right w3-medium w3-transparent w3-col" style="width:40px"><i class="fas fa-times"></i></span>
+            <input class="w3-input w3-border w3-col" style="width:60px" type="number" name="celda:0,{{ forloop.counter0 }}" min="0" max="6" step="0.1" value="{{ celda }}">
+            {% endif %}
+          </th>
+        {% endfor %}
+      </tr>
+      {% for fila in rubrica.tabla %}
+      {% with forloop.counter0 as row %}
+      {% if not forloop.first %}
+      <tr>
+        {% for celda in fila %}
+        <td>
+          {% if forloop.first %}<span onclick="eliminar_criterio({{ row }})" class="w3-button w3-right w3-medium w3-transparent w3-col" style="width:40px"><i class="fas fa-times"></i></span>{% endif %}
+          <textarea class="w3-input w3-border" style="resize:none" name="celda:{{ row }},{{ forloop.counter0 }}" maxlength="200" rows="{% if forloop.first %}2{% else %}3{% endif %}" wrap="soft">{{ celda }}</textarea>
+        </td>
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% endwith %}
+      {% endfor %}
+    </table>
+    <div class="w3-twothird">
+      <button type="button" onclick="agregar_criterio()" class="w3-btn w3-red w3-large w3-margin-top">Agregar criterio <i class="fas fa-plus"></i></button>
+      <button type="button" onclick="agregar_nivel()" class="w3-btn w3-red w3-large w3-margin-top">Agregar nivel <i class="fas fa-plus"></i></button>
+    </div>
+    <div class="w3-third w3-right">
       <button class="w3-btn w3-red w3-large w3-right w3-margin-top">Guardar rúbrica <i class="far fa-save"></i></button>
-      <!--
-      <div class="btn-group">
-        <button class="button">Agregar fila  <i class="fas fa-plus"></i></button>
-        <button class="button">Agregar columna  <i class="fas fa-plus"></i></button>
-        <button class="button">Borrar fila  <i class="fas fa-trash"></i></button>
-        <button class="button">Borrar columna  <i class="fas fa-trash"></i></button>
-      </div>
-      -->
+    </div>
+  </form>
 </div>
+
+<script>
+  function agregar_criterio() {
+    var table = document.getElementById("tabla");
+    var cols = table.rows[0].cells.length;
+    var rows = table.rows.length;
+
+    // No se crean mas de 8 criterios
+    if (rows > 8) return;
+
+    const new_row = table.insertRow(-1);
+    for (i = 0; i < cols; i++) {
+      const new_cell = document.createElement('td');
+      if (i == 0) {
+        new_cell.innerHTML = '<span class="w3-button w3-right w3-medium w3-transparent w3-col" style="width:40px"><i class="fas fa-times"></i></span><textarea class="w3-input w3-border" style="resize:none" maxlength="350" rows="2" wrap="soft"></textarea>';
+        new_cell.firstChild.setAttribute("onclick", "eliminar_criterio(" + rows.toString() + ")");
+        new_cell.lastChild.innerHTML = "Criterio";
+      }
+      else {
+        new_cell.innerHTML = '<textarea class="w3-input w3-border" style="resize:none" maxlength="350" rows="3" wrap="soft"></textarea>';
+        new_cell.firstChild.innerHTML = "Descripcion";
+      }
+      new_cell.lastChild.name = "celda:" + rows.toString() + "," + i.toString();
+      new_row.appendChild(new_cell);
+    }
+  }
+
+  function agregar_nivel() {
+    var table = document.getElementById("tabla");
+    var cols = table.rows[0].cells.length;
+    var rows = table.rows.length;
+
+    // No se crean mas de 6 niveles de cumplimiento
+    if (cols > 6) return;
+    
+    const new_cell = table.rows[0].insertCell(-1);
+    new_cell.innerHTML = '<span class="w3-button w3-right w3-medium w3-transparent w3-col" style="width:40px"><i class="fas fa-times"></i></span><input class="w3-input w3-border w3-col" style="width:60px" type="number" min="0" max="6" step="0.1" value="0.0">';
+    new_cell.firstChild.setAttribute("onclick", "eliminar_nivel(" + cols.toString() + ")");
+    new_cell.lastChild.name = "celda:0," + cols.toString();
+    for (i = 1; i < rows; i++) {
+      const new_cell = table.rows[i].insertCell(-1);
+      new_cell.innerHTML = '<textarea class="w3-input w3-border" style="resize:none" maxlength="350" rows="3" wrap="soft"></textarea>';
+      new_cell.firstChild.name = "celda:" + i.toString() + "," + cols.toString();
+      new_cell.firstChild.innerHTML = "Descripcion";
+    }
+  }
+
+  function eliminar_criterio(i) {
+    var table = document.getElementById("tabla");
+    if (table.rows.length <= 2) return;
+    table.rows[i].parentNode.removeChild(table.rows[i]);
+    for (j = i; j < table.rows.length; j++) {
+      table.rows[j].cells[0].children[0].setAttribute("onclick", "eliminar_criterio(" + j.toString() + ")");
+      table.rows[j].cells[0].children[1].name = "celda:" + j.toString() +",0";
+      for (k = 1; k < table.rows[j].cells.length; k++)
+        table.rows[j].cells[k].children[0].name = "celda:" + j.toString() +","+k.toString();
+    }
+  }
+
+  function eliminar_nivel(i) {
+    var table = document.getElementById("tabla");
+    if (table.rows[0].cells.length <= 2) return;
+    for (j = 0; j < table.rows.length; j++) {
+      table.rows[j].removeChild(table.rows[j].cells[i]);
+    }
+    for (j = i; j < table.rows[0].cells.length; j++) {
+      table.rows[0].cells[j].children[0].setAttribute("onclick", "eliminar_nivel(" + j.toString() + ")");
+      table.rows[0].cells[j].children[1].name = "celda:0," + j.toString();
+      for (k = 1; k < table.rows.length; k++)
+        table.rows[k].cells[j].children[0].name = "celda:" + k.toString() +","+j.toString();
+    }
+  }
+</script>
 
 {% endblock %}

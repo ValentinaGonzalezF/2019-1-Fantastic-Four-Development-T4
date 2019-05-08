@@ -88,8 +88,10 @@ class Rubrica(models.Model):
 
     # Carga y devuelve los datos de la rubrica
     def tabla(self):
-        f = open(str(self.archivo), "r")
-        self.t = [line.rstrip('\n').split(',') for line in f]
+        if self.t == None:
+            f = open(str(self.archivo), "r")
+            self.t = [line.rstrip('\n').split(',') for line in f]
+            f.close()
         return self.t
 
     # Devuelvelos niveles de cumplimiento
@@ -107,6 +109,30 @@ class Rubrica(models.Model):
     # Borra el archivo asociado
     def borrar(self):
         os.remove(str(self.archivo))
+
+    # Modifica el archivo de acuerdo a la tabla entregada
+    def modificar(self, tabla):
+        tabla = self.reordenar(tabla)
+        f = open(str(self.archivo), "w")
+        for linea in tabla:
+            f.write(",".join(linea) + "\n")
+        self.t = None
+
+    # Reordena las celdas en puntaje de menor a mayor
+    def reordenar(self, tabla):
+        nt = [[tabla[i].pop(0)] for i in range(len(tabla))]
+        while len(tabla[0]) > 0:
+            i = tabla[0].index(min(tabla[0]))
+            for j in range(len(tabla)):
+                nt[j].append(tabla[j].pop(i))
+        return nt
+
+    # True si el puntaje maximo es 6.0
+    def validar(self):
+        t = self.tabla()
+        pmax = float(t[0][-1])
+        print(str(10 * pmax * (len(t) - 1)))
+        return int(10 * pmax * (len(t) - 1)) == 60
 
 class EvaluacionRubrica(models.Model):
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)

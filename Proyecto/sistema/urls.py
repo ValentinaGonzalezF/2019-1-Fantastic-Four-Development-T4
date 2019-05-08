@@ -34,5 +34,6 @@ urlpatterns = [
     path('evaluadores/eliminar/', views.eliminar_evaluador, name = 'evaluador_eli'),
 
     path('rubricas/agregar/', views.agregar_rubrica, name = 'rubrica_agr'),
+    path('rubricas/<int:rubrica_id>/guardar', views.modificar_rubrica, name = 'rubrica_mod'),
     path('rubricas/eliminar/', views.eliminar_rubrica, name = 'rubrica_eli'),
 ]
