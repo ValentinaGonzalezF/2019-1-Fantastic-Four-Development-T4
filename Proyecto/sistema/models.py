@@ -7,7 +7,6 @@ import os
 # Create your models here.
 class Grupo(models.Model):
     nombre = models.CharField(max_length=100)
-
     def __str__(self):
         return self.nombre
 
@@ -53,6 +52,7 @@ class InstanciaGrupo(models.Model):
 
 class Evaluacion(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
     fecha_inicio=models.DateField()
     fecha_fin=models.DateField()
     tiempo=models.TimeField()

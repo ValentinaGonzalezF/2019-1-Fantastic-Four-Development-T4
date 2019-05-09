@@ -41,6 +41,7 @@ urlpatterns = [
     path('evaluaciones/modificar/', views.modificar_evaluacion, name = 'evaluacion_mod'),
     path('evaluaciones/eliminar/', views.eliminar_evaluacion, name = 'evaluacion_eli'),
 
+    path('grupos/', views.gruposevaluacion, name='gruposevaluacion'),
     path('evaluacion/', views.evaluacion, name='evaluacion'),
 
     path('landingpage/', views.index_landing, name='index_landing'),
