@@ -1,15 +1,11 @@
 from django.shortcuts import render, redirect, reverse
 
-from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo
+from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua
 from .forms import EvaluadorForm, EvaluacionForm
 #   INDICES
 def index_landing(request):
     return render(request,'sistema/landing.html')
 
-# LOGIN
-
-def index_login(request):
-    return render(request, 'sistema/login.html')
 
 def index_cursos(request):
     context = {
@@ -55,6 +51,7 @@ def index_rubricas(request):
 
 #   EVALUACION
 def gruposevaluacion(request,eval_id=1):
+
     context = {
         'lista_grupos': Grupo.objects.all()
         #'lista_': Grupo.objects.get(pk=rubrica_id)
@@ -69,8 +66,8 @@ def evaluacion(request, eval_id=0,grupo_id=0):
     #Si ya termino
     return render(request, 'sistema/evaluacion/posteval.html')
 
-def postevaluacion(request, eval_id):
-    return
+def postevaluacion(request, eval_id=0):
+    return render(request, 'sistema/evaluacion/posteval.html')
 
 
 #   RUBRICA
