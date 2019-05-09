@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 
-from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua
+from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua, InstanciaGrupo
 from .forms import EvaluadorForm, EvaluacionForm
 
 #   INDICES
@@ -55,20 +55,35 @@ def index_rubricas(request):
 
 #   EVALUACION
 def gruposevaluacion(request,eval_id=1):
+    #Suponiendo que se envia el id de la evaluacion
+    #eva=Evaluacion.objects.get(id=eval_id)
+    #inst=Instancia.objects.get(id=eva.instancia_id)
+    #instancias=InstanciaGrupo.objects.filter(instancia_id=inst)
+    #Hacer join entre instancia y grupos para sacar grupos
 
+    #Sacado los grupos se debe sacar la lista de integrantes para cada grupo
+    #grupos=Grupo.objects.filter(id=)
+    #a=[]
+    #for g in range(len(grupos)):
+        #a[i]=Alumno.objects.filter(grupo_id=i.g)
     context = {
         'lista_grupos': Grupo.objects.all()
-        #'lista_': Grupo.objects.get(pk=rubrica_id)
+        #'lista_alumnos': Alumno.objects.get(pk=_id)
     }
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
 
 def evaluacion(request, eval_id=0,grupo_id=0):
+    #evalu = Evaluacion.objects.get(id=eval_id)
+    # diferencia=eva.fecha_fin-eva.fecha_inicio
     #Si esta en curso la evaluación
-    if True:
-        return render(request, 'sistema/evaluacion/evaluacionadmin.html')
+    #context = {
+     #   'evaluacion': evalu
+    #}
+    if True:#if diferencia<0:
+        return render(request,'sistema/evaluacion/evaluacionadmin.html')#,context)
     #Si ya termino
-    return render(request, 'sistema/evaluacion/posteval.html')
+    return render(request, 'sistema/evaluacion/posteval.html')#,context)
 
 def postevaluacion(request, eval_id=0):
     return render(request, 'sistema/evaluacion/posteval.html')
