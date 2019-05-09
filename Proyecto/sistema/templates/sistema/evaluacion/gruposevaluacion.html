@@ -9,8 +9,17 @@
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <div class="w3-container w3-center">
     <h3><b>Lambda-Ideas</b> Presentación Tarea 2 <i>CC4401-1/Otoño/2019</i></h3>
+		 <h3>Fecha inicio: </h3>
+		 <h3>Fecha termino: </h3>
+		 <h3>Tiempo minimo: </h3>
+		 <h3>Tiempo máximo: </h3>
     </div>
 
+	 <div class="w3-container" style="margin-top:50px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Grupos</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <div class="w3-container w3-center">
+	</div>
      <!--Cajas grupos-->
 <div class="w3-row-padding w3-center w3-margin-top">
 	{% for grupo in lista_grupos %}
@@ -18,6 +27,12 @@
 		<button onclick="location.href='{% url 'sistema:evaluacion' %}'" class="w3-card w3-container w3-hover-shadow w3-light-gray" style="max-height:380px;min-height: 317px; width:220px">
 
 		<h3>{{ grupo.nombre }}</h3><br>
+		<ul>
+			<li>Alguien</li>
+			<li>Otra persona</li>
+			<li>Desconocido</li>
+		</ul>
+
 
 
 		</button>

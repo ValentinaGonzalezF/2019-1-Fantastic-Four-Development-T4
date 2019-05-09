@@ -66,7 +66,7 @@ def gruposevaluacion(request,eval_id=1):
 def evaluacion(request, eval_id=0,grupo_id=0):
     #Si esta en curso la evaluación
     if True:
-        return render(request, 'sistema/evaluacion/evaluacion.html')
+        return render(request, 'sistema/evaluacion/evaluacionadmin.html')
     #Si ya termino
     return render(request, 'sistema/evaluacion/posteval.html')
 
