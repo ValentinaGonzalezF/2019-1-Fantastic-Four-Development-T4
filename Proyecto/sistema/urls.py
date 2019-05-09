@@ -21,6 +21,10 @@ from . import views
 app_name = 'sistema'
 
 urlpatterns = [
+    
+    path('login/', views.index_login, name = 'index_login'),
+    
+    
     path('cursos/', views.index_cursos, name = 'index_cursos'),
     path('evaluaciones/', views.index_evaluaciones, name = 'index_evaluaciones'),
     path('evaluadores/', views.index_evaluadores, name = 'index_evaluadores'),

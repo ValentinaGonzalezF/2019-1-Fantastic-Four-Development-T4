@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect, reverse
 
 from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua
 from .forms import EvaluadorForm, EvaluacionForm
+
 #   INDICES
 def index_landing(request):
     return render(request,'sistema/landing.html')
+
+def index_login(request):
+    return render(request,'sistema/login.html')
 
 
 def index_cursos(request):
