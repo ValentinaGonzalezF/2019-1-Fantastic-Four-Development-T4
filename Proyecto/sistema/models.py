@@ -48,7 +48,7 @@ class InstanciaGrupo(models.Model):
     grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE)#sin on delete tira error
 
     def __str__(self):
-        return self.instancia +" "+ self.grupo
+        return str(self.instancia) +" "+ str(self.grupo)
 
 class Evaluacion(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)

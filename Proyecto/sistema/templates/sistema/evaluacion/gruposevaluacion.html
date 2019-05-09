@@ -5,10 +5,11 @@
 {% block content %}
 
  <div class="w3-container" id="designers" style="margin-top:50px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Evaluación <i class="w3-text-green">en curso</i> </b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Evaluación 
+	{% if evaluacion.abierta %}<i class="w3-text-green">en curso</i>{% else %}cerrada{% endif %}</b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <div class="w3-container w3-center">
-    <h3><b>Lambda-Ideas</b> Presentación Tarea 2 <i>CC4401-1/Otoño/2019</i></h3>
+    <h3>{{ evaluacion.nombre }} <i>{{ evaluacion.instancia }}</i></h3>
 		 <h3>Fecha inicio: </h3>
 		 <h3>Fecha termino: </h3>
 		 <h3>Tiempo minimo: </h3>
@@ -24,28 +25,19 @@
 <div class="w3-row-padding w3-center w3-margin-top">
 	{% for grupo in lista_grupos %}
 	<div class="w3-col m6 l4 w3-margin-top">
-		<button onclick="location.href='{% url 'sistema:evaluacion' %}'" class="w3-card w3-container w3-hover-shadow w3-light-gray" style="max-height:380px;min-height: 317px; width:220px">
-
-		<h3>{{ grupo.nombre }}</h3><br>
+		<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id %}'" class="w3-card w3-container w3-hover-shadow w3-light-gray" style="max-height:380px;min-height: 317px; width:220px">
+		<h3>{{ grupo.nombre }}</h3>
+		<br>
 		<ul>
-			<li>Alguien</li>
-			<li>Otra persona</li>
-			<li>Desconocido</li>
+			{% for alumno in grupo.grupo.alumno_set.all %}
+			<li>{{ alumno.nombre }}</li>
+			{% endfor %}
 		</ul>
-
-
-
 		</button>
 		<br>
-		<button  onclick="location.href='{% url 'sistema:evaluacion' %}'" class="w3-btn w3-red">Evaluar</button>
+		<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id %}'" class="w3-btn w3-red">Evaluar</button>
 	</div>
 	{% endfor %}
-
-
-
-
 </div>
- </div>
-
 
 {% endblock %}

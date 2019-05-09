@@ -54,12 +54,10 @@ def index_rubricas(request):
 
 
 #   EVALUACION
-def gruposevaluacion(request,eval_id=1):
-    #Suponiendo que se envia el id de la evaluacion
-    #eva=Evaluacion.objects.get(id=eval_id)
-    #inst=Instancia.objects.get(id=eva.instancia_id)
-    #instancias=InstanciaGrupo.objects.filter(instancia_id=inst)
-    #Hacer join entre instancia y grupos para sacar grupos
+def evaluacion(request, eval_id):
+	#grupos del curso de la evaluacion
+    ev = Evaluacion.objects.get(pk=eval_id)
+    grupos = InstanciaGrupo.objects.filter(instancia=ev.instancia)
 
     #Sacado los grupos se debe sacar la lista de integrantes para cada grupo
     #grupos=Grupo.objects.filter(id=)
@@ -67,13 +65,13 @@ def gruposevaluacion(request,eval_id=1):
     #for g in range(len(grupos)):
         #a[i]=Alumno.objects.filter(grupo_id=i.g)
     context = {
-        'lista_grupos': Grupo.objects.all()
-        #'lista_alumnos': Alumno.objects.get(pk=_id)
+		'evaluacion': ev,
+        'lista_grupos': grupos
     }
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
 
-def evaluacion(request, eval_id=0,grupo_id=0):
+def evaluacion_grupo(request, eval_id=0,grupo_id=0):
     #evalu = Evaluacion.objects.get(id=eval_id)
     # diferencia=eva.fecha_fin-eva.fecha_inicio
     #Si esta en curso la evaluación
