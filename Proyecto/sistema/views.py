@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, reverse
 
 from .models import Instancia, Evaluador, Evaluacion, Rubrica
 from .forms import EvaluadorForm, EvaluacionForm
-
-
 #   INDICES
+def index_landing(request):
+    return render(request,'sistema/landing.html')
+
 
 def index_cursos(request):
     context = {
@@ -33,6 +34,7 @@ def index_evaluadores(request, error = 0, nombre = None):
     context = {
         #id 1 es evaluadores eliminados
         #id 2 es el admin
+        #Filtra los valores mayores a gt
             'lista_evaluadores': Evaluador.objects.filter(id__gt=2)
     }
     if error:
@@ -48,11 +50,12 @@ def index_rubricas(request):
 
 
 #   EVALUACION
-
-def evaluacion(request, eval_id):
+def evaluacion(request, eval_id=0,grupo_id=0):
+    #Si esta en curso la evaluación
     if True:
-        return
-    return
+        return render(request, 'sistema/evaluacion/evaluacion.html')
+    #Si ya termino
+    return render(request, 'sistema/evaluacion/posteval.html')
 
 def postevaluacion(request, eval_id):
     return
@@ -76,7 +79,6 @@ def rubrica_editar(request, rubrica_id):
 
 
 #   GESTIONAR EVALUADOR
-
 def agregar_evaluador(request):
     # Si se carga la pagina normalmente
     if request.method != "POST":
