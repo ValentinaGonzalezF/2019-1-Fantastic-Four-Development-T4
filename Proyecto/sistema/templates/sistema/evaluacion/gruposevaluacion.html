@@ -1,5 +1,7 @@
 {% extends "sistema/base.html" %}
 
+{% load i18n %}
+
 {% block subtitle %}Evaluación{% endblock %}
 
 {% block content %}
@@ -10,10 +12,12 @@
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <div class="w3-container w3-center">
     <h3>{{ evaluacion.nombre }} <i>{{ evaluacion.instancia }}</i></h3>
-		 <h3>Fecha inicio: </h3>
-		 <h3>Fecha termino: </h3>
+	    {% language 'es' %}
+		 <h3>Fecha inicio: {{ evaluacion.fecha_inicio }}</h3>
+		 <h3>Fecha termino: {{ evaluacion.fecha_fin }}</h3>
 		 <h3>Tiempo minimo: </h3>
 		 <h3>Tiempo máximo: </h3>
+		{% endlanguage %}
     </div>
 
 	 <div class="w3-container" style="margin-top:50px">
@@ -26,7 +30,7 @@
 	{% for grupo in lista_grupos %}
 	<div class="w3-col m6 l4 w3-margin-top">
 		<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id %}'" class="w3-card w3-container w3-hover-shadow w3-light-gray" style="max-height:380px;min-height: 317px; width:220px">
-		<h3>{{ grupo.nombre }}</h3>
+		<h3>{{ grupo.grupo.nombre }}</h3>
 		<br>
 		<ul>
 			{% for alumno in grupo.grupo.alumno_set.all %}
