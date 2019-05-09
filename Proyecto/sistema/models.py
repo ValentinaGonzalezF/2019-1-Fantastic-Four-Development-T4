@@ -52,7 +52,7 @@ class InstanciaGrupo(models.Model):
 
 class Evaluacion(models.Model):
     instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, default="Evaluacion")
     fecha_inicio=models.DateField()
     fecha_fin=models.DateField()
     tiempo=models.TimeField()
