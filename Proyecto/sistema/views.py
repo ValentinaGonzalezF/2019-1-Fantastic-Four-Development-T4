@@ -163,7 +163,8 @@ def agregar_evaluacion(request):
     # Validar el formato de las fechas
     if form.is_valid():
         # Tiempo recibe valor por defecto
-        ev = Evaluacion.objects.create(instancia=request.POST['curso'],
+        ev = Evaluacion.objects.create(instancia=Instancia.objects.get(pk=request.POST['curso']),
+									   nombre=request.POST['nombre'],
                                        fecha_inicio=form.cleaned_data['inicio'],
                                        fecha_fin=form.cleaned_data['fin'],
                                        tiempo="00:07:00")
@@ -171,10 +172,10 @@ def agregar_evaluacion(request):
         if ev.validar_fechas():
             ev.save()
             # Crear relacion entre rubrica y evaluacion
-            EvaluacionRubrica.objects.create(evaluacion=ev.id,
-                                             rubrica=request.POST['rubrica']).save()
+            EvaluacionRubrica.objects.create(evaluacion=ev,
+                                             rubrica=Rubrica.objects.get(pk=request.POST['rubrica'])).save()
             # Admin como evaluador por defecto (Cambiar a usuario que realiza la accion?)
-            Evalua.objects.create(evaluacion=ev.id, evaluador=2).save()
+            Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=2)).save()
             return redirect("sistema:evaluacion", ev.id)
     return index_evaluaciones(request, error = True)
     

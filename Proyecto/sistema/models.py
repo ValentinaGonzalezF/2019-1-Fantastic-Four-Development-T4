@@ -63,11 +63,11 @@ class Evaluacion(models.Model):
     # True si fecha_inicio es posterio a fecha actual
     # y fecha_fin es posterior a fecha_inicio
     def validar_fechas(self):
-        pass #TODO
+        return self.fecha_inicio <= self.fecha_fin and self.fecha_inicio >= timezone.now().date()
 
     # True si fecha actual esta entre fecha_inicio y fecha_fin
     def abierta(self):
-        pass #TODO
+        return self.fecha_inicio <= timezone.now().date() <= self.fecha_fin
 
 class Evaluador(models.Model):
     nombre = models.CharField(max_length=100)
