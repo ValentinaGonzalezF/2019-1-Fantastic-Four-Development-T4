@@ -6,6 +6,10 @@ from .forms import EvaluadorForm, EvaluacionForm
 def index_landing(request):
     return render(request,'sistema/landing.html')
 
+# LOGIN
+
+def index_login(request):
+    return render(request, 'sistema/login.html')
 
 def index_cursos(request):
     context = {

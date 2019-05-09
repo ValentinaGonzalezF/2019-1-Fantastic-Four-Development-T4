@@ -21,6 +21,8 @@ from . import views
 app_name = 'sistema'
 
 urlpatterns = [
+    path('login/', views.index_login, name = 'index_login'),
+    
     path('cursos/', views.index_cursos, name = 'index_cursos'),
     path('evaluaciones/', views.index_evaluaciones, name = 'index_evaluaciones'),
     path('evaluadores/', views.index_evaluadores, name = 'index_evaluadores'),
@@ -28,7 +30,7 @@ urlpatterns = [
     path('evaluaciones/<int:eval_id>/', views.evaluacion, name = 'evaluacion'),
     path('rubricas/<int:rubrica_id>/', views.rubrica, name = 'rubrica'),
     path('rubricas/<int:rubrica_id>/editar', views.rubrica_editar, name = 'rubrica_editar'),
-
+    
     path('evaluadores/agregar/', views.agregar_evaluador, name = 'evaluador_agr'),
     path('evaluadores/modificar/', views.modificar_evaluador, name = 'evaluador_mod'),
     path('evaluadores/eliminar/', views.eliminar_evaluador, name = 'evaluador_eli'),
