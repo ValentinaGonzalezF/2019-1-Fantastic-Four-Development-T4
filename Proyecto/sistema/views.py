@@ -65,16 +65,17 @@ def evaluacion(request, eval_id):
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
 
-def evaluacion_grupo(request,eval_id=0,grupo_id=0):
+def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     ev = Evaluacion.objects.get(pk=eval_id)
     gr = Grupo.objects.get(pk=grupo_id)
-    # diferencia=eva.fecha_fin-eva.fecha_inicio
-    #Si esta en curso la evaluación
+    rub = Rubrica.objects.get(pk=rubrica_id)
     context = {
         'evaluacion': ev,
-        'grupo' : gr
+        'grupo' : gr,
+        'rubrica':rub
     }
-    if ev.abierta:#if diferencia<0:
+    #Si esta en curso la evaluación
+    if ev.abierta:
         return render(request,'sistema/evaluacion/evaluacionadmin.html',context)
     #Si ya termino
     return render(request, 'sistema/evaluacion/posteval.html',context)

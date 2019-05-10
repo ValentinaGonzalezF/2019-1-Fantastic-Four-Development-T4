@@ -29,7 +29,7 @@
 <div class="w3-row-padding w3-center w3-margin-top">
 	{% for grupo in lista_grupos %}
 	<div class="w3-col m6 l4 w3-margin-top">
-		<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id %}'" class="w3-card w3-container w3-hover-shadow w3-light-gray" style="max-height:380px;min-height: 317px; width:220px">
+		<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}'" class="w3-card w3-container w3-hover-shadow w3-light-gray" style="max-height:380px;min-height: 317px; width:220px">
 		<h3>{{ grupo.grupo.nombre }}</h3>
 		<br>
 		<ul>
@@ -39,7 +39,7 @@
 		</ul>
 		</button>
 		<br>
-		{% if evaluacion.abierta %}<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id %}'" class="w3-btn w3-red">Evaluar</button>{% endif %}
+		{% if evaluacion.abierta %}<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}'" class="w3-btn w3-red">Evaluar</button>{% endif %}
 	</div>
 	{% endfor %}
 </div>
