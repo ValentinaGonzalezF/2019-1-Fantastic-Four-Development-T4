@@ -174,10 +174,32 @@ def agregar_evaluacion(request):
             Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=2)).save()
             return redirect("sistema:evaluacion", ev.id)
     return index_evaluaciones(request, error = True)
-    
 
 def modificar_evaluacion(request):
-    return #redirect("sistema:evaluacion", ev.id)
+    # Si se carga la pagina normalmente
+    if request.method != "POST":
+        return redirect(reverse('sistema:index_evaluaciones'))
+    form = EvaluacionForm(request.POST)
+    # Validar el formato de las fechas
+    if form.is_valid():
+        # Tiempo recibe valor por defecto
+        eval = Evaluacion.objects.get(pk=request.POST['id'])
+        #eval.instancia = request.POST['curso']
+        eval.nombre = request.POST['nombre']
+        eval.fecha_inicio = form.cleaned_data['inicio']
+        eval.fecha_fin = form.cleaned_data['inicio']
+        eval.tiempo_min = form.cleaned_data['minimo']
+        eval.tiempo_max = form.cleaned_data['maximo']
+        # Si las fechas estan correctas
+        if eval.validar_fechas():
+            eval.save()
+            # Crear relacion entre rubrica y evaluacion
+            EvaluacionRubrica.objects.create(evaluacion=eval,
+                                             rubrica=Rubrica.objects.get(pk=request.POST['rubrica'])).save()
+            # Admin como evaluador por defecto (Cambiar a usuario que realiza la accion?)
+            Evalua.objects.create(evaluacion=eval, evaluador=Evaluador.objects.get(pk=2)).save()
+            return redirect("sistema:evaluacion", eval.id)
+    return index_evaluaciones(request, error=True)
     
 def eliminar_evaluacion(request):
     id = int(request.POST['id'])

@@ -34,7 +34,7 @@
 </p>
 
   <button onclick="location.href='{% url 'sistema:evaluacion' eval_id=evaluacion.id %}'" class="w3-button w3-large w3-red w3-round">Ver</button>
-  <button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio }}', '{{ evaluacion.fecha_fin }}','{{ evaluacion.tiempo_max }}','{{ evaluacion.tiempo_min }}'),'rubrica','curso'" class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
+  <button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:'Y-m-d' }}', '{{ evaluacion.fecha_fin|date:'Y-m-d' }}','{{ evaluacion.tiempo_max|time:'H:i' }}','{{ evaluacion.tiempo_min|time:'H:i' }}'),'rubrica','curso'" class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
   <button onclick="eliminar({{ evaluacion.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
 </div>
 {% endfor %}
@@ -149,7 +149,7 @@
             <option value="{{ curso.id }}">{{ curso }}</option>
             {% endfor %}
           </select>
-          <input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Agregar">
+          <input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Guardar">
         </div>
       </form>
     </div>
