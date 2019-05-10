@@ -15,7 +15,7 @@
   </div>
 
 <!--Cajas evaluadores-->
-<div class="w3-row-padding w3-center w3-margin-top">
+<div class="w3-row-padding w3-center w3-margin-top" style="margin-bottom: 64px">
 	{% for evaluador in lista_evaluadores %}
 	<div class="w3-col m6 l4 w3-margin-top">
 		<button onclick="modificar({{ evaluador.id }}, '{{ evaluador.nombre }}', '{{ evaluador.correo }}')" class="w3-card w3-container w3-hover-shadow" style="max-height:380px;min-height: 317px; width: 230px">
