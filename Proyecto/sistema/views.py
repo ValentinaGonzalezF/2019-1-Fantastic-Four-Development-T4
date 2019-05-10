@@ -190,14 +190,16 @@ def modificar_evaluacion(request):
         eval.fecha_fin = form.cleaned_data['inicio']
         eval.tiempo_min = form.cleaned_data['minimo']
         eval.tiempo_max = form.cleaned_data['maximo']
+        eval.instancia = Instancia.objects.get(pk=request.POST['curso'])
         # Si las fechas estan correctas
         if eval.validar_fechas():
             eval.save()
+            r = Rubrica.objects.get(pk=request.POST['rubrica'])
             # Crear relacion entre rubrica y evaluacion
-            EvaluacionRubrica.objects.create(evaluacion=eval,
-                                             rubrica=Rubrica.objects.get(pk=request.POST['rubrica'])).save()
+            relacion = Evaluacion.evaluacionrubrica_set.all()[0]
+            relacion.rubrica = r
+            relacion.save()
             # Admin como evaluador por defecto (Cambiar a usuario que realiza la accion?)
-            Evalua.objects.create(evaluacion=eval, evaluador=Evaluador.objects.get(pk=2)).save()
             return redirect("sistema:evaluacion", eval.id)
     return index_evaluaciones(request, error=True)
     
