@@ -196,7 +196,7 @@ def modificar_evaluacion(request):
             eval.save()
             r = Rubrica.objects.get(pk=request.POST['rubrica'])
             # Crear relacion entre rubrica y evaluacion
-            relacion = Evaluacion.evaluacionrubrica_set.all()[0]
+            relacion = eval.evaluacionrubrica_set.all()[0]
             relacion.rubrica = r
             relacion.save()
             # Admin como evaluador por defecto (Cambiar a usuario que realiza la accion?)
