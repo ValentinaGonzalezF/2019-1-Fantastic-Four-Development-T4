@@ -58,9 +58,9 @@ class Evaluacion(models.Model):
     nombre = models.CharField(max_length=100, default="Evaluacion")
     fecha_inicio=models.DateField()
     fecha_fin=models.DateField()
-    tiempo=models.TimeField(default=timezone.now())
-    #tiempo_min=models.TimeField(default= timezone.now())
-    #tiempo_max=models.TimeField(default= timezone.now())
+    tiempo=models.TimeField(default='00:00:00')
+    tiempo_min=models.TimeField(default='00:00:00')
+    tiempo_max=models.TimeField(default='00:00:00')
 
     def __str__(self):
         return str(self.fecha_inicio)
