@@ -29,7 +29,7 @@
     <li>Fecha inicio: {{ evaluacion.fecha_inicio }}</li> 
     <li>Fecha término: {{ evaluacion.fecha_fin }}</li>
     {% endlanguage %}
-    <button class="w3-button w3-white w3-border w3-border-red w3-round-large">Rúbrica asociada</button>
+    <a href="{% url 'sistema:rubrica' rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}"><button class="w3-button w3-white w3-border w3-border-red w3-round-large">Rúbrica asociada</button></a>
   <button class="w3-button w3-white w3-border w3-border-red w3-round-large">Exportar puntajes</button><br>
 </p>
 
