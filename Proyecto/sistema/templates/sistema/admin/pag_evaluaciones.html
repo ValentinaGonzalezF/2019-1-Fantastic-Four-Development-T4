@@ -34,7 +34,7 @@
 </p>
 
   <button onclick="location.href='{% url 'sistema:evaluacion' eval_id=evaluacion.id %}'" class="w3-button w3-large w3-red w3-round">Ver</button>
-  <button class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
+  <button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio }}', '{{ evaluacion.fecha_fin }}','{{ evaluacion.tiempo_max }}','{{ evaluacion.tiempo_min }}'),'rubrica','curso'" class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
   <button onclick="eliminar({{ evaluacion.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
 </div>
 {% endfor %}
@@ -106,6 +106,57 @@
   </div>
 </div>
 
+<!-- modal de modificar -->
+<div id="modificar" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-center"><br>
+      <span onclick="document.getElementById('modificar').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+      <form class="w3-container" action="{% url 'sistema:evaluacion_mod' %}" method="post">
+        {% csrf_token %}
+        <div class="w3-section">
+          <input id="mod_id" type="hidden" name="id" value="">
+		  <label><b>Nombre</b></label>
+		  <input id="mod_nombre" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Ingrese nombre" name="nombre" required>
+          <div class="w3-row">
+            <div class="w3-half">
+              <label><b>Fecha de inicio</b></label>
+              <input id="mod_inicio" class="w3-input w3-border w3-margin-bottom" type="date" required name="inicio">
+            </div>
+            <div class="w3-half">
+              <label><b>Fecha de término</b></label>
+              <input id="mod_termino" class="w3-input w3-border w3-margin-bottom" type="date" required name="fin">
+            </div>
+          </div>
+           <div class="w3-section">
+           <div class="w3-half">
+              <label><b>Tiempo mínimo </b></label>
+              <input id="mod_min" class="w3-input w3-border w3-margin-bottom" type="time" required name="minimo">
+            </div>
+           <div class="w3-half">
+              <label><b>Tiempo máximo</b></label>
+              <input id="mod_max" class="w3-input w3-border w3-margin-bottom" type="time" required name="maximo">
+            </div>
+              </div>
+          <label><b>Rúbrica</b></label>
+          <select class="w3-select w3-margin-bottom" name="rubrica">
+            {% for rubrica in lista_rubricas %}{% if rubrica.validar %}
+            <option value="{{ rubrica.id }}">{{ rubrica.nombre }}</option>
+            {% endif %}{% endfor %}
+          </select>
+          <label><b>Curso</b></label>
+          <select class="w3-select" name="curso">
+            {% for curso in lista_cursos %}
+            <option value="{{ curso.id }}">{{ curso }}</option>
+            {% endfor %}
+          </select>
+          <input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Agregar">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <script>
 function myFunction(id) {
   var x = document.getElementById(id);
@@ -121,6 +172,17 @@ function myFunction(id) {
 		document.getElementById('valor_eliminar').value = id;
 		document.getElementById('eliminar').style.display='block';
 	}
+  function modificar(id, nombre, fecha_i,fecha_t,tiempo_max,tiempo_min,rubrica,curso) {
+		document.getElementById('mod_nombre').value = nombre;
+		document.getElementById('mod_inicio').value = fecha_i;
+		document.getElementById('mod_termino').value = fecha_t;
+		document.getElementById('mod_max').value = tiempo_max;
+		document.getElementById('mod_min').value = tiempo_min;
+		//document.getElementById('mod_rubrica').value = rubrica;
+		//document.getElementById('mod_curso').value = curso;
+		document.getElementById('mod_id').value = id;
+		document.getElementById('modificar').style.display='block';
+  }
 </script>
 
 {% endblock %}

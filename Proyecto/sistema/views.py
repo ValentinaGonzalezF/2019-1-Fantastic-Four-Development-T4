@@ -177,7 +177,7 @@ def agregar_evaluacion(request):
     
 
 def modificar_evaluacion(request):
-    return # TODO
+    return #redirect("sistema:evaluacion", ev.id)
     
 def eliminar_evaluacion(request):
     id = int(request.POST['id'])
