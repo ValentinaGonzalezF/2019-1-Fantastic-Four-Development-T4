@@ -7,4 +7,6 @@ class EvaluadorForm(forms.Form):
 class EvaluacionForm(forms.Form):
     inicio = forms.DateField()
     fin = forms.DateField()
+    maximo= forms.TimeField()
+    minimo = forms.TimeField()
 

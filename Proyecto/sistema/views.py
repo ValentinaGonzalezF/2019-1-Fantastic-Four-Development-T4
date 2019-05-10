@@ -162,7 +162,8 @@ def agregar_evaluacion(request):
 									   nombre=request.POST['nombre'],
                                        fecha_inicio=form.cleaned_data['inicio'],
                                        fecha_fin=form.cleaned_data['fin'],
-                                       tiempo="00:07:00")
+                                       tiempo_min=form.cleaned_data['minimo'],
+                                       tiempo_max=form.cleaned_data['maximo'])
         # Si las fechas estan correctas
         if ev.validar_fechas():
             ev.save()
