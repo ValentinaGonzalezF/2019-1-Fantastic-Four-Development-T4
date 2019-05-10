@@ -34,7 +34,7 @@
 </p>
 
   <button onclick="location.href='{% url 'sistema:evaluacion' eval_id=evaluacion.id %}'" class="w3-button w3-large w3-red w3-round">Ver</button>
-  <button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:"Y-m-d" }}', '{{ evaluacion.fecha_fin|date:"Y-m-d" }}','{{ evaluacion.tiempo_max|time:"H:i" }}','{{ evaluacion.tiempo_min|time:"H:i" }}',{{ evaluacion.evaluacionrubrica_set.all.0.rubrica.id }},{{ evaluacion.instancia.id }})" class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
+  <button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:'Y-m-d' }}', '{{ evaluacion.fecha_fin|date:'Y-m-d' }}','{{ evaluacion.tiempo_max|time:'H:i' }}','{{ evaluacion.tiempo_min|time:'H:i' }}',{{ evaluacion.evaluacionrubrica_set.all.0.rubrica.id }},{{ evaluacion.instancia.id }})" class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
   <button onclick="eliminar({{ evaluacion.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
 </div>
 {% endfor %}

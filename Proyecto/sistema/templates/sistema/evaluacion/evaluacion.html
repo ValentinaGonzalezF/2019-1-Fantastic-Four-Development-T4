@@ -19,14 +19,14 @@ TODO: Recibir info de rúbrica
     <div class="w3-panel  w3-margin-bottom">
       <ul class="w3-ul w3-light-grey w3-center w3-card-4">
         <li class="w3-red w3-xlarge w3-padding-32">Contenidos <i class="far fa-check-circle"></i></li>
-        <li class="opcion w3-padding-16"> No incluye las interfaces
+        <li class="opcion w3-padding-16" onclick="selector(this);"> No incluye las interfaces
             solicitadas
           </li>
-        <li class="opcion w3-padding-16 selected"> Faltan la mayoria de las
+        <li class="opcion w3-padding-16 selected" onclick="selector(this);"> Faltan la mayoria de las
             interfaces
            </li>
-        <li class="opcion w3-padding-16"> Solo faltan 1 o 2 interfaces </li>
-        <li class="opcion w3-padding-16"> Incluye todas las interfaces
+        <li class="opcion w3-padding-16" onclick="selector(this);"> Solo faltan 1 o 2 interfaces </li>
+        <li class="opcion w3-padding-16" onclick="selector(this);"> Incluye todas las interfaces
             solicitadas
            </li>
       </ul>
@@ -35,21 +35,21 @@ TODO: Recibir info de rúbrica
           
       <div class="w3-panel w3-margin-bottom">
         <ul class="w3-ul w3-light-grey w3-center w3-card-4">
-          <li class="w3-orange w3-xlarge w3-padding-32">Calidad del material
+          <li class="w3-orange w3-xlarge w3-padding-32" >Calidad del material
               <i class="fas fa-exclamation-circle"></i><i class="w3-medium"> falta seleccionar</i></li> 
-          <li class="opcion w3-padding-16">Presentación con muchos
+          <li class="opcion w3-padding-16" onclick="selector(this);">Presentación con muchos
               errores ortográficos, todas
               las imágenes son de baja
               resolución
               </li>
-          <li class="opcion w3-padding-16">Algunos errores
+          <li class="opcion w3-padding-16" onclick="selector(this);">Algunos errores
               ortográficos, casi todas las
               imágenes son de baja
               resolución
               </li>
-          <li class="opcion w3-padding-16">Pocos errores ortográficos,solo algunas imágenes sonde baja resolución
+          <li class="opcion w3-padding-16" onclick="selector(this);">Pocos errores ortográficos,solo algunas imágenes sonde baja resolución
             </li>
-          <li class="opcion w3-padding-16">Pocos errores ortográficos,
+          <li class="opcion w3-padding-16" onclick="selector(this);">Pocos errores ortográficos,
               todas las imágenes son de
               buena resolución
               </li>
@@ -62,23 +62,23 @@ TODO: Recibir info de rúbrica
               funcionales <i class="far fa-check-circle"></i>
               
             </li>
-          <li class="opcion w3-padding-16">Solo describe las
+          <li class="opcion w3-padding-16" onclick="selector(this);">Solo describe las
               interfaces, sin mencionar
               requisito alguno
               
               </li>
-          <li class="opcion w3-padding-16">Solo para algunas de las
+          <li class="opcion w3-padding-16" onclick="selector(this);">Solo para algunas de las
               interfaces explica cómo
               satisfacen los requisitos
               funcionales
               
               </li>
-          <li class="opcion w3-padding-16 selected">Para casi todas las
+          <li class="opcion w3-padding-16 selected" onclick="selector(this);">Para casi todas las
               interfaces, explica cómo
               satisfacen los requisitos
               funcionales
               </li>
-          <li class="opcion w3-padding-16">Explica claramente como
+          <li class="opcion w3-padding-16" onclick="selector(this);">Explica claramente como
               cada interfaz satisface los
               requisitos funcionales
               
@@ -92,22 +92,22 @@ TODO: Recibir info de rúbrica
                 información <i class="far fa-check-circle"></i>
                 
               </li>
-            <li class="opcion w3-padding-16">No se entiende la
+            <li class="opcion w3-padding-16" onclick="selector(this);">No se entiende la
                 presentación porque no haysecuencia lógica de
                 información               
                 </li>
-            <li class="opcion w3-padding-16">Es difícil seguir la
+            <li class="opcion w3-padding-16" onclick="selector(this);">Es difícil seguir la
                 presentación, porque el
                 presentador “salta” entre
                 diapositivas
                 
                 </li>
-            <li class="opcion w3-padding-16">La información está
+            <li class="opcion w3-padding-16" onclick="selector(this);">La información está
                 presentada en una
                 secuencia lógica
                 
                 </li>
-            <li class="opcion w3-padding-16 selected">La información es
+            <li class="opcion w3-padding-16 selected" onclick="selector(this);">La información es
                 presentada en una forma
                 lógica e interesante                
                 
@@ -120,23 +120,23 @@ TODO: Recibir info de rúbrica
               <li class="w3-red w3-xlarge w3-padding-32">Forma <i class="far fa-check-circle"></i>
                   
                 </li>
-              <li class="opcion w3-padding-16">No se entiende lo que dice(en términos fonéticos y
+              <li class="opcion w3-padding-16" onclick="selector(this);">No se entiende lo que dice(en términos fonéticos y
                   cinéticos)
                      
                   </li>
-              <li class="opcion w3-padding-16">Se entiende lo que dice la
+              <li class="opcion w3-padding-16" onclick="selector(this);">Se entiende lo que dice la
                   de manera parcial (su
                   cuerpo no acompaña sus
                   palabras)
                   
                   </li>
-              <li class="opcion w3-padding-16 selected">Se da a entender,
+              <li class="opcion w3-padding-16 selected"  onclick="selector(this);">Se da a entender,
                   presentando de manera
                   eficiente y adecuado
                   lenguaje corporal
                   
                   </li>
-              <li class="opcion w3-padding-16">Se da a entender siempre,
+              <li class="opcion w3-padding-16" onclick="selector(this);">Se da a entender siempre,
                   destacando en su forma
                   (pausas, dicción, contacto
                   visual, gesticulación, otros)
@@ -150,19 +150,19 @@ TODO: Recibir info de rúbrica
                 <li class="w3-red w3-xlarge w3-padding-32">Entusiasmo <i class="far fa-check-circle"></i>
                     
                   </li>
-                <li class="opcion w3-padding-16">No muestra interés en su
+                <li class="opcion w3-padding-16" onclick="selector(this);">No muestra interés en su
                     entrega
                     
                     </li>
-                <li class="opcion w3-padding-16">Se muestra algo negativo
+                <li class="opcion w3-padding-16" onclick="selector(this);">Se muestra algo negativo
                     acerca de su entrega
                     
                     </li>
-                <li class="opcion w3-padding-16 selected">Ocasionalmente habla en
+                <li class="opcion w3-padding-16 selected" onclick="selector(this);">Ocasionalmente habla en
                     forma positiva
                   
                     </li>
-                <li class="opcion w3-padding-16">Habla en forma positiva
+                <li class="opcion w3-padding-16" onclick="selector(this);">Habla en forma positiva
                     durante casi toda la
                     presentación                    
                     </li>
@@ -171,12 +171,22 @@ TODO: Recibir info de rúbrica
 
 
             <div class="w3-panel w3-right w3-half">
-                <button class="w3-button w3-xlarge w3-red" style="margin-left: 15%" onclick="location.href='{% url 'sistema:postevaluacion' %}'"> <i class="fas fa-envelope-open-text"></i> Entregar evaluación</button>
+                <button class="w3-button w3-xlarge w3-red" style="margin-left: 15%" onclick="location.href='{% url 'sistema:postevaluacion' eval_id=evaluacion.id grupo_id=grupo.id %}'"> <i class="fas fa-envelope-open-text"></i> Entregar evaluación</button>
             </div>
 
             
   </div>
-  
-TODO: script para seleccionar celdas
+<script>
+     function selector(element) {
+        var row = element.parentNode;
+        for (var i = 0; i < row.children.length; i++) {
+            if (!row.children.item(i).classList.contains("row-name")) {
+                row.children.item(i).classList.remove("selected");
+            }
+        }
+        element.classList.add("selected");
+     }
+
+</script>
 
 {% endblock %}

@@ -39,7 +39,7 @@
 		</ul>
 		</button>
 		<br>
-		<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id %}'" class="w3-btn w3-red">Evaluar</button>
+		{% if evaluacion.abierta %}<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id %}'" class="w3-btn w3-red">Evaluar</button>{% endif %}
 	</div>
 	{% endfor %}
 </div>

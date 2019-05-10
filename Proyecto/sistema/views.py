@@ -58,9 +58,6 @@ def evaluacion(request, eval_id):
 	#grupos del curso de la evaluacion
     ev = Evaluacion.objects.get(pk=eval_id)
     grupos = InstanciaGrupo.objects.filter(instancia=ev.instancia)
-    #a=[]
-    #for g in range(len(grupos)):
-        #a[i]=Alumno.objects.filter(grupo_id=i.g)
     context = {
 		'evaluacion': ev,
         'lista_grupos': grupos
@@ -68,20 +65,28 @@ def evaluacion(request, eval_id):
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
 
-def evaluacion_grupo(request, eval_id=0,grupo_id=0):
-    #evalu = Evaluacion.objects.get(id=eval_id)
+def evaluacion_grupo(request,eval_id=0,grupo_id=0):
+    ev = Evaluacion.objects.get(pk=eval_id)
+    gr = Grupo.objects.get(pk=grupo_id)
     # diferencia=eva.fecha_fin-eva.fecha_inicio
     #Si esta en curso la evaluación
-    #context = {
-     #   'evaluacion': evalu
-    #}
-    if True:#if diferencia<0:
-        return render(request,'sistema/evaluacion/evaluacionadmin.html')#,context)
+    context = {
+        'evaluacion': ev,
+        'grupo' : gr
+    }
+    if ev.abierta:#if diferencia<0:
+        return render(request,'sistema/evaluacion/evaluacionadmin.html',context)
     #Si ya termino
-    return render(request, 'sistema/evaluacion/posteval.html')#,context)
+    return render(request, 'sistema/evaluacion/posteval.html',context)
 
-def postevaluacion(request, eval_id=0):
-    return render(request, 'sistema/evaluacion/posteval.html')
+def postevaluacion(request, eval_id=0,grupo_id=0):
+    ev = Evaluacion.objects.get(pk=eval_id)
+    gr = Grupo.objects.get(pk=grupo_id)
+    context = {
+        'evaluacion': ev,
+        'grupo' : gr
+    }
+    return render(request, 'sistema/evaluacion/posteval.html',context)
 
 
 #   RUBRICA
@@ -184,7 +189,6 @@ def modificar_evaluacion(request):
     if form.is_valid():
         # Tiempo recibe valor por defecto
         eval = Evaluacion.objects.get(pk=request.POST['id'])
-        #eval.instancia = request.POST['curso']
         eval.nombre = request.POST['nombre']
         eval.fecha_inicio = form.cleaned_data['inicio']
         eval.fecha_fin = form.cleaned_data['inicio']

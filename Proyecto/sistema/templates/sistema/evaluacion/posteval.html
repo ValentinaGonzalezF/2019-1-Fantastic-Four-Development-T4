@@ -44,7 +44,7 @@
 
             <div class="w3-panel w3-right w3-half" style="margin-top: 50px">
                     <button class="w3-button w3-xlarge w3-red w3-margin-bottom" style="margin-left: 15%" onclick="location.href='evaluacion.html'"> <i class="fas fa-pen"></i>  Editar evaluación</button>
-                    <button class="w3-button w3-xlarge w3-red" style="margin-left: 15%" onclick="location.href='{% url 'sistema:gruposevaluacion' %}'" > <i class="fas fa-door-open"></i> Volver a grupos</button>
+                    <button class="w3-button w3-xlarge w3-red" style="margin-left: 15%" onclick="location.href='{% url 'sistema:evaluacion' eval_id=evaluacion.id %}'" > <i class="fas fa-door-open"></i> Volver a grupos</button>
 
                 </div>
 {% endblock %}
