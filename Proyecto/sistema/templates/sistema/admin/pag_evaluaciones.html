@@ -34,7 +34,7 @@
 </p>
 
   <button onclick="location.href='{% url 'sistema:evaluacion' eval_id=evaluacion.id %}'" class="w3-button w3-large w3-red w3-round">Ver</button>
-  <button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:'Y-m-d' }}', '{{ evaluacion.fecha_fin|date:'Y-m-d' }}','{{ evaluacion.tiempo_max|time:'H:i' }}','{{ evaluacion.tiempo_min|time:'H:i' }}'),'rubrica','curso'" class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
+  <button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:"Y-m-d" }}', '{{ evaluacion.fecha_fin|date:"Y-m-d" }}','{{ evaluacion.tiempo_max|time:"H:i" }}','{{ evaluacion.tiempo_min|time:"H:i" }}',{{ evaluacion.evaluacionrubrica_set.all.0.rubrica.id }},{{ evaluacion.instancia.id }})" class="w3-button w3-large w3-red w3-margin-left w3-round">Modificar</button>
   <button onclick="eliminar({{ evaluacion.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
 </div>
 {% endfor %}
@@ -138,13 +138,13 @@
             </div>
               </div>
           <label><b>Rúbrica</b></label>
-          <select class="w3-select w3-margin-bottom" name="rubrica">
+          <select id="mod_rubrica" class="w3-select w3-margin-bottom" name="rubrica">
             {% for rubrica in lista_rubricas %}{% if rubrica.validar %}
             <option value="{{ rubrica.id }}">{{ rubrica.nombre }}</option>
             {% endif %}{% endfor %}
           </select>
           <label><b>Curso</b></label>
-          <select class="w3-select" name="curso">
+          <select id="mod_curso" class="w3-select" name="curso">
             {% for curso in lista_cursos %}
             <option value="{{ curso.id }}">{{ curso }}</option>
             {% endfor %}
@@ -178,8 +178,8 @@ function myFunction(id) {
 		document.getElementById('mod_termino').value = fecha_t;
 		document.getElementById('mod_max').value = tiempo_max;
 		document.getElementById('mod_min').value = tiempo_min;
-		//document.getElementById('mod_rubrica').value = rubrica;
-		//document.getElementById('mod_curso').value = curso;
+		document.getElementById('mod_rubrica').value = rubrica;
+		document.getElementById('mod_curso').value = curso;
 		document.getElementById('mod_id').value = id;
 		document.getElementById('modificar').style.display='block';
   }
