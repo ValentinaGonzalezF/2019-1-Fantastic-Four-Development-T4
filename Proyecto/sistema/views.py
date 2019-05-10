@@ -58,9 +58,6 @@ def evaluacion(request, eval_id):
 	#grupos del curso de la evaluacion
     ev = Evaluacion.objects.get(pk=eval_id)
     grupos = InstanciaGrupo.objects.filter(instancia=ev.instancia)
-
-    #Sacado los grupos se debe sacar la lista de integrantes para cada grupo
-    #grupos=Grupo.objects.filter(id=)
     #a=[]
     #for g in range(len(grupos)):
         #a[i]=Alumno.objects.filter(grupo_id=i.g)

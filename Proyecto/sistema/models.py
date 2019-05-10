@@ -5,6 +5,9 @@ from django.utils import timezone
 import os
 
 # Create your models here.
+from django.utils.datetime_safe import datetime
+
+
 class Grupo(models.Model):
     nombre = models.CharField(max_length=100)
     def __str__(self):
@@ -55,7 +58,9 @@ class Evaluacion(models.Model):
     nombre = models.CharField(max_length=100, default="Evaluacion")
     fecha_inicio=models.DateField()
     fecha_fin=models.DateField()
-    tiempo=models.TimeField()
+    tiempo=models.TimeField(default=timezone.now())
+    #tiempo_min=models.TimeField(default= timezone.now())
+    #tiempo_max=models.TimeField(default= timezone.now())
 
     def __str__(self):
         return str(self.fecha_inicio)
