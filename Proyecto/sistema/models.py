@@ -76,6 +76,10 @@ class Evaluacion(models.Model):
     def abierta(self):
         return self.fecha_inicio <= timezone.now().date() <= self.fecha_fin
 
+    # True si la evaluacion ya se realizo 
+    def realizada(self):
+        return self.fecha_fin < timezone.now().date()
+
 class Evaluador(models.Model):
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(max_length=90)
