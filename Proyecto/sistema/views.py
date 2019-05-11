@@ -193,7 +193,9 @@ def modificar_evaluacion(request):
     if form.is_valid():
         eval = Evaluacion.objects.get(pk=request.POST['id'])
         eval.nombre = request.POST['nombre']
-        eval.fecha_inicio = form.cleaned_data['inicio']
+        # No se cambia la fecha de inicio si ya esta abierta
+        if not eval.abierta():
+            eval.fecha_inicio = form.cleaned_data['inicio']
         eval.fecha_fin = form.cleaned_data['fin']
         eval.tiempo_min = form.cleaned_data['minimo']
         eval.tiempo_max = form.cleaned_data['maximo']
