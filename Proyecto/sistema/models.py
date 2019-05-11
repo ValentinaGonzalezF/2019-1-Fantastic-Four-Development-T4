@@ -65,10 +65,12 @@ class Evaluacion(models.Model):
     def __str__(self):
         return str(self.fecha_inicio)
 
-    # True si fecha_inicio es posterio a fecha actual
+    # True si fecha_inicio es posterio a fecha actual (al agregar)
     # y fecha_fin es posterior a fecha_inicio
-    def validar_fechas(self):
-        return self.fecha_inicio <= self.fecha_fin and self.fecha_inicio >= timezone.now().date()
+    def validar_fechas(self, agregar=False):
+        if agregar and not (self.fecha_inicio >= timezone.now().date()):
+            return False
+        return self.fecha_inicio <= self.fecha_fin
 
     # True si fecha actual esta entre fecha_inicio y fecha_fin
     def abierta(self):
