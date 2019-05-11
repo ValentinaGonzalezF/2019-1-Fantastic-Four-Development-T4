@@ -69,6 +69,8 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     ev = Evaluacion.objects.get(pk=eval_id)
     gr = Grupo.objects.get(pk=grupo_id)
     rub = Rubrica.objects.get(pk=rubrica_id)
+    #Sacar presentacion con id de evaluacion y de grupo
+    #pre=Presentacion.objects.get(evaluacion_id=eval_id,grupo_id=grupo_id)
     context = {
         'evaluacion': ev,
         'grupo' : gr,
@@ -80,12 +82,14 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     #Si ya termino
     return render(request, 'sistema/evaluacion/posteval.html',context)
 
-def postevaluacion(request, eval_id=0,grupo_id=0):
+def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
     ev = Evaluacion.objects.get(pk=eval_id)
     gr = Grupo.objects.get(pk=grupo_id)
+    rub = Rubrica.objects.get(pk=rubrica_id)
     context = {
         'evaluacion': ev,
-        'grupo' : gr
+        'grupo' : gr,
+        'rubrica': rub
     }
     return render(request, 'sistema/evaluacion/posteval.html',context)
 

@@ -36,7 +36,7 @@ urlpatterns = [
 	# EVALUACION
     path('evaluaciones/<int:eval_id>/', views.evaluacion, name = 'evaluacion'),
 	path('evaluaciones/<int:eval_id>/grupo/<int:grupo_id>/<int:rubrica_id>', views.evaluacion_grupo, name='evaluacion_grupo'),
-    path('evaluaciones/<int:eval_id>/grupo/<int:grupo_id>/post/', views.postevaluacion , name='postevaluacion'),
+    path('evaluaciones/<int:eval_id>/grupo/<int:grupo_id>/post/<int:rubrica_id>', views.postevaluacion , name='postevaluacion'),
 	
 	# RUBRICA
     path('rubricas/<int:rubrica_id>/', views.rubrica, name = 'rubrica'),

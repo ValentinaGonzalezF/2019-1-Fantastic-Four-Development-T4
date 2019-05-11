@@ -7,19 +7,29 @@
   <!-- Evaluacion -->
   <div class="w3-container" id="designers" style="margin-top:50px">
     <h1 class="w3-xxxlarge w3-text-red"><b>Evaluación <i class="w3-text-blue">entregada</i> </b></h1>
-    <i class="w3-large w3-text-green"><i class="far fa-clock"></i> Aún activa </i>
+    <i class="w3-large w3-text-green"><i class="far fa-clock">
+
+        {% if evaluacion.abierta %}</i> Aún activa </i>{% else %}</i> Cerrada </i>{% endif %}</b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <div class="w3-container w3-center">
-    <p><b>Lambda-Ideas</b> Presentación Tarea 2 <i>CC4401-1/Otoño/2019</i></p>
+  <p><b>{{grupo.nombre}} </b> {{ evaluacion.nombre }} <i>{{ evaluacion.instancia }}</i></p>
     <p><i class="w3-text-blue">Su operación se ha procesado exitosamente!</i></p> </div>
     
     <div class="w3-container">
             <h4><b>Resumen de evaluación</b></h4>
-            <p>Contenidos</p>
+        {% for fila in rubrica.tabla %}
+        {% if not forloop.first %}
+        {% for celda in fila %}
+        {% if forloop.first %}
+            <p>{{celda}}</p>
             <div class="w3-grey">
               <div class="w3-container w3-center w3-padding w3-orange" style="width:25%">25%</div>
             </div>
-            <p>Calidad del material</p>
+         {% endif %}
+         {% endfor %}
+           {% endif %}
+        {% endfor %}
+            <!--<p>Calidad del material</p>
             <div class="w3-grey">
               <div class="w3-container w3-center w3-padding w3-green" style="width:75%">75%</div>
             </div>
@@ -38,7 +48,7 @@
             <p>Entusiasmo</p>
             <div class="w3-grey">
               <div class="w3-container w3-center w3-padding w3-orange" style="width:25%">25%</div>
-            </div>
+            </div>-->
 
 {% block post_admin %}
 
