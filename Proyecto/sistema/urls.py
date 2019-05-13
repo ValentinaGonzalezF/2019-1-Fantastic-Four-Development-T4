@@ -35,6 +35,7 @@ urlpatterns = [
 	
 	# EVALUACION
     path('evaluaciones/<int:eval_id>/', views.evaluacion, name = 'evaluacion'),
+    path('evaluaciones/<int:eval_id>/', views.evaluacion, name='evaluacion_agr_evaluador'),
 	path('evaluaciones/<int:eval_id>/grupo/<int:grupo_id>/<int:rubrica_id>', views.evaluacion_grupo, name='evaluacion_grupo'),
     path('evaluaciones/<int:eval_id>/grupo/<int:grupo_id>/post/<int:rubrica_id>', views.postevaluacion , name='postevaluacion'),
 	

@@ -217,6 +217,10 @@ def eliminar_evaluacion(request):
     Evaluacion.objects.get(pk=id).delete()
     return redirect(reverse("sistema:index_evaluaciones"))
 
+def evaluacion_agr_evaluador(request,eval_id=0):
+
+    return redirect(reverse('sistema:evaluacion'))
+
 
 #   GESTIONAR RUBRICA
 
