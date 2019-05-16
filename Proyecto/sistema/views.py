@@ -1,15 +1,21 @@
 from django.shortcuts import render, redirect, reverse
 from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua, InstanciaGrupo
-from .forms import EvaluadorForm, EvaluacionForm
+from .forms import EvaluadorForm, EvaluacionForm, LoginForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 #   INDICES
 def index_landing(request):
-    form = EvaluadorForm(request.POST)
-    user = authenticate(username=form.cleaned_data['usuario'], password=form.cleaned_data['correo'])
-    if (user) is not None:
-        return render(request,'sistema/landing.html')
+    form = LoginForm(request.POST)
+    if request.method != "POST":
+        mail=form['correo']
+        passw=form['password']
+        user = authenticate(request, username=mail, password=passw)
+        if (user) is not None:
+            return render(request,'sistema/landing.html')
+        else:
+            return redirect(reverse('sistema:index_login'))
+
     else:
         return redirect(reverse('sistema:index_login'))
 
@@ -84,7 +90,7 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
         'rubrica':rub
     }
     #Si esta en curso la evaluación
-    if ev.abierta:
+    if ev.abierta():
         return render(request,'sistema/evaluacion/evaluacionadmin.html',context)
     #Si ya termino
     return render(request, 'sistema/evaluacion/posteval.html',context)

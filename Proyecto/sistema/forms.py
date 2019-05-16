@@ -11,6 +11,6 @@ class EvaluacionForm(forms.Form):
     minimo = forms.TimeField()
 
 class LoginForm(forms.Form):
-    usuario=forms.CharField(max_length=100)
     correo=forms.EmailField(max_length=90)
+    password = forms.CharField(max_length=100)
 
