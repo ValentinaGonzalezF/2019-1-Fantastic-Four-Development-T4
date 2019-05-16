@@ -10,15 +10,15 @@ def index_landing(request):
     if request.method != "POST":
         mail=form['correo']
         passw=form['password']
-        user = authenticate(request, username=mail, password=passw)
+        user = authenticate(username=mail, password=passw)
         if (user) is not None:
             return render(request,'sistema/landing.html')
         else:
+            print(user)
             return redirect(reverse('sistema:index_login'))
 
     else:
         return redirect(reverse('sistema:index_login'))
-
 
 def index_login(request):
     return render(request,'sistema/login.html')
