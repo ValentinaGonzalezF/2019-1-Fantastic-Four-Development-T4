@@ -1,11 +1,18 @@
 from django.shortcuts import render, redirect, reverse
-
 from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua, InstanciaGrupo
 from .forms import EvaluadorForm, EvaluacionForm
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 #   INDICES
 def index_landing(request):
-    return render(request,'sistema/landing.html')
+    form = EvaluadorForm(request.POST)
+    user = authenticate(username=, password=)
+    if (user) is not None:
+        return render(request,'sistema/landing.html')
+    else:
+        return redirect(reverse('sistema:index_login'))
+
 
 def index_login(request):
     return render(request,'sistema/login.html')
@@ -126,8 +133,8 @@ def agregar_evaluador(request):
                                           correo = form.cleaned_data['correo'],
                                           password = "1111", es_admin = False)
             ev.save()
-
-
+            user = User.objects.create_user(form.cleaned_data['nombre'], form.cleaned_data['correo'], '1111')
+            user.save()
             # TODO: enviar correo
             
             
