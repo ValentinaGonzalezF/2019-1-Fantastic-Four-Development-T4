@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 #   INDICES
 def index_landing(request):
     form = EvaluadorForm(request.POST)
-    user = authenticate(username=, password=)
+    user = authenticate(username=form.cleaned_data['usuario'], password=form.cleaned_data['correo'])
     if (user) is not None:
         return render(request,'sistema/landing.html')
     else:
