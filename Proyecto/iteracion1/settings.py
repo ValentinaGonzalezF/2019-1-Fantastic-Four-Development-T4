@@ -25,8 +25,14 @@ SECRET_KEY = 'oc=ugo6z1!2xrval1^s*ajy-oo9+1pda^r(2^f3*26!felb@0%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+DEFAULT_FROM_EMAIL = "youremail@gmail.com"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "sistemapresentaciones@gmail.com"
+EMAIL_HOST_PASSWORD = "Evaluacion2019"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Application definition
 
