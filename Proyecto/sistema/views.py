@@ -182,6 +182,8 @@ def agregar_evaluacion(request):
             # Admin como evaluador por defecto (Cambiar a usuario que realiza la accion?)
             Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=2)).save()
             return redirect("sistema:evaluacion", ev.id)
+        else:
+            ev.delete()
     return index_evaluaciones(request, error = True)
 
 def modificar_evaluacion(request):
