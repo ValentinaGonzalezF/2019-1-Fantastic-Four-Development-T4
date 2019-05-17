@@ -3,6 +3,8 @@ from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, Evaluacion
 from .forms import EvaluadorForm, EvaluacionForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+
 
 #   INDICES
 def index_landing(request):
@@ -139,13 +141,18 @@ def agregar_evaluador(request):
         # Si no hay evaluador con el mismo correo
         if Evaluador.objects.filter(correo__iexact=form.cleaned_data['correo']).count() == 0:
             # password y es_admin reciben valores por defecto
+            contraseña='1111'
             ev = Evaluador.objects.create(nombre = form.cleaned_data['nombre'],
                                           correo = form.cleaned_data['correo'],
-                                          password = "1111", es_admin = False)
+                                          password = contraseña, es_admin = False)
             ev.save()
             #Crea usuario con su contraseña para poder entrar al login
             user = User.objects.create_user(form.cleaned_data['correo'], form.cleaned_data['correo'], '1110')
             user.save()
+            user.email_user("Creacion de usuario",
+                            "Bienvenido al sistema de evaluacion de presentaciones. Tu usuario es "+ user.username+
+                            " y tu contraseña es " +contraseña)
+
             # TODO: enviar correo
 
             return redirect(reverse('sistema:index_evaluadores'))
@@ -163,6 +170,7 @@ def modificar_evaluador(request):
         if Evaluador.objects.exclude(pk=request.POST['id']).filter(correo__iexact=form.cleaned_data['correo']).count() > 0:
             return index_evaluadores(request, error = 1)
         ev = Evaluador.objects.get(pk=request.POST['id'])
+        #Modifica usuario del login
         user = User.objects.get(username=ev.correo)
         user.username=form.cleaned_data['correo']
         user.save()
@@ -174,7 +182,10 @@ def modificar_evaluador(request):
 
 def eliminar_evaluador(request):
     id = int(request.POST['id'])
-    Evaluador.objects.get(pk=id).delete()
+    Eval= Evaluador.objects.get(pk=id)
+    #Elimina cuenta de evaluador del sistema del login
+    User.objects.get(username=Eval.correo).delete()
+    Eval.delete()
     return redirect(reverse("sistema:index_evaluadores"))
 
 
