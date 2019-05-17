@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 
 #   INDICES
 def index_landing(request):
+    #Si se ha ingresado mediante login
     if request.method == "POST":
+        #Verifica si el correo y la contraseña ingresada es valida
         mail=request.POST['correo']
         passw=request.POST['password']
         user = authenticate(username= mail, password=passw)
@@ -15,7 +17,7 @@ def index_landing(request):
         else:
             print(user)
             return redirect(reverse('sistema:index_login'))
-
+    #Debe verificar si el usuario esta autentificado
     else:
        # if request.user.is_authenticated():
             #return render(request, 'sistema/landing.html')
@@ -141,11 +143,11 @@ def agregar_evaluador(request):
                                           correo = form.cleaned_data['correo'],
                                           password = "1111", es_admin = False)
             ev.save()
-            user = User.objects.create_user(form.cleaned_data['nombre'], form.cleaned_data['correo'], '1111')
+            #Crea usuario con su contraseña para poder entrar al login
+            user = User.objects.create_user(form.cleaned_data['correo'], form.cleaned_data['correo'], '1110')
             user.save()
             # TODO: enviar correo
-            
-            
+
             return redirect(reverse('sistema:index_evaluadores'))
         return index_evaluadores(request, error = 1, nombre = request.POST['nombre'])
     return index_evaluadores(request, error = 2, nombre = request.POST['nombre'])
@@ -161,6 +163,9 @@ def modificar_evaluador(request):
         if Evaluador.objects.exclude(pk=request.POST['id']).filter(correo__iexact=form.cleaned_data['correo']).count() > 0:
             return index_evaluadores(request, error = 1)
         ev = Evaluador.objects.get(pk=request.POST['id'])
+        user = User.objects.get(username=ev.correo)
+        user.username=form.cleaned_data['correo']
+        user.save()
         ev.nombre = form.cleaned_data['nombre']
         ev.correo = form.cleaned_data['correo']
         ev.save()
