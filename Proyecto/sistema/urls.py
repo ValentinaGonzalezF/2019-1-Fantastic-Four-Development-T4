@@ -57,4 +57,7 @@ urlpatterns = [
     path('evaluaciones/agregar/', views.agregar_evaluacion, name = 'evaluacion_agr'),
     path('evaluaciones/modificar/', views.modificar_evaluacion, name = 'evaluacion_mod'),
     path('evaluaciones/eliminar/', views.eliminar_evaluacion, name = 'evaluacion_eli'),
+
+    # REDIRECT
+    path('', views.home)
 ]

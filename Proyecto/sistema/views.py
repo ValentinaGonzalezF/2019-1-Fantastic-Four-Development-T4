@@ -259,3 +259,8 @@ def eliminar_rubrica(request):
     r.borrar() # Elimina archivo
     r.delete() # Elimina objeto
     return redirect(reverse("sistema:index_rubricas"))
+
+# Redirect home
+
+def home(request):
+    return redirect(reverse("sistema:index_login"))
