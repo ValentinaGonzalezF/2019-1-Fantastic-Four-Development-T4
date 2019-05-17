@@ -9,8 +9,3 @@ class EvaluacionForm(forms.Form):
     fin = forms.DateField()
     maximo= forms.TimeField()
     minimo = forms.TimeField()
-
-class LoginForm(forms.Form):
-    correo=forms.EmailField(max_length=90)
-    password = forms.CharField(max_length=100)
-

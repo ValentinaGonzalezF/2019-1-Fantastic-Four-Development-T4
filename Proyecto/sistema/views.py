@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect, reverse
 from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua, InstanciaGrupo
-from .forms import EvaluadorForm, EvaluacionForm, LoginForm
+from .forms import EvaluadorForm, EvaluacionForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 #   INDICES
 def index_landing(request):
-    form = LoginForm(request.POST)
-    if request.method != "POST":
-        mail=form['correo']
-        passw=form['password']
-        user = authenticate(username=mail, password=passw)
+    if request.method == "POST":
+        mail=request.POST['correo']
+        passw=request.POST['password']
+        user = authenticate(username= mail, password=passw)
         if (user) is not None:
             return render(request,'sistema/landing.html')
         else:
@@ -18,7 +17,10 @@ def index_landing(request):
             return redirect(reverse('sistema:index_login'))
 
     else:
-        return redirect(reverse('sistema:index_login'))
+       # if request.user.is_authenticated():
+            #return render(request, 'sistema/landing.html')
+        #else:
+            return render(request, 'sistema/landing.html')
 
 def index_login(request):
     return render(request,'sistema/login.html')
