@@ -17,8 +17,15 @@ def index_landing(request):
         if (user) is not None:
             return render(request,'sistema/landing.html')
         else:
-            print(user)
-            return redirect(reverse('sistema:index_login'))
+            user_exist = User.objects.filter(username=mail).count() > 0
+            if user_exist:
+                mensaje = "La contraseña ingresada no es valida"
+            else:
+                mensaje = "El correo ingresado no existe"
+            context = {
+                'error': mensaje
+            }
+            return render(request, 'sistema/login.html', context)
     #Debe verificar si el usuario esta autentificado
     else:
        # if request.user.is_authenticated():
