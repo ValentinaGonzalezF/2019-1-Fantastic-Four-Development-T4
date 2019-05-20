@@ -4,6 +4,14 @@ from .forms import EvaluadorForm, EvaluacionForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
+# Contraseña
+abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+def nueva_pass():
+	p = ""
+	for _ in range(16):
+		p += abc[random.randint(0, len(abc)-1)]
+	return p
+
 #   INDICES
 def index_landing_admin(request):
     #Si se ha ingresado mediante login
@@ -152,13 +160,13 @@ def agregar_evaluador(request):
         # Si no hay evaluador con el mismo correo
         if Evaluador.objects.filter(correo__iexact=form.cleaned_data['correo']).count() == 0:
             # password y es_admin reciben valores por defecto
-            contraseña='1111'
+            contraseña= nueva_pass()
             ev = Evaluador.objects.create(nombre = form.cleaned_data['nombre'],
                                           correo = form.cleaned_data['correo'],
                                           password = contraseña, es_admin = False)
             ev.save()
             #Crea usuario con su contraseña para poder entrar al login
-            user = User.objects.create_user(form.cleaned_data['correo'], form.cleaned_data['correo'], '1110')
+            user = User.objects.create_user(form.cleaned_data['correo'], form.cleaned_data['correo'], contraseña)
             user.save()
             user.email_user("Creacion de usuario",
                             "Bienvenido al sistema de evaluacion de presentaciones. Tu usuario es "+ user.username+
