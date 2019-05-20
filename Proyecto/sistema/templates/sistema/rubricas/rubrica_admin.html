@@ -1,13 +1,13 @@
 {% extends "sistema/base.html" %}
 
 {% block subtitle %}Rúbricas{% endblock %}
-
+{% block user %} {{request.session.nombre}}{% endblock %}
 {% block content %}
 
 <!-- Portada -->
 <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
-  <h1 class="w3-xxxlarge w3-text-red"><b>Editar rúbrica</b></h1>
-  <hr style="width:50px;border:5px solid red" class="w3-round">
+  <h1 class="w3-xxxlarge w3-text-black"><b>Editar rúbrica</b></h1>
+  <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
   <h3 id="nombreTitulo">{{ rubrica.nombre }} 
     <button onclick="document.getElementById('cambiar_nombre').style.display='block'" class="w3-button w3-medium w3-transparent w3-display"><i class="fas fa-edit"></i></button></h3><br>
 </div>
@@ -29,7 +29,7 @@
     }
 
     tr:nth-child(even) {
-      background-color: #FFA07A;
+      background-color: #9CA5AB;
     }
   </style>
   <form action="{% url 'sistema:rubrica_mod' rubrica_id=rubrica.id %}" method="POST">
@@ -64,11 +64,11 @@
       {% endfor %}
     </table>
     <div class="w3-twothird">
-      <button type="button" onclick="agregar_criterio()" class="w3-btn w3-red w3-large w3-margin-top">Agregar criterio <i class="fas fa-plus"></i></button>
-      <button type="button" onclick="agregar_nivel()" class="w3-btn w3-red w3-large w3-margin-top">Agregar nivel <i class="fas fa-plus"></i></button>
+      <button type="button" onclick="agregar_criterio()" class="w3-btn w3-blue w3-large w3-margin-top">Agregar criterio <i class="fas fa-plus"></i></button>
+      <button type="button" onclick="agregar_nivel()" class="w3-btn w3-blue w3-large w3-margin-top">Agregar nivel <i class="fas fa-plus"></i></button>
     </div>
     <div class="w3-third w3-right">
-      <button class="w3-btn w3-red w3-large w3-right w3-margin-top" style="margin-bottom: 64px">Guardar rúbrica <i class="far fa-save"></i></button>
+      <button class="w3-btn w3-blue w3-large w3-right w3-margin-top" style="margin-bottom: 64px">Guardar rúbrica <i class="far fa-save"></i></button>
     </div>
   </form>
 </div>
@@ -82,7 +82,7 @@
 			<div class="w3-section">
         <label><b>Nombre</b></label>
         <input id="nuevo_nombre" class="w3-input w3-border w3-margin-bottom" type="text" name="nombre" value="{{ rubrica.nombre }}" required>
-				<button onclick="cambiar_nombre()" class="w3-button w3-block w3-red w3-section w3-padding">Cambiar</button>
+				<button onclick="cambiar_nombre()" class="w3-button w3-block w3-blue w3-section w3-padding">Cambiar</button>
       </div>
       </div>
 		</div>

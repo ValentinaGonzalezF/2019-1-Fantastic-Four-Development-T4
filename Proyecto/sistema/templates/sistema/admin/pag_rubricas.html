@@ -1,25 +1,25 @@
 {% extends "sistema/base.html" %}
 
 {% block subtitle %}Rúbricas{% endblock %}
-
+{% block user %} {{request.session.nombre}}{% endblock %}
 {% block content %}
 
   <!-- Portada -->
   <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Rúbricas</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <h1 class="w3-xxxlarge w3-text-black"><b>Rúbricas</b></h1>
+    <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
   </div>
 
 <div class="w3-container">
-  <button onclick="document.getElementById('agregar').style.display='block'" class="w3-button w3-large w3-red w3-right w3-round">Agregar nueva rúbrica</button><br>
+  <button onclick="document.getElementById('agregar').style.display='block'" class="w3-button w3-large w3-blue w3-right w3-round">Agregar nueva rúbrica</button><br>
 </div>
 <!--Seccion rubricas-->
 
 {% for rubrica in lista_rubricas %}
-<button onclick="myFunction('Demo{{ forloop.counter }}')" class="w3-btn w3-red w3-block w3-margin" style="width: 75%">
+<button onclick="myFunction('Demo{{ forloop.counter }}')" class="w3-btn w3-dark-grey w3-block w3-margin" style="width: 75%">
   <h3>{{ rubrica.nombre }}</h3></button>
 
-<div id="Demo{{ forloop.counter }}" class="w3-hide w3-container w3-pale-red w3-center w3-padding-large w3-margin"style="width: 75%">
+<div id="Demo{{ forloop.counter }}" class="w3-hide w3-container w3-light-grey w3-center w3-padding-large w3-margin"style="width: 75%">
   <p>
     {% for aspecto in rubrica.aspectos %}
     <li>{{ aspecto }}</li>
@@ -27,12 +27,12 @@
   </p>
   <div class="w3-container">
     <a href="{% url 'sistema:rubrica' rubrica_id=rubrica.id %}">
-      <button class="w3-button w3-large w3-margin-right w3-red w3-left w3-round">Ver</button>
+      <button class="w3-button w3-large w3-margin-right w3-blue w3-left w3-round">Ver</button>
     </a>
     <a href="{% url 'sistema:rubrica_editar' rubrica_id=rubrica.id %}">
-      <button class="w3-button w3-large w3-red w3-left w3-round">Modificar</button>
+      <button class="w3-button w3-large w3-blue w3-left w3-round">Modificar</button>
     </a>
-    <button onclick="eliminar({{ rubrica.id }})" class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
+    <button onclick="eliminar({{ rubrica.id }})" class="w3-button w3-large w3-blue w3-right w3-round">Eliminar</button>
   </div>
 </div>
 {% endfor %}
@@ -50,7 +50,7 @@
 			<div class="w3-section">
         <label><b>Nombre</b></label>
         <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Ingrese nombre" name="nombre" required>
-				<input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Agregar">
+				<input class="w3-button w3-block w3-blue w3-section w3-padding" type="submit" value="Agregar">
 			</div>
 		</form>
 		</div>
@@ -66,7 +66,7 @@
         <form action="{% url 'sistema:rubrica_eli' %}" method="post">
           {% csrf_token %}
           <input id="valor_eliminar" type="hidden" name="id" value="">
-          <button class="w3-button w3-red w3-margin-bottom" type="submit">Eliminar</button>
+          <button class="w3-button w3-blue w3-margin-bottom" type="submit">Eliminar</button>
         </form>
       </div>
     </div>

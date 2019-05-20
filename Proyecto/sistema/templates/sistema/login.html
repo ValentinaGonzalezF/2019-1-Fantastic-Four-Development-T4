@@ -15,15 +15,15 @@ body {font-size:16px;}
 <body>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-large w3-red w3-xlarge w3-padding"></header>
+<header class="w3-container w3-top w3-large w3-blue w3-xlarge w3-padding"></header>
 <br>
        <!--Profile image -->
   <div class="w3-container" style="margin">
       <p class="w3-center"><img src="https://www.w3schools.com/w3images/avatar3.png" class="w3-circle" style="height:200px;width:200px" alt="Avatar"></p>
-      <h1 class="font-size:8vw; w3-text-red w3-center"><b>Bienvenido al sistema de evaluación</b></h1>
+      <h1 class="font-size:8vw; w3-text-black w3-center"><b>Bienvenido al sistema de evaluación</b></h1>
 
      
-      <form action="{% url 'sistema:index_landing' %} " method="post">
+      <form action="{% url 'sistema:index_landing_admin' %} " method="post">
           {% csrf_token %}
     <div class="w3-center">
         Correo electronico:
@@ -34,13 +34,17 @@ body {font-size:16px;}
   Contraseña:
         <br>
   <input type="password" name="password" placeholder="*****" required>
-        <br>
-        <br>
+         {% if error %}
+            <p class="w3-text-red">{{error}}</p>
+        {% endif %}
+         {% if not error %}<br>  <br>{% endif %}
+
   <input type="submit" value="Ingresar">
-</form> 
           </div>
+</form> 
+
     </div>
- <hr style="width:100%;border:15px solid red" class="w3-round">
+ <hr  class="w3-container w3-bottom w3-large w3-blue w3-xlarge w3-padding" >
 
 
 </body>

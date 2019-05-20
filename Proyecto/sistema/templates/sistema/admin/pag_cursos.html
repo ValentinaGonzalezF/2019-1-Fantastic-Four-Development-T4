@@ -1,14 +1,15 @@
 {% extends "sistema/base.html" %}
 
 {% block subtitle %}Cursos{% endblock %}
+{% block user %} {{request.session.nombre}}{% endblock %}
 
 {% block content %}
 
   <!-- Portada -->
   <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Cursos</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
-    <p><h3>Seleccione un curso</p></h3>
+    <h1 class="w3-xxxlarge w3-text-black"><b>Cursos</b></h1>
+    <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
+    <p><h3>Seleccione un curso</h3></p>
   </div>
 
 <!--Cajas cursos-->
@@ -25,10 +26,12 @@
 		<p>{{ curso.semestre }} {{ curso.ano }}</p>
 		</button>
 		<br>
-		<button class="w3-btn w3-red">Modificar</button>
-		<button class="w3-btn w3-red">Eliminar</button>
+		<button class="w3-btn w3-blue">Modificar</button>
+		<button class="w3-btn w3-blue">Eliminar</button>
 	</div>
+
 	{% endfor %}
+
     <!--Caja de agregar-->
 	<div class="w3-col m6 l4 w3-margin-top">
 		<button onclick="document.getElementById('agregar').style.display='block'" class="w3-card w3-container w3-light-gray w3-hover-shadow" style="min-height: 317px;width:220px">
@@ -64,6 +67,8 @@
 		</div>
 	</div>
 
+
 </div>
+<br><br>
 
 {% endblock %}

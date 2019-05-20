@@ -3,11 +3,9 @@ from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, Evaluacion
 from .forms import EvaluadorForm, EvaluacionForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
-
 
 #   INDICES
-def index_landing(request):
+def index_landing_admin(request):
     #Si se ha ingresado mediante login
     if request.method == "POST":
         #Verifica si el correo y la contraseña ingresada es valida
@@ -15,7 +13,10 @@ def index_landing(request):
         passw=request.POST['password']
         user = authenticate(username= mail, password=passw)
         if (user) is not None:
-            return render(request,'sistema/landing.html')
+            eval = Evaluador.objects.get(correo=mail)
+            request.session['nombre'] = eval.nombre
+            request.session['es_admin'] = eval.es_admin
+            return render(request, 'sistema/landing.html')
         else:
             user_exist = User.objects.filter(username=mail).count() > 0
             if user_exist:
@@ -28,10 +29,7 @@ def index_landing(request):
             return render(request, 'sistema/login.html', context)
     #Debe verificar si el usuario esta autentificado
     else:
-       # if request.user.is_authenticated():
-            #return render(request, 'sistema/landing.html')
-        #else:
-            return render(request, 'sistema/landing.html')
+        return render(request, 'sistema/landing.html')
 
 def index_login(request):
     return render(request,'sistema/login.html')

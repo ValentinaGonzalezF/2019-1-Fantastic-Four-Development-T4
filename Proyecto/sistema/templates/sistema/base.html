@@ -29,24 +29,24 @@ body {font-size:16px;}
 <body>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
     <!--Profile image -->
   <div class="w3-container">
-    <h3 class="w3-padding-32"><center><b>Usuario</b></center></h3>
+    <h3 class="w3-padding-32"><center><b>{% block user %}{% endblock %}</b></center></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="{% url 'sistema:index_landing' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="{% url 'sistema:index_cursos' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cursos</a>
+    <a href="{% url 'sistema:index_landing_admin' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    {% if request.session.es_admin %}<a href="{% url 'sistema:index_cursos' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cursos</a>
     <a href="{% url 'sistema:index_evaluadores' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluadores</a>
-      <a href="{% url 'sistema:index_rubricas' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Rúbricas</a>
+    <a href="{% url 'sistema:index_rubricas' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Rúbricas</a> {% endif %}
     <a href="{% url 'sistema:index_evaluaciones' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluaciones</a>
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+   <!-- <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a> -->
   </div>
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+<header class="w3-container w3-top w3-hide-large w3-blue w3-xlarge w3-padding">
   <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
   <span>Usuario</span>
 </header>

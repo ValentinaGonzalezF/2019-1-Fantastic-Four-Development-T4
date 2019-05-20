@@ -3,11 +3,11 @@
 {% load i18n %}
 
 {% block subtitle %}Evaluación{% endblock %}
-
+{% block user %} {{request.session.nombre}}{% endblock %}
 {% block content %}
 
  <div class="w3-container" id="designers" style="margin-top:50px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Evaluación 
+    <h1 class="w3-xxxlarge w3-text-black"><b>Evaluación
 	{% if evaluacion.abierta %}<i class="w3-text-green">en curso</i>{% else %}cerrada{% endif %}</b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <div class="w3-container w3-center">
@@ -21,7 +21,7 @@
     </div>
      <!--Cajas evaluadores-->
 	 	 <div class="w3-container" style="margin-top:50px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Evaluadores</b></h1>
+    <h1 class="w3-xxxlarge w3-text-black"><b>Evaluadores</b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <div class="w3-container w3-center">
 	</div>
@@ -53,7 +53,7 @@
             <option value="{{ curso.id }}">hola</option>
 
           </select>
-          <input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Agregar">
+          <input class="w3-button w3-block w3-blue w3-section w3-padding" type="submit" value="Agregar">
         </div>
       </form>
     </div>
@@ -68,14 +68,14 @@
 			<form action="{% url 'sistema:evaluador_eli' %}" method="post">
 				{% csrf_token %}
 				<input id="valor_eliminar" type="hidden" name="id" value="">
-				<button class="w3-button w3-red w3-margin-bottom" type="submit">Eliminar</button>
+				<button class="w3-button w3-blue w3-margin-bottom" type="submit">Eliminar</button>
 			</form>
 		</div>
 	</div>
 </div>
 
 	 <div class="w3-container" style="margin-top:50px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Grupos</b></h1>
+    <h1 class="w3-xxxlarge w3-text-black"><b>Grupos</b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <div class="w3-container w3-center">
 	</div>
@@ -93,7 +93,7 @@
 		</ul>
 		</button>
 		<br>
-		{% if evaluacion.abierta %}<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}'" class="w3-btn w3-red">Evaluar</button>{% endif %}
+		{% if evaluacion.abierta %}<button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}'" class="w3-btn w3-blue">Evaluar</button>{% endif %}
 	</div>
 	{% endfor %}
 </div>

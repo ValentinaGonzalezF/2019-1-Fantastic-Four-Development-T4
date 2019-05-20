@@ -1,13 +1,13 @@
 {% extends "sistema/base.html" %}
 {% block subtitle %}Landing{% endblock %}
-
+{% block user %} {{request.session.nombre}}{% endblock %}
 {% block content %}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-right:40px">
   <!-- Portada -->
   <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:30px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Bienvenido al sistema de evaluación</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <h1 class="w3-xxxlarge w3-text-black"><b>Bienvenido al sistema de evaluación</b></h1>
+    <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
     <p><h3>Seleccione alguna sección para comenzar</h3></p>
      <i class="far fa-arrow-alt-circle-left" style="font-size:300%"></i>
   </div>
@@ -15,8 +15,8 @@
 <!-- W3.CSS Container -->
 <div class="w3-light-grey w3-container w3-padding-16" style="margin-top:50px;padding-right:58px">
   <div class="bottom" id="contact" style="margin-top:50px">
-    <h1 class="w3-xxlarge w3-text-red"><b>Contacto.</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <h1 class="w3-xxlarge w3-text-black"><b>Contacto.</b></h1>
+    <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
     <p>¿Dudas? ¿Sugerencias? ¿Reclamos?</p>
       <p>No dude en contactarnos</p>
     <form action="/action_page.php" target="_blank">
@@ -32,7 +32,7 @@
         <label>Mensaje</label>
         <input class="w3-input w3-border" type="text" name="Message" required>
       </div>
-      <button type="submit" class="w3-button w3-red w3-margin-bottom">Enviar</button>
+      <button type="submit" class="w3-button w3-blue w3-margin-bottom">Enviar</button>
     </form>
   </div>
 </div>

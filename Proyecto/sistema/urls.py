@@ -22,7 +22,7 @@ app_name = 'sistema'
 
 urlpatterns = [
 	# LANDING
-	path('landingpage/', views.index_landing, name='index_landing'),
+	path('landingpage/', views.index_landing_admin, name='index_landing_admin'),
 
     # LOGIN
     path('login/', views.index_login, name = 'index_login'),

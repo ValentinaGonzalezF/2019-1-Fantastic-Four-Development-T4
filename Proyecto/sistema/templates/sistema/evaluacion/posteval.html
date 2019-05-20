@@ -1,12 +1,12 @@
 {% extends "sistema/base.html" %}
 
 {% block subtitle %}Evaluación{% endblock %}
-
+{% block user %} {{request.session.nombre}}{% endblock %}
 {% block content %}
 
   <!-- Evaluacion -->
   <div class="w3-container" id="designers" style="margin-top:50px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Evaluación <i class="w3-text-blue">entregada</i> </b></h1>
+    <h1 class="w3-xxxlarge w3-text-black"><b>Evaluación <i class="w3-text-blue">entregada</i> </b></h1>
     <i class="w3-large w3-text-green"><i class="far fa-clock">
 
         {% if evaluacion.abierta %}</i> Aún activa </i>{% else %}</i> Cerrada </i>{% endif %}</b></h1>
@@ -53,8 +53,8 @@
 {% block post_admin %}
 
             <div class="w3-panel w3-right w3-half" style="margin-top: 50px">
-                    <button class="w3-button w3-xlarge w3-red w3-margin-bottom" style="margin-left: 15%" onclick="location.href='evaluacion.html'"> <i class="fas fa-pen"></i>  Editar evaluación</button>
-                    <a href="{% url 'sistema:evaluacion' eval_id=evaluacion.id %}"><button class="w3-button w3-xlarge w3-red" style="margin-left: 15%"> <i class="fas fa-door-open"></i> Volver a grupos</button></a>
+                    <button class="w3-button w3-xlarge w3-blue w3-margin-bottom" style="margin-left: 15%" onclick="location.href='evaluacion.html'"> <i class="fas fa-pen"></i>  Editar evaluación</button>
+                    <a href="{% url 'sistema:evaluacion' eval_id=evaluacion.id %}"><button class="w3-button w3-xlarge w3-blue" style="margin-left: 15%"> <i class="fas fa-door-open"></i> Volver a grupos</button></a>
 
                 </div>
 {% endblock %}

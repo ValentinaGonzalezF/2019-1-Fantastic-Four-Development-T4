@@ -1,13 +1,14 @@
 {% extends "sistema/base.html" %}
 
 {% block subtitle %}Evaluaciones{% endblock %}
+{% block user %} {{request.session.nombre}}{% endblock %}
 
 {% block content %}
 
   <!-- Portada -->
   <div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Evaluadores</b></h1>
-		<hr style="width:50px;border:5px solid red" class="w3-round">
+    <h1 class="w3-xxxlarge w3-text-black"><b>Evaluadores</b></h1>
+		<hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
 		<p><h3>Seleccione un evaluador</h3></p>
 		{% if mensaje %}
 			<p style="color:goldenrod"><b>{{ mensaje }}</b></p>
@@ -24,8 +25,8 @@
 		<p>{{ evaluador.correo|truncatechars:20 }}</p>
 		</button>
 		<br>
-		<button onclick="modificar({{ evaluador.id }}, '{{ evaluador.nombre }}', '{{ evaluador.correo }}')" class="w3-btn w3-red">Modificar</button>
-		<button onclick="eliminar({{ evaluador.id }})" class="w3-btn w3-red">Eliminar</button>
+		<button onclick="modificar({{ evaluador.id }}, '{{ evaluador.nombre }}', '{{ evaluador.correo }}')" class="w3-btn w3-blue">Modificar</button>
+		<button onclick="eliminar({{ evaluador.id }})" class="w3-btn w3-blue">Eliminar</button>
 	</div>
 	{% endfor %}
     <!--Caja de agregar-->
@@ -50,7 +51,7 @@
 				<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Ingrese nombre" name="nombre" required{% if nombre %} value="{{ nombre }}"{% endif %}>
 				<label><b>Correo</b></label>
 				<input class="w3-input w3-border" type="email" required placeholder="Ingrese correo" name="correo">
-				<input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Agregar">
+				<input class="w3-button w3-block w3-blue w3-section w3-padding" type="submit" value="Agregar">
 			</div>
 		</form>
 		</div>
@@ -70,7 +71,7 @@
 				<input id="mod_nombre" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Ingrese nombre" name="nombre" required>
 				<label><b>Correo</b></label>
 				<input id="mod_correo" class="w3-input w3-border" type="email" required placeholder="Ingrese correo" name="correo">
-				<input class="w3-button w3-block w3-red w3-section w3-padding" type="submit" value="Guardar">
+				<input class="w3-button w3-block w3-blue w3-section w3-padding" type="submit" value="Guardar">
 			</div>
 		</form>
 		</div>
@@ -86,7 +87,7 @@
 			<form action="{% url 'sistema:evaluador_eli' %}" method="post">
 				{% csrf_token %}
 				<input id="valor_eliminar" type="hidden" name="id" value="">
-				<button class="w3-button w3-red w3-margin-bottom" type="submit">Eliminar</button>
+				<button class="w3-button w3-blue w3-margin-bottom" type="submit">Eliminar</button>
 			</form>
 		</div>
 	</div>
