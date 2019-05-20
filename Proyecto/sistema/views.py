@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, reverse
+from django.utils.crypto import random
+
 from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua, InstanciaGrupo
 from .forms import EvaluadorForm, EvaluacionForm
 from django.contrib.auth import authenticate
@@ -24,7 +26,15 @@ def index_landing_admin(request):
             eval = Evaluador.objects.get(correo=mail)
             request.session['nombre'] = eval.nombre
             request.session['es_admin'] = eval.es_admin
-            return render(request, 'sistema/landing.html')
+            if request.session.get('es_admin'):
+                return render(request, 'sistema/landing.html')
+            else:
+                context = {
+                    'lista_rubricas': Rubrica.objects.all(),
+                    'lista_evaluaciones': Evaluacion.objects.all(),
+                    'lista_cursos': Instancia.objects.all()
+                }
+                return render(request, 'sistema/landingevaluador.html', context)
         else:
             user_exist = User.objects.filter(username=mail).count() > 0
             if user_exist:
@@ -37,7 +47,15 @@ def index_landing_admin(request):
             return render(request, 'sistema/login.html', context)
     #Debe verificar si el usuario esta autentificado
     else:
-        return render(request, 'sistema/landing.html')
+        if request.session.get('es_admin'):
+            return render(request, 'sistema/landing.html')
+        else:
+            context = {
+                'lista_rubricas': Rubrica.objects.all(),
+                'lista_evaluaciones': Evaluacion.objects.all(),
+                'lista_cursos': Instancia.objects.all()
+            }
+            return render(request, 'sistema/landingevaluador.html', context)
 
 def index_login(request):
     return render(request,'sistema/login.html')

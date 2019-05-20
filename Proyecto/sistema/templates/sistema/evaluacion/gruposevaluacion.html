@@ -9,7 +9,7 @@
  <div class="w3-container" id="designers" style="margin-top:50px">
     <h1 class="w3-xxxlarge w3-text-black"><b>Evaluación
 	{% if evaluacion.abierta %}<i class="w3-text-green">en curso</i>{% else %}cerrada{% endif %}</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
     <div class="w3-container w3-center">
     <h3>{{ evaluacion.nombre }} <i>{{ evaluacion.instancia }}</i></h3>
 	    {% language 'es' %}
@@ -20,9 +20,10 @@
 		{% endlanguage %}
     </div>
      <!--Cajas evaluadores-->
+	 {%if request.session.es_admin %}
 	 	 <div class="w3-container" style="margin-top:50px">
     <h1 class="w3-xxxlarge w3-text-black"><b>Evaluadores</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
     <div class="w3-container w3-center">
 	</div>
 
@@ -33,11 +34,11 @@
           </li>
         <li class=" w3-padding-16 presentado"> Evaluador 2 <i style="margin-left: 10px" class="far fa-check-circle"><i class="w3-small"> ya evaluó</i></i>
            </li>
-        <li class="w3-padding-16"> Evaluador 3  <i style="margin-left: 10px" class="w3-large fas fa-times" onclick="eliminar('this.id')"></i></li>
-        <li class="opcion w3-padding-16" onclick="agregar('agregar_evaluador')"> Agregar <i style="margin-left: 10px" class="fas fa-user-plus"></i>
+          <li class="opcion w3-padding-16" onclick="agregar('agregar_evaluador')"> Agregar <i style="margin-left: 10px" class="fas fa-user-plus"></i>
            </li>
       </ul>
     </div>
+			 	 {%endif%}
 		 </div>
      <!--Modalidad agregar evaluador de evaluacion-->
 	<div id="agregar_evaluador" class="w3-modal">
@@ -48,10 +49,10 @@
         {% csrf_token %}
         <div class="w3-section">
           <label><b>Evaluador</b></label>
-          <select class="w3-select" name="curso">
-
-            <option value="{{ curso.id }}">hola</option>
-
+          <select class="w3-select" name="evalu">
+			{%for evaluador in lista_evaluadores%}
+            <option value="{{ evaluador.id }}">{{evaluador.nombre}}</option>
+			{%endfor%}
           </select>
           <input class="w3-button w3-block w3-blue w3-section w3-padding" type="submit" value="Agregar">
         </div>
@@ -76,7 +77,7 @@
 
 	 <div class="w3-container" style="margin-top:50px">
     <h1 class="w3-xxxlarge w3-text-black"><b>Grupos</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <hr style="width:50px;border:5px solid #2FA0FB" class="w3-round">
     <div class="w3-container w3-center">
 	</div>
      <!--Cajas grupos-->
