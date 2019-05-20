@@ -102,7 +102,11 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     }
     #Si esta en curso la evaluación
     if ev.abierta():
-        return render(request,'sistema/evaluacion/evaluacionadmin.html',context)
+        #Si es admin
+        if request.session.get('es_admin'):
+            return render(request,'sistema/evaluacion/evaluacionadmin.html',context)
+        else:
+            return render(request, 'sistema/evaluacion/evaluacion.html', context)
     #Si ya termino
     return render(request, 'sistema/evaluacion/posteval.html',context)
 

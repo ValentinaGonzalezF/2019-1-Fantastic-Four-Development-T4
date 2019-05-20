@@ -16,7 +16,7 @@
   </div>
 
 <div class="w3-container">
-  <button onclick="document.getElementById('agregar').style.display='block'" class="w3-button w3-large w3-blue w3-right w3-round">Agregar nueva evaluación</button><br>
+    {% if request.session.es_admin %}<button onclick="document.getElementById('agregar').style.display='block'" class="w3-button w3-large w3-blue w3-right w3-round">Agregar nueva evaluación</button><br>   {% endif%}
 </div>
 <!--Seccion evaluaciones-->
 
@@ -33,12 +33,14 @@
     <li>Fecha término: {{ evaluacion.fecha_fin }}</li>
     {% endlanguage %}
     <a href="{% url 'sistema:rubrica' rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}"><button class="w3-button w3-white w3-border w3-border-blue w3-round-large">Rúbrica asociada</button></a>
-  <button class="w3-button w3-white w3-border w3-border-blue w3-round-large">Exportar puntajes</button><br>
+    {% if request.session.es_admin %}<button class="w3-button w3-white w3-border w3-border-blue w3-round-large">Exportar puntajes</button><br>{%endif%}
 </p>
 
   <button onclick="location.href='{% url 'sistema:evaluacion' eval_id=evaluacion.id %}'" class="w3-button w3-large w3-blue w3-round">Ver</button>
+  {% if request.session.es_admin %}
   {% if not evaluacion.realizada %}<button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:'Y-m-d' }}', '{{ evaluacion.fecha_fin|date:'Y-m-d' }}','{{ evaluacion.tiempo_max|time:'H:i' }}','{{ evaluacion.tiempo_min|time:'H:i' }}',{{ evaluacion.evaluacionrubrica_set.all.0.rubrica.id }},{{ evaluacion.instancia.id }})" class="w3-button w3-large w3-blue w3-margin-left w3-round">Modificar</button>{% endif %}
   <button onclick="eliminar({{ evaluacion.id }})" class="w3-button w3-large w3-blue w3-right w3-round">Eliminar</button>
+  {% endif%}
 </div>
 {% endfor %}
 
