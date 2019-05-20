@@ -81,10 +81,12 @@ def index_rubricas(request):
 def evaluacion(request, eval_id):
 	#grupos del curso de la evaluacion
     ev = Evaluacion.objects.get(pk=eval_id)
+    evaluadores = Evaluador.objects.filter(es_admin=0)
     grupos = InstanciaGrupo.objects.filter(instancia=ev.instancia)
     context = {
 		'evaluacion': ev,
-        'lista_grupos': grupos
+        'lista_grupos': grupos,
+        'lista_evaluadores': evaluadores
     }
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
@@ -260,7 +262,10 @@ def eliminar_evaluacion(request):
     return redirect(reverse("sistema:index_evaluaciones"))
 
 def evaluacion_agr_evaluador(request,eval_id=0):
-
+    if request.method == "POST":
+        ev=Evaluacion.objects.get(pk=eval_id)
+        Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
+        return redirect(reverse('sistema:evaluacion'))
     return redirect(reverse('sistema:evaluacion'))
 
 
