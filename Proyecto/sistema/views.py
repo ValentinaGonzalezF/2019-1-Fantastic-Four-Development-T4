@@ -129,7 +129,10 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
         'grupo' : gr,
         'rubrica': rub
     }
-    return render(request, 'sistema/evaluacion/posteval.html',context)
+    if request.session.get('es_admin'):
+        return render(request, 'sistema/evaluacion/postevaladmin.html', context)
+    else:
+        return render(request, 'sistema/evaluacion/posteval.html', context)
 
 
 #   RUBRICA
