@@ -24,21 +24,26 @@ def index_landing_admin(request):
         user = authenticate(username= mail, password=passw)
         if (user) is not None:
             eval = Evaluador.objects.get(correo=mail)
-            request.session['nombre'] = eval.nombre
+            request.session['correo'] = mail
             request.session['es_admin'] = eval.es_admin
             if request.session.get('es_admin'):
                 return render(request, 'sistema/landing.html')
             else:
+                eval = Evaluador.objects.get(correo=request.session.get('correo'))
+                evaluas = eval.evalua_set.all()
+                Evaluaciones = []
+                for evalua in evaluas:
+                    Evaluaciones.append(evalua.evaluacion)
                 context = {
                     'lista_rubricas': Rubrica.objects.all(),
-                    'lista_evaluaciones': Evaluacion.objects.all(),
+                    'lista_evaluaciones': Evaluaciones,
                     'lista_cursos': Instancia.objects.all()
                 }
                 return render(request, 'sistema/landingevaluador.html', context)
         else:
             user_exist = User.objects.filter(username=mail).count() > 0
             if user_exist:
-                mensaje = "La contraseña ingresada no es valida"
+                mensaje = "La contraseña ingresada no es válida"
             else:
                 mensaje = "El correo ingresado no existe"
             context = {
@@ -50,9 +55,14 @@ def index_landing_admin(request):
         if request.session.get('es_admin'):
             return render(request, 'sistema/landing.html')
         else:
+            eval = Evaluador.objects.get(correo=request.session.get('correo'))
+            evaluas = eval.evalua_set.all()
+            Evaluaciones = []
+            for evalua in evaluas:
+                Evaluaciones.append(evalua.evaluacion)
             context = {
                 'lista_rubricas': Rubrica.objects.all(),
-                'lista_evaluaciones': Evaluacion.objects.all(),
+                'lista_evaluaciones': Evaluaciones,
                 'lista_cursos': Instancia.objects.all()
             }
             return render(request, 'sistema/landingevaluador.html', context)
@@ -69,11 +79,25 @@ def index_cursos(request):
 
 # error = True  fechas incorrectas (ver Evaluacion.validar_fechas)
 def index_evaluaciones(request, error = False):
-    context = {
-        'lista_rubricas': Rubrica.objects.all(),
-        'lista_evaluaciones': Evaluacion.objects.all(),
-        'lista_cursos': Instancia.objects.all()
-    }
+    if request.session.get('es_admin'):
+        context = {
+            'lista_rubricas': Rubrica.objects.all(),
+            'lista_evaluaciones': Evaluacion.objects.all(),
+            'lista_cursos': Instancia.objects.all()
+        }
+    else:
+        #Rescata las evaluaciones asociadas al evaluador
+        eval=Evaluador.objects.get(correo=request.session.get('correo'))
+        evaluas=eval.evalua_set.all()
+        Evaluaciones=[]
+        for evalua in evaluas:
+            Evaluaciones.append(evalua.evaluacion)
+        context = {
+            'lista_rubricas': Rubrica.objects.all(),
+            'lista_evaluaciones': Evaluaciones,
+            'lista_cursos': Instancia.objects.all()
+        }
+
     if error:
         context['mensaje'] = "Las fechas ingresadas son incorrectas"
     return render(request, 'sistema/admin/pag_evaluaciones.html', context)
@@ -109,16 +133,24 @@ def evaluacion(request, eval_id):
     ev = Evaluacion.objects.get(pk=eval_id)
     #Evaluadores que no son admin
     evaluadores = Evaluador.objects.filter(es_admin=0)
-    #Evaluadores de la evaluacion
-    evaluadores_eval=ev.evalua_set.all()
     # Evaluadores que son admin
-    evaluadores_admin= Evaluador.objects.filter(es_admin=1)
+    evaluadores_admin = Evaluador.objects.filter(es_admin=1)
+    id_eval_admin=[]
+    for eval in evaluadores_admin:
+        id_eval_admin.append(eval.id)
+    # Evaluadores de la evaluacion que no son admin
+    evaluadores_eval = ev.evalua_set.all().exclude(evaluador_id__in=id_eval_admin)
+    for eval in evaluadores_eval:
+        id_eval_admin.append(eval.evaluador_id)
+    #Evaluadores que se pueden agregar
+    evaluadores_para_agregar=evaluadores.exclude(id__in=id_eval_admin)
+
     # grupos del curso de la evaluacion
     grupos = InstanciaGrupo.objects.filter(instancia=ev.instancia)
     context = {
 		'evaluacion': ev,
         'lista_grupos': grupos,
-        'lista_evaluadores': evaluadores,
+        'lista_evaluadores':  evaluadores_para_agregar,
         'lista_evalua':evaluadores_eval
     }
     if request.method=='POST':

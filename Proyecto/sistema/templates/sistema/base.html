@@ -30,7 +30,7 @@ body {font-size:16px;}
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Cerrar Menu</a>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:18px">Cerrar </a>
     <!--Profile image -->
   <div class="w3-container">
     <h3 class="w3-padding-32"><center><b>{% block user %}{% endblock %}</b></center></h3>
@@ -43,17 +43,14 @@ body {font-size:16px;}
     <a href="{% url 'sistema:index_evaluaciones' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluaciones</a>
    <!-- <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a> -->
   </div>
-    {% if request.session.es_admin%}
-  <a href="{% url 'sistema:index_login' %}" onclick="w3_close()" style="position:relative;top:100px;left:90px" class="w3-bar-item w3-button w3-hover-white">Salir</a>
-  {% else %}
-  <a href="{% url 'sistema:index_login' %}" onclick="w3_close()" style="position:relative;top:260px;left:90px" class="w3-bar-item w3-button w3-hover-white">Salir</a>
-  {%endif%}
+
+  <a href="{% url 'sistema:index_login' %}" onclick="w3_close()" class="w3-button w3-display-bottomright" style="width:100%;font-size:17px">Salir </a>
  </nav>
 
 <!-- Top menu on small screens -->
 <header class="w3-container w3-top w3-hide-large w3-blue w3-xlarge w3-padding">
   <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Usuario</span>
+  <span >{% block name %}{% endblock %}</span>
 </header>
 
 <!-- Overlay effect when opening sidebar on small screens -->

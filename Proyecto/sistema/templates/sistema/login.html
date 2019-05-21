@@ -20,16 +20,15 @@ body {font-size:16px;}
        <!--Profile image -->
   <div class="w3-container" style="margin">
       <p class="w3-center"><img src="https://www.w3schools.com/w3images/avatar3.png" class="w3-circle" style="height:200px;width:200px" alt="Avatar"></p>
-      <h1 class="font-size:8vw; w3-text-black w3-center"><b>Bienvenido al sistema de evaluación</b></h1>
+      <h1 class=" w3-text-black w3-center" style="font-size:3vw;"><b>Bienvenido al sistema de evaluación</b></h1>
 
      
       <form action="{% url 'sistema:index_landing_admin' %} " method="post">
           {% csrf_token %}
-    <div class="w3-center">
+    <div class="w3-center" style="">
         Correo electronico:
         <br>
   <input type="text" name="correo" placeholder="Ejemplo@gmail.com" required>
-        <br>
         <br>
   Contraseña:
         <br>
@@ -44,8 +43,7 @@ body {font-size:16px;}
 </form> 
 
     </div>
- <hr  class="w3-container w3-bottom w3-large w3-blue w3-xlarge w3-padding" >
-
+<footer class="w3-container w3-bottom w3-large w3-blue w3-xlarge w3-padding"></footer>
 
 </body>
 
