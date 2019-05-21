@@ -105,15 +105,26 @@ def index_rubricas(request):
 
 #   EVALUACION
 def evaluacion(request, eval_id):
-	#grupos del curso de la evaluacion
+    #Evaluacion
     ev = Evaluacion.objects.get(pk=eval_id)
+    #Evaluadores que no son admin
     evaluadores = Evaluador.objects.filter(es_admin=0)
+    #Evaluadores de la evaluacion
+    evaluadores_eval=ev.evalua_set.all()
+    # Evaluadores que son admin
+    evaluadores_admin= Evaluador.objects.filter(es_admin=1)
+    # grupos del curso de la evaluacion
     grupos = InstanciaGrupo.objects.filter(instancia=ev.instancia)
     context = {
 		'evaluacion': ev,
         'lista_grupos': grupos,
-        'lista_evaluadores': evaluadores
+        'lista_evaluadores': evaluadores,
+        'lista_evalua':evaluadores_eval
     }
+    if request.method=='POST':
+        #Si se agrega evaluador a evaluacion
+         ev = Evaluacion.objects.get(pk=eval_id)
+         Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
 
@@ -291,15 +302,18 @@ def eliminar_evaluacion(request):
     return redirect(reverse("sistema:index_evaluaciones"))
 
 def evaluacion_agr_evaluador(request,eval_id=0):
-    if request.method == "POST":
-        ev=Evaluacion.objects.get(pk=eval_id)
-        Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
-        return redirect(reverse('sistema:evaluacion'))
+    ev=Evaluacion.objects.get(pk=eval_id)
+    Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
     return redirect(reverse('sistema:evaluacion'))
 
+def evaluacion_eliminar_evaluador(request,eval_id=0):
+    #Busca evaluador
+    id = (request.POST['id'])
+    #Elimina evaluador
+    Evalua.objects.get(evaluacion_id=eval_id,evaluador_id=id).delete()
+    return redirect("sistema:evaluacion", eval_id)
 
 #   GESTIONAR RUBRICA
-
 def agregar_rubrica(request):
     # Crea objeto
     r = Rubrica.objects.create(nombre = request.POST['nombre'], archivo = "")

@@ -30,9 +30,11 @@
 	     <div class="w3-panel  w3-margin-bottom">
       <ul class="w3-ul w3-light-grey w3-center w3-card-4">
         <li class="w3-dark-grey w3-xlarge w3-padding-32">Evaluadores <i class="fas fa-user-tie"></i> </li>
-        <li class="w3-padding-16"> Evaluador 1 <i style="margin-left: 10px" class="w3-large fas fa-times" onclick="eliminar('this.id')"></i>
+		  {%for evalua in lista_evalua%}
+        <li class="w3-padding-16"> {{evalua.evaluador.nombre}} <i style="margin-left: 10px" class="w3-large fas fa-times" onclick="eliminar({{evalua.evaluador.id}})"></i>
           </li>
-        <li class=" w3-padding-16 presentado"> Evaluador 2 <i style="margin-left: 10px" class="far fa-check-circle"><i class="w3-small"> ya evaluó</i></i>
+		  {%endfor%}
+       <!--<i class="w3-small"> ya evaluó</i></i>-->
            </li>
           <li class="opcion w3-padding-16" onclick="agregar('agregar_evaluador')"> Agregar <i style="margin-left: 10px" class="fas fa-user-plus"></i>
            </li>
@@ -66,7 +68,7 @@
 		<div class="w3-center"><br>
 			<span onclick="document.getElementById('eliminar').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
 			<p>¿Está seguro de querer eliminar a este evaluador de la evaluación?</p>
-			<form action="{% url 'sistema:evaluador_eli' %}" method="post">
+			<form action="{% url 'sistema:evaluacion_eliminar_evaluador' eval_id=evaluacion.id %}" method="post">
 				{% csrf_token %}
 				<input id="valor_eliminar" type="hidden" name="id" value="">
 				<button class="w3-button w3-blue w3-margin-bottom" type="submit">Eliminar</button>
