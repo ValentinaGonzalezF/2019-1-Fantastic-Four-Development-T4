@@ -22,21 +22,29 @@ def index_landing_admin(request):
         mail=request.POST['correo']
         passw=request.POST['password']
         user = authenticate(username= mail, password=passw)
+        #
         if (user) is not None:
             eval = Evaluador.objects.get(correo=mail)
+            #Creo variables de sessiones para tener informacionn de la persona
+            #que entro por login
             request.session['correo'] = mail
             request.session['es_admin'] = eval.es_admin
+            request.session['nombre']=eval.nombre
             if request.session.get('es_admin'):
+
                 return render(request, 'sistema/landing.html')
             else:
+                #Si es evaluador, obtengo todas sus evaluaciones
                 eval = Evaluador.objects.get(correo=request.session.get('correo'))
                 evaluas = eval.evalua_set.all()
                 Evaluaciones = []
                 for evalua in evaluas:
                     Evaluaciones.append(evalua.evaluacion)
+                #Luego ordeno las evaluaciones por la fecha de inicio
+                evaluaciones_order = sorted(Evaluaciones, key=lambda x: x.fecha_inicio)
                 context = {
                     'lista_rubricas': Rubrica.objects.all(),
-                    'lista_evaluaciones': Evaluaciones,
+                    'lista_evaluaciones': evaluaciones_order[0:10],
                     'lista_cursos': Instancia.objects.all()
                 }
                 return render(request, 'sistema/landingevaluador.html', context)
@@ -92,6 +100,7 @@ def index_evaluaciones(request, error = False):
         Evaluaciones=[]
         for evalua in evaluas:
             Evaluaciones.append(evalua.evaluacion)
+
         context = {
             'lista_rubricas': Rubrica.objects.all(),
             'lista_evaluaciones': Evaluaciones,
