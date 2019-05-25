@@ -41,10 +41,10 @@ def index_landing_admin(request):
                 for evalua in evaluas:
                     Evaluaciones.append(evalua.evaluacion)
                 #Luego ordeno las evaluaciones por la fecha de inicio
-                evaluaciones_order = sorted(Evaluaciones, key=lambda x: x.fecha_inicio)
+                evaluaciones_order = sorted(Evaluaciones, key=lambda x: x.fecha_inicio,reverse=True)
                 context = {
                     'lista_rubricas': Rubrica.objects.all(),
-                    'lista_evaluaciones': evaluaciones_order[0:10],
+                    'lista_evaluaciones': evaluaciones_order[:10],
                     'lista_cursos': Instancia.objects.all()
                 }
                 return render(request, 'sistema/landingevaluador.html', context)
@@ -68,9 +68,11 @@ def index_landing_admin(request):
             Evaluaciones = []
             for evalua in evaluas:
                 Evaluaciones.append(evalua.evaluacion)
+            # Luego ordeno las evaluaciones por la fecha de inicio
+            evaluaciones_order = sorted(Evaluaciones, key=lambda x: x.fecha_inicio,reverse=True)
             context = {
                 'lista_rubricas': Rubrica.objects.all(),
-                'lista_evaluaciones': Evaluaciones,
+                'lista_evaluaciones': evaluaciones_order[:10],
                 'lista_cursos': Instancia.objects.all()
             }
             return render(request, 'sistema/landingevaluador.html', context)
