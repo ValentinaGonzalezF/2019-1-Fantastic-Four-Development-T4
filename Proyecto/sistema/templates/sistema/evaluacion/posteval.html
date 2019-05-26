@@ -17,17 +17,45 @@
     
     <div class="w3-container">
             <h4><b>Resumen de evaluación</b></h4>
+        Puntaje base
+        {{puntaje_base}}
+        Puntaje asignado
+        {{puntajes}}
         {% for fila in rubrica.tabla %}
+        {%with contador=forloop.counter %}
         {% if not forloop.first %}
         {% for celda in fila %}
         {% if forloop.first %}
-            <p>{{celda}}</p>
+            <p>{{celda}}
+                {%if contador == 2 %}
+                {{puntajes.0}}
+                 {%elif contador == 3 %}
+                {{puntajes.1}}
+                 {%elif contador == 4 %}
+                {{puntajes.2}}
+                 {%elif contador == 5 %}
+                {{puntajes.3}}
+                 {%elif contador == 6 %}
+                {{puntajes.4}}
+                 {%elif contador == 7 %}
+                {{puntajes.5}}
+                  {%elif contador == 8 %}
+                {{puntajes.6}}
+                  {%elif contador == 9 %}
+                {{puntajes.7}}
+                  {%elif contador == 10 %}
+                {{puntajes.8}}
+             {% endif %}
+            </p>
+
+
             <div class="w3-grey">
               <div class="w3-container w3-center w3-padding w3-orange" style="width:25%">25%</div>
             </div>
          {% endif %}
          {% endfor %}
            {% endif %}
+        {%endwith%}
         {% endfor %}
             <!--<p>Calidad del material</p>
             <div class="w3-grey">
@@ -64,3 +92,4 @@
 </div>
 
 {% endblock %}
+#TODO: FALTA ASIGNAR PORCENTAJE DE BARRA Y GUARDAR EN BASE DE DATOS

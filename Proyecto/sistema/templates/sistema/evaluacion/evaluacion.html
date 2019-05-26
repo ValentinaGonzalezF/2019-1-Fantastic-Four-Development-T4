@@ -19,14 +19,14 @@
 {% for fila in rubrica.tabla %}
     {% if not forloop.first %}
     <div class="w3-panel  w3-margin-bottom">
-      <ul class="w3-ul w3-light-grey w3-center w3-card-4">
+      <ul class="w3-ul w3-light-grey w3-center w3-card-4" name="aspectos">
            {% for celda in fila %}
           {%with contador=forloop.counter%}
           {% if forloop.first %}
         <li class="w3-dark-grey w3-xlarge w3-padding-32">{{ celda }}
             <!--<i class="far fa-check-circle"></i>--></li>
          {% else %}
-          <li class="opcion w3-padding-16" onclick="selector(this);"> {{ celda }}
+          <li class="opcion w3-padding-16" onclick="selector(this);" name="cumplimientos"> {{ celda }}
             {% if contador == 2 %}
                   {{rubrica.tabla.0.1 }}
               {% elif contador == 3 %}
@@ -63,13 +63,18 @@
       	{% block eval_admin_tiempo %}{% endblock %}
         </div>
             <div class="w3-panel w3-right w3-half">
-                <button class="w3-button w3-xlarge w3-blue" style="margin-left: 15%" onclick="location.href='{% url 'sistema:postevaluacion' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}'"> <i class="fas fa-envelope-open-text"></i> Entregar evaluación</button>
+                <form method="post" action="{% url 'sistema:postevaluacion' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}" onsubmit="return obtener()">
+                        {% csrf_token %}
+                <input id="puntaje" type="text" name="lista-puntajes" style="display:none"  value="1">
+                <input id="puntajes-base" type="text" name="lista-pj-base" style="display:none" value="{{rubrica.tabla.0}}" >
+                <input class="w3-button w3-xlarge w3-blue" style="margin-left: 15%" type="submit"> <i class="fas fa-envelope-open-text"></i> Entregar evaluación</input>
+                </form>
             </div>
 
             
   </div>
 <script>
-     function selector(element) {
+  function selector(element) {
         var row = element.parentNode;
         for (var i = 0; i < row.children.length; i++) {
             if (!row.children.item(i).classList.contains("row-name")) {
@@ -77,6 +82,27 @@
             }
         }
         element.classList.add("selected");
+     }
+
+     function obtener(){
+            var largoaspectos=document.getElementsByName("aspectos").length;
+            var puntajes=document.getElementsByClassName("selected");
+            //Confirmacion de puntajes
+            if(puntajes.length!= largoaspectos ){
+                alert("Se debe seleccionar puntaje para cada aspecto");
+                return false;
+            }
+            else{
+                //Lista con los puntajes seleccionados
+                var list=[];
+                for(var i=0; i<largoaspectos;i++){
+                    var listado=puntajes[i].innerText.split(" ");
+                    list.push(listado[listado.length-1]);
+                }
+                var punt=document.getElementById("puntaje");
+                punt.value=list;
+                return true;
+            }
      }
 
 </script>
