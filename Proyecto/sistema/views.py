@@ -373,7 +373,7 @@ def modificar_rubrica(request, rubrica_id):
     while "celda:0,{}".format(i) in request.POST:
         cols = i
         i+=1
-    i = 0 # Cuenta filas
+    i = 0 # Cuentaaaaq filas
     while "celda:{},0".format(i) in request.POST:
         fils = i
         i+=1
