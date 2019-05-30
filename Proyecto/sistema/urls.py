@@ -26,6 +26,7 @@ urlpatterns = [
 
     # LOGIN
     path('login/', views.index_login, name = 'index_login'),
+    path('login/val', views.login_validate, name = 'login_val'),
 	
     # INDICES
     path('cursos/', views.index_cursos, name = 'index_cursos'),

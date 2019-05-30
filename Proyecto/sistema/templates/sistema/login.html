@@ -23,7 +23,7 @@ body {font-size:16px;}
       <h1 class=" w3-text-black w3-center" style="font-size:3vw;"><b>Bienvenido al sistema de evaluación</b></h1>
 
      
-      <form action="{% url 'sistema:index_landing_admin' %} " method="post">
+      <form action="{% url 'sistema:login_val' %} " method="post">
           {% csrf_token %}
     <div class="w3-center" style="">
         Correo electronico:
