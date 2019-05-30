@@ -47,8 +47,6 @@ def login_validate(request):
 
 #   INDICES
 def index_landing_admin(request):
-    if not request.session['correo']:
-        return redirect(reverse("sistema:index_login"))
     if request.session.get('es_admin'):
         return render(request, 'sistema/landing.html')
     else:
@@ -69,7 +67,6 @@ def index_landing_admin(request):
 def index_login(request):
     return render(request,'sistema/login.html')
 
-@login_required
 def index_cursos(request):
     context = {
         'lista_cursos': Instancia.objects.all()
@@ -77,7 +74,6 @@ def index_cursos(request):
     return render(request, 'sistema/admin/pag_cursos.html', context)
 
 # error = True  fechas incorrectas (ver Evaluacion.validar_fechas)
-@login_required
 def index_evaluaciones(request, error = False):
     if request.session.get('es_admin'):
         context = {
@@ -105,7 +101,6 @@ def index_evaluaciones(request, error = False):
 
 # error = 1     email repetido
 # error = 2     email incorrecto
-@login_required
 def index_evaluadores(request, error = 0, nombre = None):
     if error == 1:
         mensaje = "El correo ya se encuentra registrado"
@@ -122,7 +117,6 @@ def index_evaluadores(request, error = 0, nombre = None):
         context['nombre'] = nombre
     return render(request, 'sistema/admin/pag_evaluadores.html', context)
 
-@login_required
 def index_rubricas(request):
     context = {
         'lista_rubricas': Rubrica.objects.all()
@@ -131,7 +125,6 @@ def index_rubricas(request):
 
 
 #   EVALUACION
-@login_required
 def evaluacion(request, eval_id):
     #Evaluacion
     ev = Evaluacion.objects.get(pk=eval_id)
@@ -163,7 +156,6 @@ def evaluacion(request, eval_id):
          Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
-@login_required
 def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     ev = Evaluacion.objects.get(pk=eval_id)
     gr = Grupo.objects.get(pk=grupo_id)
@@ -185,7 +177,6 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     #Si ya termino
     return render(request, 'sistema/evaluacion/posteval.html',context)
 
-@login_required
 def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
     if request.method == "POST":
         ev = Evaluacion.objects.get(pk=eval_id)
@@ -210,7 +201,6 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
 #   RUBRICA
 
 # Ver rubrica
-@login_required
 def rubrica(request, rubrica_id):
     context = {
         'rubrica': Rubrica.objects.get(pk=rubrica_id)
@@ -218,7 +208,6 @@ def rubrica(request, rubrica_id):
     return render(request, 'sistema/rubricas/rubrica.html', context)
 
 # Editar rubrica
-@login_required
 def rubrica_editar(request, rubrica_id):
     context = {
         'rubrica': Rubrica.objects.get(pk=rubrica_id)
@@ -227,7 +216,6 @@ def rubrica_editar(request, rubrica_id):
 
 
 #   GESTIONAR EVALUADOR
-@login_required
 def agregar_evaluador(request):
     # Si se carga la pagina normalmente
     if request.method != "POST":
@@ -256,7 +244,6 @@ def agregar_evaluador(request):
         return index_evaluadores(request, error = 1, nombre = request.POST['nombre'])
     return index_evaluadores(request, error = 2, nombre = request.POST['nombre'])
 
-@login_required
 def modificar_evaluador(request):
     # Si se carga la pagina normalmente
     if request.method != "POST":
@@ -278,7 +265,6 @@ def modificar_evaluador(request):
         return redirect(reverse('sistema:index_evaluadores'))
     return index_evaluadores(request, error = 2)
 
-@login_required
 def eliminar_evaluador(request):
     id = int(request.POST['id'])
     Eval= Evaluador.objects.get(pk=id)
@@ -289,7 +275,6 @@ def eliminar_evaluador(request):
 
 
 #   GESTIONAR EVALUACION
-@login_required
 def agregar_evaluacion(request):
     # Si se carga la pagina normalmente
     if request.method != "POST":
@@ -316,7 +301,6 @@ def agregar_evaluacion(request):
             ev.delete()
     return index_evaluaciones(request, error = True)
 
-@login_required
 def modificar_evaluacion(request):
     # Si se carga la pagina normalmente
     if request.method != "POST":
@@ -345,19 +329,16 @@ def modificar_evaluacion(request):
             return redirect("sistema:evaluacion", eval.id)
     return index_evaluaciones(request, error=True)
     
-@login_required
 def eliminar_evaluacion(request):
     id = int(request.POST['id'])
     Evaluacion.objects.get(pk=id).delete()
     return redirect(reverse("sistema:index_evaluaciones"))
 
-@login_required
 def evaluacion_agr_evaluador(request,eval_id=0):
     ev=Evaluacion.objects.get(pk=eval_id)
     Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
     return redirect(reverse('sistema:evaluacion'))
 
-@login_required
 def evaluacion_eliminar_evaluador(request,eval_id=0):
     #Busca evaluador
     id = (request.POST['id'])
@@ -366,7 +347,6 @@ def evaluacion_eliminar_evaluador(request,eval_id=0):
     return redirect("sistema:evaluacion", eval_id)
 
 #   GESTIONAR RUBRICA
-@login_required
 def agregar_rubrica(request):
     # Crea objeto
     r = Rubrica.objects.create(nombre = request.POST['nombre'], archivo = "")
@@ -378,7 +358,6 @@ def agregar_rubrica(request):
     r.save()
     return redirect("sistema:rubrica_editar", r.id)
 
-@login_required
 def modificar_rubrica(request, rubrica_id):
     i = 0 # Cuenta columnas
     while "celda:0,{}".format(i) in request.POST:
@@ -398,7 +377,6 @@ def modificar_rubrica(request, rubrica_id):
     r.save()
     return redirect("sistema:rubrica", rubrica_id)
     
-@login_required
 def eliminar_rubrica(request):
     r = Rubrica.objects.get(pk=request.POST['id'])
     r.borrar() # Elimina archivo
