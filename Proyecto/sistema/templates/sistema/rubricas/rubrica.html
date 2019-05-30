@@ -60,9 +60,11 @@
 
 <div>
   {% if not rubrica.validar %}<p>La rúbrica no tiene el puntaje máximo adecuado (6 puntos).</p>{% endif %}
+  {% if request.session.es_admin %}
   <a href="{% url 'sistema:rubrica_editar' rubrica_id=rubrica.id %}">
     <button class="w3-btn w3-blue w3-large w3-margin-top" style="margin-bottom: 64px">Editar <i class="fas fa-edit"></i></button>
   </a>
+  {% endif %}
   <a href="{% url 'sistema:index_rubricas' %}">
     <button class="w3-btn w3-right w3-blue w3-large w3-margin-top" style="margin-bottom: 64px">Volver <i class="fas fa-arrow-left"></i></button>
   </a>
