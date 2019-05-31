@@ -164,10 +164,7 @@ def evaluacion(request, eval_id):
         'lista_evaluadores':  evaluadores_para_agregar,
         'lista_evalua':evaluadores_eval
     }
-    if request.method=='POST':
-        #Si se agrega evaluador a evaluacion
-         ev = Evaluacion.objects.get(pk=eval_id)
-         Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
+
     return render(request, 'sistema/evaluacion/gruposevaluacion.html',context)
 
 @login_required
@@ -361,7 +358,7 @@ def eliminar_evaluacion(request):
 def evaluacion_agr_evaluador(request,eval_id=0):
     ev=Evaluacion.objects.get(pk=eval_id)
     Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
-    return redirect(reverse('sistema:evaluacion'))
+    return redirect('sistema:evaluacion',eval_id)
 
 @login_required
 def evaluacion_eliminar_evaluador(request,eval_id=0):
