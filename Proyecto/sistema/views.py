@@ -177,7 +177,8 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     context = {
         'evaluacion': ev,
         'grupo' : gr,
-        'rubrica':rub
+        'rubrica':rub,
+        'puntajes': rub.niveles
     }
     #Si esta en curso la evaluación
     if ev.abierta():

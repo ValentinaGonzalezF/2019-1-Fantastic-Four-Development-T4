@@ -21,36 +21,16 @@
     <div class="w3-panel  w3-margin-bottom">
       <ul class="w3-ul w3-light-grey w3-center w3-card-4" name="aspectos">
            {% for celda in fila %}
-          {%with contador=forloop.counter%}
           {% if forloop.first %}
         <li class="w3-dark-grey w3-xlarge w3-padding-32">{{ celda }}
             <!--<i class="far fa-check-circle"></i>--></li>
          {% else %}
-          <li class="opcion w3-padding-16" onclick="selector(this);" name="cumplimientos"> {{ celda }}
-            {% if contador == 2 %}
-                  {{rubrica.tabla.0.1 }}
-              {% elif contador == 3 %}
-              {{rubrica.tabla.0.2 }}
-              {% elif contador == 4 %}
-               {{rubrica.tabla.0.3 }}
-               {% elif contador == 5 %}
-               {{rubrica.tabla.0.4 }}
-               {% elif contador == 6 %}
-               {{rubrica.tabla.0.5 }}
-               {% elif contador == 7 %}
-               {{rubrica.tabla.0.6 }}
-                {% elif contador == 8 %}
-               {{rubrica.tabla.0.7 }}
-               {% elif contador == 9 %}
-               {{rubrica.tabla.0.8 }}
-              {% elif contador == 10 %}
-               {{rubrica.tabla.0.9 }}
-             {% endif %}
+          <li class="opcion w3-padding-16" onclick="selector(this);" name="cumplimientos-{{forloop.counter}}"> {{ celda }}
 
           </li>
 
           {% endif %}
-           {%endwith%}
+
 
               {% endfor %}
 
@@ -82,9 +62,9 @@
             }
         }
         element.classList.add("selected");
-     }
+  }
 
-     function obtener(){
+  function obtener(){
             var largoaspectos=document.getElementsByName("aspectos").length;
             var puntajes=document.getElementsByClassName("selected");
             //Confirmacion de puntajes
@@ -103,9 +83,20 @@
                 punt.value=list;
                 return true;
             }
-     }
-
+  }
+  var i=0;
+  listado_puntajes='{{puntajes}}';
+  var patron= /&#39;/g;
+  listado_puntajes=listado_puntajes.replace(patron,'').replace('[','').replace(']','').split(',');
+  for(var i = 0; i < listado_puntajes.length; i++){
+        //Saco los cumplimientos para el puntaje que le asignare
+        var name='cumplimientos-'+((i+2));
+        var aspec=document.getElementsByName(name);
+        for(var j=0;j<aspec.length;j++){
+        //Coloco los puntajes
+            aspec[j].innerHTML=aspec[j].innerHTML+ '<p  style="font-weight:bold"> Puntaje: '+listado_puntajes[i]+'</p>';
+        }
+  }
 </script>
-
 
 {% endblock %}
