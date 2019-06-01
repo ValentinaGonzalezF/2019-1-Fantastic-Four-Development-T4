@@ -81,7 +81,7 @@
 {% block post_admin %}
 
             <div class="w3-panel w3-right w3-half" style="margin-top: 50px">
-                    <button class="w3-button w3-xlarge w3-blue w3-margin-bottom" style="margin-left: 15%" onclick="location.href='evaluacion.html'"> <i class="fas fa-pen"></i>  Editar evaluación</button>
+                   <button onclick="location.href='{% url 'sistema:evaluacion_grupo' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}'"class="w3-button w3-xlarge w3-blue w3-margin-bottom" style="margin-left: 15%"> <i class="fas fa-pen"></i>  Editar evaluación</button>
                     <a href="{% url 'sistema:evaluacion' eval_id=evaluacion.id %}"><button class="w3-button w3-xlarge w3-blue" style="margin-left: 15%"> <i class="fas fa-door-open"></i> Volver a grupos</button></a>
 
                 </div>
