@@ -17,66 +17,20 @@
     
     <div class="w3-container">
             <h4><b>Resumen de evaluación</b></h4>
-        Puntaje base
-        {{puntaje_base}}
-        Puntaje asignado
-        {{puntajes}}
         {% for fila in rubrica.tabla %}
-        {%with contador=forloop.counter %}
         {% if not forloop.first %}
         {% for celda in fila %}
         {% if forloop.first %}
-            <p>{{celda}}
-                {%if contador == 2 %}
-                {{puntajes.0}}
-                 {%elif contador == 3 %}
-                {{puntajes.1}}
-                 {%elif contador == 4 %}
-                {{puntajes.2}}
-                 {%elif contador == 5 %}
-                {{puntajes.3}}
-                 {%elif contador == 6 %}
-                {{puntajes.4}}
-                 {%elif contador == 7 %}
-                {{puntajes.5}}
-                  {%elif contador == 8 %}
-                {{puntajes.6}}
-                  {%elif contador == 9 %}
-                {{puntajes.7}}
-                  {%elif contador == 10 %}
-                {{puntajes.8}}
-             {% endif %}
-            </p>
+            <p>{{celda}} </p>
 
 
             <div class="w3-grey">
-              <div class="w3-container w3-center w3-padding w3-orange" style="width:25%">25%</div>
+                <div class="w3-container w3-center w3-padding w3-white" name="aspecto" ></div>
             </div>
          {% endif %}
          {% endfor %}
            {% endif %}
-        {%endwith%}
         {% endfor %}
-            <!--<p>Calidad del material</p>
-            <div class="w3-grey">
-              <div class="w3-container w3-center w3-padding w3-green" style="width:75%">75%</div>
-            </div>
-            <p>Relación con requisitos funcionales</p>
-            <div class="w3-grey">
-              <div class="w3-container w3-center w3-padding w3-green" style="width:75%">75%</div>
-            </div>
-            <p>Organización de la información</p>
-            <div class="w3-grey">
-              <div class="w3-container w3-center w3-padding w3-blue" style="width:100%">100%</div>
-            </div>
-            <p>Forma</p>
-            <div class="w3-grey">
-              <div class="w3-container w3-center w3-padding w3-red" style="width:10%">0%</div>
-            </div>
-            <p>Entusiasmo</p>
-            <div class="w3-grey">
-              <div class="w3-container w3-center w3-padding w3-orange" style="width:25%">25%</div>
-            </div>-->
 
 {% block post_admin %}
 
@@ -91,5 +45,38 @@
  
 </div>
 
+<script>
+
+ puntaje_base='{{puntaje_base}}';
+ var patron= /&#39;/g;
+ puntaje_base=puntaje_base.replace(patron,'').replace('[','').replace(']','').split(',');
+ listado_puntajes='{{puntajes}}';
+ listado_puntajes=listado_puntajes.replace(patron,'').replace('[','').replace(']','').split(',');
+ for(var i = 0; i < listado_puntajes.length; i++){
+   var aspec=document.getElementsByName('aspecto')[i];
+   var porcentaje=100/(puntaje_base.length-2);
+   var porcentaje_final=0;
+   //Saca porcentaje
+   for (var j=1;j<puntaje_base.length;j++){
+        if (parseFloat(listado_puntajes[i])==0){
+            break;
+        }
+        if (parseFloat(listado_puntajes[i])==parseFloat(puntaje_base[j])){
+            break;
+        }
+
+       porcentaje_final+=porcentaje;
+   }
+   if(porcentaje_final==0){
+      porcentaje_final_barra=5;
+   }
+   else{
+      porcentaje_final_barra=porcentaje_final;
+    }
+   aspec.innerHTML='<div class="w3-container w3-center w3-padding w3-gray" name="aspecto-i" style="width:'+Math.round(porcentaje_final_barra)+'% "'+'>'+Math.round(porcentaje_final)+'% '+'</div>';
+ }
+
+</script>
+
 {% endblock %}
-#TODO: FALTA ASIGNAR PORCENTAJE DE BARRA Y GUARDAR EN BASE DE DATOS
+#TODO: FALTA GUARDAR EN BASE DE DATOS
