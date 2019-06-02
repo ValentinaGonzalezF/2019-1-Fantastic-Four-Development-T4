@@ -5,6 +5,9 @@
 
 {% block content %}
 
+{% load staticfiles %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <!-- Evaluacion -->
   <div class="w3-container" id="designers" style="margin-top:50px">
     <h1 class="w3-xxxlarge w3-text-black"><b>Evaluación <i class="w3-text-green">en curso</i> </b></h1>
@@ -43,16 +46,33 @@
       	{% block eval_admin_tiempo %}{% endblock %}
         </div>
             <div class="w3-panel w3-right w3-half">
-                <form method="post" action="{% url 'sistema:postevaluacion' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}" onsubmit="return obtener()">
+                <form id="form_puntajes" method="post" action="{% url 'sistema:postevaluacion' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}" >
                         {% csrf_token %}
                 <input id="puntaje" type="text" name="lista-puntajes" style="display:none"  value="1">
                 <input id="puntajes-base" type="text" name="lista-pj-base" style="display:none" value="{{rubrica.tabla.0}}" >
-                <input class="w3-button w3-xlarge w3-blue" style="margin-left: 15%" type="submit"> <i class="fas fa-envelope-open-text"></i> Entregar evaluación</input>
+                <button class="w3-button w3-xlarge w3-blue" style="margin-left: 15%" onclick="return obtener()"><i class="fas fa-envelope-open-text"> </i> Enviar</button>
                 </form>
             </div>
 
-            
+
+
   </div>
+
+     <!--Modalidad confirmacion -->
+	 <div id="confirmacion" class="w3-modal">
+	    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+		    <div class="w3-center"><br>
+			    <span onclick="document.getElementById('confirmacion').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+			    <p>¿Está seguro de enviar la evaluación?</p>
+				    {% csrf_token %}
+				    <input id="valor_eliminar" type="hidden" name="id" value="">
+				    <button class="w3-button w3-blue w3-margin-bottom"  id="SI" value="-">Si</button>
+                    <button class="w3-button w3-blue w3-margin-bottom" id="NO" value="-">No</button>
+		    </div>
+	    </div>
+     </div>
+
+
 <script>
   function selector(element) {
         var row = element.parentNode;
@@ -69,21 +89,39 @@
             var puntajes=document.getElementsByClassName("selected");
             //Confirmacion de puntajes
             if(puntajes.length!= largoaspectos ){
-                alert("Se debe seleccionar puntaje para cada aspecto");
-                return false;
+                    alert("Se debe seleccionar puntaje para cada aspecto");
+                    document.getElementById("form_puntajes").addEventListener("submit", function(event){
+                         event.preventDefault()
+                    });
             }
             else{
-                //Lista con los puntajes seleccionados
-                var list=[];
-                for(var i=0; i<largoaspectos;i++){
-                    var listado=puntajes[i].innerText.split(" ");
-                    list.push(listado[listado.length-1]);
-                }
-                var punt=document.getElementById("puntaje");
-                punt.value=list;
-                return true;
+                document.getElementById("form_puntajes").addEventListener("submit", function(event)
+                {
+                event.preventDefault()
+                });
+                document.getElementById("confirmacion").style.display='block';
             }
   }
+  document.getElementById("SI").addEventListener("click", function () {
+           document.getElementById("confirmacion").style.display='none';
+           //Lista con los puntajes seleccionados
+           var list=[];
+           var largoaspectos=document.getElementsByName("aspectos").length;
+           var puntajes=document.getElementsByClassName("selected");
+           for(var i=0; i<largoaspectos;i++){
+               var listado=puntajes[i].innerText.split(" ");
+               list.push(listado[listado.length-1]);
+           }
+           var punt=document.getElementById("puntaje");
+           punt.value=list;
+           document.getElementById("form_puntajes").submit();
+  })
+  document.getElementById("NO").addEventListener("click", function () {
+          document.getElementById("confirmacion").style.display='none';
+  })
+
+
+
   var i=0;
   listado_puntajes='{{puntajes}}';
   var patron= /&#39;/g;
