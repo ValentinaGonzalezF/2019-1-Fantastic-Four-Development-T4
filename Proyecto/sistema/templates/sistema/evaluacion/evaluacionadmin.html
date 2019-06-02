@@ -15,16 +15,51 @@
             
         <div class="w3-half w3-margin-bottom ">
           <ul class="w3-ul w3-light-grey w3-center w3-card-4">
-            <li class="w3-dark-grey w3-xlarge w3-padding-32">Miembros que presentan <i class="fas fa-chalkboard-teacher"></i></li>
-            <li class="w3-padding-16">Andrea Park <i style="margin-left: 10px" class="w3-large fas fa-times"></i></li>
-            <li class="w3-padding-16" id="mas"> Agregar otro <i style="margin-left: 10px"  class="fas fa-user-plus"></i></li>
+            <li class="w3-dark-grey w3-xlarge w3-padding-32" >Miembros que presentan <i class="fas fa-chalkboard-teacher"></i></li>
+                    <div name="presentan">
+                    </div>
+               <button class="w3-button w3-margin-bottom" onclick="agregar('agregar_presentador')"> Agregar otro <i style="margin-left: 10px"  class="fas fa-user-plus"></i></button>
             
           </ul>
         </div>
       </div>
 
+
+    <!--Modalidad agregar presentador de evaluacion-->
+	<div id="agregar_presentador" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    <div class="w3-center"><br>
+      <span onclick="document.getElementById('agregar_presentador').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+      {% csrf_token %}
+        <div class="w3-section">
+          <label><b>Presentador</b></label>
+          <select class="w3-select" id="presentador">
+			{%for alumno in grupo.alumno_set.all%}
+            <option value="{{ alumno.nombre }}">{{alumno.nombre}}</option>
+			{%endfor%}
+          </select>
+          <button class="w3-button w3-blue w3-margin-bottom" type="submit" onclick="agregar_presentador()">Agregar</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Modalidad eliminar evaluador de evaluacion-->
+	 <div id="eliminar_presentador" class="w3-modal">
+	<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+		<div class="w3-center"><br>
+			<span onclick="document.getElementById('eliminar_presentador').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+			<p>¿Está seguro de querer eliminar a este presentador de la evaluación?</p>
+				{% csrf_token %}
+				<input id="valor_eliminar" type="hidden" name="id" value="">
+				<button class="w3-button w3-blue w3-margin-bottom" type="submit" onclick="eliminar_presentador()">Eliminar</button>
+		</div>
+	</div>
+</div>
 {% endblock %}
 {%  block eval_admin_tiempo%}
+
 
 
       <form class="w3-container" action="" method="post">
@@ -37,4 +72,25 @@
         </div>
       </form>
 
+	 <script>
+		  function agregar(id) {
+		document.getElementById('agregar_presentador').style.display='block';
+	}
+		function eliminar(id) {
+		document.getElementById('valor_eliminar').value = id;
+		document.getElementById('eliminar').style.display='block';
+	}
+	function agregar_presentador(){
+	     document.getElementById('agregar_presentador').style.display='none';
+	     presentador=document.getElementById("presentador");
+	     listado_presentan=document.getElementsByName('presentan')[0];
+	     var div = document.createElement("div");
+         div.innerHTML = '<li class="w3-padding-16" id="presentador-'+ presentador.value+'">'+presentador.value +'<i style="margin-left: 10px" class="w3-large fas fa-times" onclick="mostrar_eliminar_presentador()"></i></li>';
+         listado_presentan.appendChild(div);
+	}
+	function mostrar_eliminar_presentador(){
+	     document.getElementById('eliminar_presentador').style.display='block';
+
+	}
+	 </script>
 {%endblock%}
