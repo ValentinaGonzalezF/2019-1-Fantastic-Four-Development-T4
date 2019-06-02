@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, reverse
 from django.utils.crypto import random
 from django.contrib.auth.decorators import login_required
 
-from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua, InstanciaGrupo
+from .models import Instancia, Evaluador, Evaluacion, Rubrica, Grupo, EvaluacionRubrica, Evalua, InstanciaGrupo, \
+    Presentacion
 from .forms import EvaluadorForm, EvaluacionForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -172,8 +173,6 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
     ev = Evaluacion.objects.get(pk=eval_id)
     gr = Grupo.objects.get(pk=grupo_id)
     rub = Rubrica.objects.get(pk=rubrica_id)
-    #Sacar presentacion con id de evaluacion y de grupo
-    #pre=Presentacion.objects.get(evaluacion_id=eval_id,grupo_id=grupo_id)
     context = {
         'evaluacion': ev,
         'grupo' : gr,
@@ -198,7 +197,26 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
         rub = Rubrica.objects.get(pk=rubrica_id)
         puntaje=request.POST['lista-puntajes'].split(',')
         puntaje_base=(request.POST['lista-pj-base'])
+        # Crear evaluacion de grupo si aun no esta en el sistema
+        pre = Presentacion.objects.filter(evaluacion=ev,
+                                          grupo=gr,evaluador=request.session.get('nombre')).exists()
+        # Si no existe la presentacion se crea
+        if not (pre):
+            pre = Presentacion.objects.create(evaluacion=ev,
+                                              grupo=gr,
+                                              puntajes=puntaje,
+                                              evaluador=request.session.get('nombre'),
+                                              presentador='')
+            pre.save()
+        #Se modifica
+        else:
+            pre=Presentacion.objects.get(evaluacion=ev,
+                                          grupo=gr,evaluador=request.session.get('nombre'))
 
+
+            pre.puntajes=puntaje
+            pre.presentador=''
+            pre.save()
         context = {
             'evaluacion': ev,
             'grupo' : gr,
