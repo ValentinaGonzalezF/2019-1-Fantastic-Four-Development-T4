@@ -317,7 +317,7 @@ def agregar_evaluador(request):
             contraseña= nueva_pass()
             ev = Evaluador.objects.create(nombre = form.cleaned_data['nombre'],
                                           correo = form.cleaned_data['correo'],
-                                          password = contraseña, es_admin = False)
+                                          password = 0, es_admin = False)
             ev.save()
             #Crea usuario con su contraseña para poder entrar al login
             user = User.objects.create_user(form.cleaned_data['correo'], form.cleaned_data['correo'], contraseña)
