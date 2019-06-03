@@ -17,6 +17,24 @@ def nueva_pass():
 		p += abc[random.randint(0, len(abc)-1)]
 	return p
 
+# Rubrica tiene notas
+def rubrica_sin_uso(rubrica):
+    # Obtengo evaluaciones que usan esta rubrica
+    evaluaciones_con_rubrica = rubrica.evaluacionrubrica_set.all()
+    evaluaciones=[]
+    for eval in evaluaciones_con_rubrica:
+        evaluaciones.append(eval.evaluacion)
+
+    puede_editar = True
+
+    for evaluacion in evaluaciones:
+        numero_notas_puestas_de_evaluacion=Presentacion.objects.filter(evaluacion=evaluacion).count()
+        if(numero_notas_puestas_de_evaluacion>0):
+            puede_editar=False
+            break
+        
+    return puede_editar
+
 
 #   LOGIN
 def login_validate(request):
@@ -260,8 +278,10 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
 @login_required
 def rubrica(request, rubrica_id):
     #Rescata rubrica que tiene id=rubrica_id
+    r = Rubrica.objects.get(pk=rubrica_id)
     context = {
-        'rubrica': Rubrica.objects.get(pk=rubrica_id)
+        'editable': rubrica_sin_uso(r),
+        'rubrica': r
     }
     return render(request, 'sistema/rubricas/rubrica.html', context)
 
@@ -271,21 +291,8 @@ def rubrica_editar(request, rubrica_id):
     if not request.session['es_admin']:
         return redirect("sistema:rubrica", rubrica_id = rubrica_id)
     rub = Rubrica.objects.get(pk=rubrica_id)
-    # Obtengo evaluaciones que usan esta rubrica
-    evaluaciones_con_rubrica = rub.evaluacionrubrica_set.all()
-    evaluaciones=[]
-    for eval in evaluaciones_con_rubrica:
-        evaluaciones.append(eval.evaluacion)
-
-    puede_editar = True
-
-    for evaluacion in evaluaciones:
-        numero_notas_puestas_de_evaluacion=Presentacion.objects.filter(evaluacion=evaluacion).count()
-        if(numero_notas_puestas_de_evaluacion>0):
-            puede_editar=False
-            break
-
-    if(puede_editar):
+    
+    if rubrica_sin_uso(rub):
         context = {
         'rubrica': Rubrica.objects.get(pk=rubrica_id)
         }
