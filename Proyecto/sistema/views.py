@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 # Contraseña
 abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 def nueva_pass():
+    #Genera pass aleatoria
 	p = ""
 	for _ in range(16):
 		p += abc[random.randint(0, len(abc)-1)]
@@ -48,6 +49,7 @@ def login_validate(request):
     return redirect(reverse("sistema:index_login"))
 
 def log_out(request):
+    #Setea las variables de session para reconocer el usuario en None
     logout(request)
     request.session['correo'] = None
     request.session['es_admin'] = None
@@ -57,10 +59,13 @@ def log_out(request):
 #   INDICES
 @login_required
 def index_landing_admin(request):
+    #Si es admin, muestra el landing page de admin
     if request.session.get('es_admin'):
         return render(request, 'sistema/landing.html')
     else:
+        #Obtiene evaluador a traves de variables de session correo
         eval = Evaluador.objects.get(correo=request.session.get('correo'))
+        #Saca todas las evaluaciones que le corresponden al evaluador
         evaluas = eval.evalua_set.all()
         Evaluaciones = []
         for evalua in evaluas:
@@ -75,10 +80,12 @@ def index_landing_admin(request):
         return render(request, 'sistema/landingevaluador.html', context)
 
 def index_login(request):
+    #Dirige al login
     return render(request,'sistema/login.html')
 
 @login_required
 def index_cursos(request):
+    #Muestra todos los cursos
     context = {
         'lista_cursos': Instancia.objects.all()
     }
@@ -87,7 +94,9 @@ def index_cursos(request):
 # error = True  fechas incorrectas (ver Evaluacion.validar_fechas)
 @login_required
 def index_evaluaciones(request, error = False):
+    #Si es admin
     if request.session.get('es_admin'):
+        #Muestra todas las evaluaciones
         context = {
             'lista_rubricas': Rubrica.objects.all(),
             'lista_evaluaciones': Evaluacion.objects.all(),
@@ -132,6 +141,7 @@ def index_evaluadores(request, error = 0, nombre = None):
 
 @login_required
 def index_rubricas(request):
+    #Entrega todas las rubricas
     context = {
         'lista_rubricas': Rubrica.objects.all()
     }
@@ -170,6 +180,7 @@ def evaluacion(request, eval_id):
 
 @login_required
 def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
+    #Entrega evaluacion grupo y rubrica que estan relacionadas
     ev = Evaluacion.objects.get(pk=eval_id)
     gr = Grupo.objects.get(pk=grupo_id)
     rub = Rubrica.objects.get(pk=rubrica_id)
@@ -192,6 +203,7 @@ def evaluacion_grupo(request,eval_id=0,grupo_id=0,rubrica_id=0):
 @login_required
 def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
     if request.method == "POST":
+        #Rescata evaluacion, grupo, rubrica, puntajes y puntajes base de la evaluacion
         ev = Evaluacion.objects.get(pk=eval_id)
         gr = Grupo.objects.get(pk=grupo_id)
         rub = Rubrica.objects.get(pk=rubrica_id)
@@ -203,6 +215,7 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
         # Si no existe la presentacion se crea
         if not (pre):
             if(request.session.get('es_admin')):
+                #Saca los presentadores que fueron agregados
                 presentadores = (request.POST['presentadores_grupo']).split(',')
                 pre = Presentacion.objects.create(evaluacion=ev,
                                               grupo=gr,
@@ -210,6 +223,7 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                                               evaluador=request.session.get('nombre'),
                                               presentador=presentadores)
             else:
+                #Crea nueva presentacion en donde se registra el puntaje
                 pre = Presentacion.objects.create(evaluacion=ev,
                                                   grupo=gr,
                                                   puntajes=puntaje,
@@ -217,10 +231,13 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
             pre.save()
         #Se modifica
         else:
+            #Obtiene presentacion que corresponde
              pre=Presentacion.objects.get(evaluacion=ev,
                                           grupo=gr,evaluador=request.session.get('nombre'))
+             #Modifica puntajes
              pre.puntajes = puntaje
              if (request.session.get('es_admin')):
+                 #Si es admin modifica los presentadores del grupo
                  presentadores=(request.POST['presentadores_grupo']).split(',')
                  pre.presentador=presentadores
              pre.save()
@@ -242,6 +259,7 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
 # Ver rubrica
 @login_required
 def rubrica(request, rubrica_id):
+    #Rescata rubrica que tiene id=rubrica_id
     context = {
         'rubrica': Rubrica.objects.get(pk=rubrica_id)
     }
@@ -252,10 +270,29 @@ def rubrica(request, rubrica_id):
 def rubrica_editar(request, rubrica_id):
     if not request.session['es_admin']:
         return redirect("sistema:rubrica", rubrica_id = rubrica_id)
-    context = {
+    rub = Rubrica.objects.get(pk=rubrica_id)
+    # Obtengo evaluaciones que usan esta rubrica
+    evaluaciones_con_rubrica = rub.evaluacionrubrica_set.all()
+    evaluaciones=[]
+    for eval in evaluaciones_con_rubrica:
+        evaluaciones.append(eval.evaluacion)
+
+    puede_editar = True
+
+    for evaluacion in evaluaciones:
+        numero_notas_puestas_de_evaluacion=Presentacion.objects.filter(evaluacion=evaluacion).count()
+        if(numero_notas_puestas_de_evaluacion>0):
+            puede_editar=False
+            break
+
+    if(puede_editar):
+        context = {
         'rubrica': Rubrica.objects.get(pk=rubrica_id)
-    }
-    return render(request, 'sistema/rubricas/rubrica_admin.html', context)
+        }
+        return render(request, 'sistema/rubricas/rubrica_admin.html', context)
+    else:
+        return redirect("sistema:rubrica", rubrica_id=rubrica_id)
+
 
 
 #   GESTIONAR EVALUADOR
@@ -376,18 +413,21 @@ def modificar_evaluacion(request):
     
 @login_required
 def eliminar_evaluacion(request):
+    #Elimina evaluacion a traves de id del post
     id = int(request.POST['id'])
     Evaluacion.objects.get(pk=id).delete()
     return redirect(reverse("sistema:index_evaluaciones"))
 
 @login_required
 def evaluacion_agr_evaluador(request,eval_id=0):
+    #Agrega evaluador a la evaluacion para que pueda poner nota
     ev=Evaluacion.objects.get(pk=eval_id)
     Evalua.objects.create(evaluacion=ev, evaluador=Evaluador.objects.get(pk=request.POST['evalu'])).save()
     return redirect('sistema:evaluacion',eval_id)
 
 @login_required
 def evaluacion_eliminar_evaluador(request,eval_id=0):
+    #Elimina evaluador de la evaluacion
     #Busca evaluador
     id = (request.POST['id'])
     #Elimina evaluador
