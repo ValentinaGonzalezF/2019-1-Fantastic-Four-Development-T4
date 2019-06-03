@@ -40,6 +40,17 @@
     }
 
   </style>
+    <div class="w3-section">
+        <div class="w3-half">
+          <label><b>Tiempo mínimo </b></label>
+          {{rubrica.tiempo_min|time:'H:i'}}
+        </div>
+        <div class="w3-half">
+            <label><b>Tiempo máximo</b></label>
+                    {{rubrica.tiempo_max|time:'H:i'}}
+        </div>
+    </div>
+  <br>
   <table>
     <tr>
       {% for celda in rubrica.tabla.0 %}

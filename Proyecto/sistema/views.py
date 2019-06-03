@@ -366,9 +366,7 @@ def agregar_evaluacion(request):
         ev = Evaluacion.objects.create(instancia=Instancia.objects.get(pk=request.POST['curso']),
 									   nombre=request.POST['nombre'],
                                        fecha_inicio=form.cleaned_data['inicio'],
-                                       fecha_fin=form.cleaned_data['fin'],
-                                       tiempo_min=form.cleaned_data['minimo'],
-                                       tiempo_max=form.cleaned_data['maximo'])
+                                       fecha_fin=form.cleaned_data['fin'])
         # Si las fechas estan correctas
         if ev.validar_fechas(agregar=True):
             ev.save()
@@ -396,8 +394,6 @@ def modificar_evaluacion(request):
         if not eval.abierta():
             eval.fecha_inicio = form.cleaned_data['inicio']
         eval.fecha_fin = form.cleaned_data['fin']
-        eval.tiempo_min = form.cleaned_data['minimo']
-        eval.tiempo_max = form.cleaned_data['maximo']
         eval.instancia = Instancia.objects.get(pk=request.POST['curso'])
         # Si las fechas estan correctas
         if eval.validar_fechas():
@@ -464,6 +460,8 @@ def modificar_rubrica(request, rubrica_id):
     r = Rubrica.objects.get(pk=rubrica_id)
     r.modificar(tabla) # Guarda la tabla
     r.nombre = request.POST['nombre']
+    r.tiempo_max=request.POST['maximo']
+    r.tiempo_min=request.POST['minimo']
     r.save()
     return redirect("sistema:rubrica", rubrica_id)
     

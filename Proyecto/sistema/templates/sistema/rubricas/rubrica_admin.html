@@ -35,6 +35,16 @@
   <form action="{% url 'sistema:rubrica_mod' rubrica_id=rubrica.id %}" method="POST">
     {% csrf_token %}
     <input id="nombre" type=hidden name="nombre" value="{{ rubrica.nombre }}">
+    <div class="w3-section">
+        <div class="w3-half">
+          <label><b>Tiempo mínimo </b></label>
+          <input class="w3-input w3-border w3-margin-bottom w3-center" type="time" required name="minimo">
+        </div>
+        <div class="w3-half">
+            <label><b>Tiempo máximo</b></label>
+            <input class="w3-input w3-border w3-margin-bottom w3-center" type="time" required name="maximo">
+        </div>
+    </div>
     <table id="tabla">
       <tr>
         {% for celda in rubrica.tabla.0 %}

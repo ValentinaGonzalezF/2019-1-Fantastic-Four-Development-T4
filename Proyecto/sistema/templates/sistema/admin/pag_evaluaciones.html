@@ -38,7 +38,7 @@
 
   <button onclick="location.href='{% url 'sistema:evaluacion' eval_id=evaluacion.id %}'" class="w3-button w3-large w3-blue w3-round">Ver</button>
   {% if request.session.es_admin %}
-  {% if not evaluacion.realizada %}<button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:'Y-m-d' }}', '{{ evaluacion.fecha_fin|date:'Y-m-d' }}','{{ evaluacion.tiempo_max|time:'H:i' }}','{{ evaluacion.tiempo_min|time:'H:i' }}',{{ evaluacion.evaluacionrubrica_set.all.0.rubrica.id }},{{ evaluacion.instancia.id }})" class="w3-button w3-large w3-blue w3-margin-left w3-round">Modificar</button>{% endif %}
+  {% if not evaluacion.realizada %}<button onclick="modificar({{ evaluacion.id }}, '{{ evaluacion.nombre }}', '{{ evaluacion.fecha_inicio|date:'Y-m-d' }}', '{{ evaluacion.fecha_fin|date:'Y-m-d' }}',{{ evaluacion.evaluacionrubrica_set.all.0.rubrica.id }},{{ evaluacion.instancia.id }})" class="w3-button w3-large w3-blue w3-margin-left w3-round">Modificar</button>{% endif %}
   <button onclick="eliminar({{ evaluacion.id }})" class="w3-button w3-large w3-blue w3-right w3-round">Eliminar</button>
   {% endif%}
 </div>
@@ -67,16 +67,7 @@
               <input class="w3-input w3-border w3-margin-bottom" type="date" required name="fin">
             </div>
           </div>
-           <div class="w3-section">
-           <div class="w3-half">
-              <label><b>Tiempo mínimo </b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="time" required name="minimo">
-            </div>
-           <div class="w3-half">
-              <label><b>Tiempo máximo</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="time" required name="maximo">
-            </div>
-              </div>
+
           <label><b>Rúbrica</b></label>
           <select class="w3-select w3-margin-bottom" name="rubrica">
             {% for rubrica in lista_rubricas %}{% if rubrica.validar %}
@@ -132,16 +123,6 @@
               <input id="mod_termino" class="w3-input w3-border w3-margin-bottom" type="date" required name="fin">
             </div>
           </div>
-           <div class="w3-section">
-           <div class="w3-half">
-              <label><b>Tiempo mínimo </b></label>
-              <input id="mod_min" class="w3-input w3-border w3-margin-bottom" type="time" required name="minimo">
-            </div>
-           <div class="w3-half">
-              <label><b>Tiempo máximo</b></label>
-              <input id="mod_max" class="w3-input w3-border w3-margin-bottom" type="time" required name="maximo">
-            </div>
-              </div>
           <label><b>Rúbrica</b></label>
           <select id="mod_rubrica" class="w3-select w3-margin-bottom" name="rubrica">
             {% for rubrica in lista_rubricas %}{% if rubrica.validar %}
@@ -177,12 +158,12 @@ function myFunction(id) {
 		document.getElementById('valor_eliminar').value = id;
 		document.getElementById('eliminar').style.display='block';
 	}
-  function modificar(id, nombre, fecha_i,fecha_t,tiempo_max,tiempo_min,rubrica,curso) {
+  function modificar(id, nombre, fecha_i,fecha_t,rubrica,curso) {
 		document.getElementById('mod_nombre').value = nombre;
 		document.getElementById('mod_inicio').value = fecha_i;
 		document.getElementById('mod_termino').value = fecha_t;
-		document.getElementById('mod_max').value = tiempo_max;
-		document.getElementById('mod_min').value = tiempo_min;
+		//document.getElementById('mod_max').value = tiempo_max;
+		//document.getElementById('mod_min').value = tiempo_min;
 		document.getElementById('mod_rubrica').value = rubrica;
 		document.getElementById('mod_curso').value = curso;
 		document.getElementById('mod_id').value = id;

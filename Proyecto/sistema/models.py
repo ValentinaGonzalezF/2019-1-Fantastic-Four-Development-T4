@@ -58,9 +58,6 @@ class Evaluacion(models.Model):
     nombre = models.CharField(max_length=100, default="Evaluacion")
     fecha_inicio=models.DateField()
     fecha_fin=models.DateField()
-    tiempo=models.TimeField(default='00:00:00')
-    tiempo_min=models.TimeField(default='00:00:00')
-    tiempo_max=models.TimeField(default='00:00:00')
 
     def __str__(self):
         return str(self.fecha_inicio)
@@ -76,7 +73,7 @@ class Evaluacion(models.Model):
     def abierta(self):
         return self.fecha_inicio <= timezone.now().date() <= self.fecha_fin
 
-    # True si la evaluacion ya se realizo 
+    # True si la evaluacion ya se realizo
     def realizada(self):
         return self.fecha_fin < timezone.now().date()
 
@@ -92,6 +89,8 @@ class Evaluador(models.Model):
 class Rubrica(models.Model):
     nombre=models.CharField(max_length=100)
     archivo=models.FileField(upload_to=None, max_length=100)
+    tiempo_min=models.TimeField(default='00:00:00')
+    tiempo_max=models.TimeField(default='00:00:00')
     t = None # tabla donde se guarda la info de archivo
 
     def __str__(self):
@@ -161,6 +160,8 @@ class Presentacion(models.Model):
     evaluador=models.CharField(max_length=100)
     puntajes=models.CharField(max_length=100)
     evaluacion = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
+    tiempo=models.TimeField(default='00:00:00')
+    descuento=models.IntegerField(default=0)
     grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
 
 class Evalua(models.Model):
