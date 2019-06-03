@@ -19,7 +19,7 @@
                     <div name="presentan">
                     </div>
                <button class="w3-button w3-margin-bottom" onclick="agregar('agregar_presentador')"> Agregar otro <i style="margin-left: 10px"  class="fas fa-user-plus"></i></button>
-            
+
           </ul>
         </div>
       </div>
@@ -34,9 +34,7 @@
         <div class="w3-section">
           <label><b>Presentador</b></label>
           <select class="w3-select" id="presentador">
-			{%for alumno in grupo.alumno_set.all%}
-            <option value="{{ alumno.nombre }}">{{alumno.nombre}}</option>
-			{%endfor%}
+
           </select>
           <button class="w3-button w3-blue w3-margin-bottom" type="submit" onclick="agregar_presentador()">Agregar</button>
         </div>
@@ -59,38 +57,88 @@
 </div>
 {% endblock %}
 {%  block eval_admin_tiempo%}
-
-
-
-      <form class="w3-container" action="" method="post">
-        {% csrf_token %}
-        <div class="w3-section">
-           <div class="w3-center ">
+            <div>
               <label><b>Tiempo de presentación </b></label>
-              <input class="w3-input w3-border w3-margin-bottom w3-center" type="time" required name="minimo">
+              <input class="w3-input w3-border w3-margin-bottom w3-center l1 - l12" style="" type="time"  name="minimo">
+              <input class="w3-input w3-border w3-margin-bottom " type="hidden" id="form_presentadores" name="presentadores_grupo" value="">
             </div>
-        </div>
-      </form>
+
 
 	 <script>
-		  function agregar(id) {
+	 function agregar(id) {
 		document.getElementById('agregar_presentador').style.display='block';
+		listado_alumnos=[];
+		//Saco listado de alumnos
+		{%for alumno in grupo.alumno_set.all%}
+            listado_alumnos.push('{{ alumno.nombre }}')
+		{%endfor%}
+		//Saco listado de los presentadores
+		var presentadores_agregados=document.getElementsByName('PRESENTADORES');
+		var presentadores=[];
+		for(var i=0; i<presentadores_agregados.length;i++){
+		    presentadores.push(presentadores_agregados[i].id);
+		}
+		//Hago listado para ver quienes puedo agregar
+		listado_para_agregar=[];
+		for(var j=0; j<listado_alumnos.length;j++){
+		    //Si no esta en la lista de presentadores lo agrego
+            if(!presentadores.includes(listado_alumnos[j])){
+                listado_para_agregar.push(listado_alumnos[j]);
+            }
+		}
+		var selected_presentador=document.getElementById('presentador');
+		//Agrego nuevas opciones de presentadores
+		//Pongo innerHTML en vacio
+		selected_presentador.innerHTML="";
+        for(var k=0;k<listado_para_agregar.length;k++){
+            selected_presentador.innerHTML+='<option value="'+listado_para_agregar[k]+'">'+listado_para_agregar[k]+'</option>';
+        }
 	}
-		function eliminar(id) {
-		document.getElementById('valor_eliminar').value = id;
-		document.getElementById('eliminar').style.display='block';
+	function eliminar_presentador(id) {
+	    //Saco valor de eliminar que es el nombre del presentador
+		var val= document.getElementById('valor_eliminar').value;
+		//Escondo el cuadro de texto
+		document.getElementById('eliminar_presentador').style.display='none';
+		//Obtengo elemento
+		var element = document.getElementById(val);
+		//Elimino el elemento del padre
+        element.parentNode.removeChild(element);
+        obtener_presentadores();
 	}
 	function agregar_presentador(){
+	    //Quito cuadro de texto
 	     document.getElementById('agregar_presentador').style.display='none';
+	     //Obtengo el presentador
 	     presentador=document.getElementById("presentador");
+         //Si no es vacio el nombre
+	     if(presentador.value!=''){
+	     //Obtengo lista de los que presentan
 	     listado_presentan=document.getElementsByName('presentan')[0];
+	     //Añado hijo a listado que presentan
 	     var div = document.createElement("div");
-         div.innerHTML = '<li class="w3-padding-16" id="presentador-'+ presentador.value+'">'+presentador.value +'<i style="margin-left: 10px" class="w3-large fas fa-times" onclick="mostrar_eliminar_presentador()"></i></li>';
+	     var presentador_name=presentador.value;
+         div.innerHTML = '<li class="w3-padding-16" name="PRESENTADORES" id="'+ presentador.value+'">'+presentador.value +'<i style="margin-left: 10px" class="w3-large fas fa-times" onclick="mostrar_eliminar_presentador(\''+ presentador_name + '\')"></i></li>';
          listado_presentan.appendChild(div);
+         obtener_presentadores();
+         }
 	}
-	function mostrar_eliminar_presentador(){
+	function mostrar_eliminar_presentador(id){
+	    //Muestro cuadro de texto
 	     document.getElementById('eliminar_presentador').style.display='block';
-
+	     //Guardo el nombre del presentador en valor_eliminar
+	     document.getElementById('valor_eliminar').value =id;
+	}
+	function obtener_presentadores(){
+	    //Obtengo listado de los que presentan
+	    listado_presentan=document.getElementsByName('PRESENTADORES');
+	    var presentadores=[];
+		for(var i=0; i<listado_presentan.length;i++){
+		    presentadores.push(listado_presentan[i].id);
+		}
+		//Lo envio por el form
+		form_prese=document.getElementById('form_presentadores');
+		form_prese.value=presentadores;
 	}
 	 </script>
+
 {%endblock%}

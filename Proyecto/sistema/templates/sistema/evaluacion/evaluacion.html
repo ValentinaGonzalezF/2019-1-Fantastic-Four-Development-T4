@@ -42,15 +42,16 @@
 
   {% endif %}
       {% endfor %}
-        <div class="w3-container w3-center">
-      	{% block eval_admin_tiempo %}{% endblock %}
-        </div>
+
             <div class="w3-panel w3-right w3-half">
-                <form id="form_puntajes" method="post" action="{% url 'sistema:postevaluacion' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}" >
+                <form class="w3-center"  id="form_puntajes" method="post" action="{% url 'sistema:postevaluacion' eval_id=evaluacion.id grupo_id=grupo.id rubrica_id=evaluacion.evaluacionrubrica_set.all.0.rubrica.id %}" >
                         {% csrf_token %}
                 <input id="puntaje" type="text" name="lista-puntajes" style="display:none"  value="1">
                 <input id="puntajes-base" type="text" name="lista-pj-base" style="display:none" value="{{rubrica.tabla.0}}" >
-                <button class="w3-button w3-xlarge w3-blue" style="margin-left: 15%" onclick="return obtener()"><i class="fas fa-envelope-open-text"> </i> Enviar</button>
+                {% block eval_admin_tiempo %}{% endblock %}
+                <br>
+
+                <button class="w3-button w3-xlarge w3-blue w3-center" onclick="return obtener()"><i class="fas fa-envelope-open-text"> </i> Enviar</button>
                 </form>
             </div>
 

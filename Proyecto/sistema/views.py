@@ -202,21 +202,28 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                                           grupo=gr,evaluador=request.session.get('nombre')).exists()
         # Si no existe la presentacion se crea
         if not (pre):
-            pre = Presentacion.objects.create(evaluacion=ev,
+            if(request.session.get('es_admin')):
+                presentadores = (request.POST['presentadores_grupo']).split(',')
+                pre = Presentacion.objects.create(evaluacion=ev,
                                               grupo=gr,
                                               puntajes=puntaje,
                                               evaluador=request.session.get('nombre'),
-                                              presentador='')
+                                              presentador=presentadores)
+            else:
+                pre = Presentacion.objects.create(evaluacion=ev,
+                                                  grupo=gr,
+                                                  puntajes=puntaje,
+                                                  evaluador=request.session.get('nombre'))
             pre.save()
         #Se modifica
         else:
-            pre=Presentacion.objects.get(evaluacion=ev,
+             pre=Presentacion.objects.get(evaluacion=ev,
                                           grupo=gr,evaluador=request.session.get('nombre'))
-
-
-            pre.puntajes=puntaje
-            pre.presentador=''
-            pre.save()
+             pre.puntajes = puntaje
+             if (request.session.get('es_admin')):
+                 presentadores=(request.POST['presentadores_grupo']).split(',')
+                 pre.presentador=presentadores
+             pre.save()
         context = {
             'evaluacion': ev,
             'grupo' : gr,
