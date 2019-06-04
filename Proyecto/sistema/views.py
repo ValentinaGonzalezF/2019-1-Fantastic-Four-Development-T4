@@ -241,7 +241,7 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                                               evaluador=request.session.get('nombre'),
                                               presentador=presentadores,
                                               tiempo=request.POST['tiempo_presentacion'],
-                                              descuento=3)
+                                              descuento=int(request.POST['descuento_tiempo']))
                 descuento = request.POST['descuento_tiempo']
             else:
                 #Crea nueva presentacion en donde se registra el puntaje
@@ -266,6 +266,7 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                  pre.tiempo=request.POST['tiempo_presentacion']
                  pre.descuento=int(request.POST['descuento_tiempo'])
                  descuento=request.POST['descuento_tiempo']
+             pre.save()
 
         context = {
             'evaluacion': ev,
