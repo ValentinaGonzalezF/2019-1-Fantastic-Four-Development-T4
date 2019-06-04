@@ -59,7 +59,9 @@
 {%  block eval_admin_tiempo%}
             <div>
               <label><b>Tiempo de presentación </b></label>
-              <input class="w3-input w3-border w3-margin-bottom w3-center l1 - l12" style="" type="time"  name="minimo">
+              <input class="w3-input w3-border w3-margin-bottom w3-center l1 - l12" style="" type="time" id="tiempo_presentac" required  name="tiempo_presentacion">
+              <label style="display:none;" id="des_label" ><b>Descuento </b></label>
+              <input class="w3-input w3-border w3-margin-bottom " style="display:none;" id="descuento" name="descuento_tiempo">
               <input class="w3-input w3-border w3-margin-bottom " type="hidden" id="form_presentadores" name="presentadores_grupo" value="">
             </div>
 
@@ -139,6 +141,27 @@
 		form_prese=document.getElementById('form_presentadores');
 		form_prese.value=presentadores;
 	}
+
+
+    window.addEventListener("load", function () {
+            document.getElementById("tiempo_presentac").addEventListener("change", function () {
+              	var tiempo_pre=document.getElementsByName('tiempo_presentacion')[0].value;
+	            var tiempo_min='{{rubrica.tiempo_min| time:'H:i' }}';
+	            var tiempo_max='{{rubrica.tiempo_max|time:'H:i' }}';
+	            if(tiempo_max<tiempo_pre || tiempo_min>tiempo_pre){ // Si el tiempo no esta entre
+	                document.getElementById('descuento').style.display='block';
+	                document.getElementById('des_label').style.display='block';
+	            }
+                else{
+                    document.getElementById('descuento').style.display='none';
+                    document.getElementById('des_label').style.display='none';
+                }
+            });
+        });
 	 </script>
 
 {%endblock%}
+
+
+
+

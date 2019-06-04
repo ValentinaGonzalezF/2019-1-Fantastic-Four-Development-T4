@@ -239,7 +239,9 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                                               grupo=gr,
                                               puntajes=puntaje,
                                               evaluador=request.session.get('nombre'),
-                                              presentador=presentadores)
+                                              presentador=presentadores,
+                                              tiempo=request.POST['tiempo_presentacion'],
+                                              descuento=int(request.POST['descuento_tiempo']))
             else:
                 #Crea nueva presentacion en donde se registra el puntaje
                 pre = Presentacion.objects.create(evaluacion=ev,
@@ -258,7 +260,8 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                  #Si es admin modifica los presentadores del grupo
                  presentadores=(request.POST['presentadores_grupo']).split(',')
                  pre.presentador=presentadores
-             pre.save()
+                 pre.tiempo=request.POST['tiempo_presentacion']
+                 pre.descuento=int(request.POST['descuento_tiempo'])
         context = {
             'evaluacion': ev,
             'grupo' : gr,
