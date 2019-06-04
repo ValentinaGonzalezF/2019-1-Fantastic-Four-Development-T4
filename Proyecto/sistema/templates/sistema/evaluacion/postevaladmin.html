@@ -1,6 +1,8 @@
 {% extends "sistema/evaluacion/posteval.html" %}
 
 {% block post_admin %}
+<br>
+            {% if descuento != 0 %}<p class="w3-text-black w3-center"> Se aplico un descuento de {{descuento.0}}</p>{%endif%}
 
             <div class="w3-row-padding" style="margin-top:100px">
                 <div class="w3-half w3-margin-bottom ">
@@ -18,5 +20,8 @@
 
                 </div>
             </div>
-			
+
+<script>
+
+</script>
 {% endblock %}

@@ -241,13 +241,15 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                                               evaluador=request.session.get('nombre'),
                                               presentador=presentadores,
                                               tiempo=request.POST['tiempo_presentacion'],
-                                              descuento=int(request.POST['descuento_tiempo']))
+                                              descuento=3)
+                descuento = request.POST['descuento_tiempo']
             else:
                 #Crea nueva presentacion en donde se registra el puntaje
                 pre = Presentacion.objects.create(evaluacion=ev,
                                                   grupo=gr,
                                                   puntajes=puntaje,
                                                   evaluador=request.session.get('nombre'))
+                descuento=0
             pre.save()
         #Se modifica
         else:
@@ -256,18 +258,22 @@ def postevaluacion(request, eval_id=0,grupo_id=0,rubrica_id=0):
                                           grupo=gr,evaluador=request.session.get('nombre'))
              #Modifica puntajes
              pre.puntajes = puntaje
+             descuento = 0
              if (request.session.get('es_admin')):
                  #Si es admin modifica los presentadores del grupo
                  presentadores=(request.POST['presentadores_grupo']).split(',')
                  pre.presentador=presentadores
                  pre.tiempo=request.POST['tiempo_presentacion']
                  pre.descuento=int(request.POST['descuento_tiempo'])
+                 descuento=request.POST['descuento_tiempo']
+
         context = {
             'evaluacion': ev,
             'grupo' : gr,
             'rubrica': rub,
             'puntajes':puntaje,
-            'puntaje_base':puntaje_base
+            'puntaje_base':puntaje_base,
+            'descuento':descuento
         }
         if request.session.get('es_admin'):
             return render(request, 'sistema/evaluacion/postevaladmin.html', context)
