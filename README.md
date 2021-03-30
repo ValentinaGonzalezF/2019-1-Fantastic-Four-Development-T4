@@ -1,11 +1,4 @@
-# Proyecto Lambda-Ideas
-Creación de app web que automatice el uso de rúbricas para evaluaciones en el ambito académico
+# Proyecto Fantastic-Four-Development-T4 
+Creación de app web que automatice el uso de rúbricas para evaluaciones en el ambito académico en el ramo Ingeniería de Software.
 
-## Authors
-
-* **Pablo Aliaga** - [See4Paul](https://github.com/see4paul)
-* **Bastián Matamala** - [BMA98](https://github.com/bma98)
-* **Camila Quilape** - [CamilaQuilape](https://github.com/camilaquilape)
-* **Andrea Park** - [APrkKwk](https://github.com/aprkkwk)
-
-
+Despues de la tarea 2, se realizó una votación para elegir un template común para todos los grupos, en donde se eligió el del grupo Lambda ideas 
